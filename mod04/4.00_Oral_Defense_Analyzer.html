@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 — Oral Defense Analyzer</title>
+<style>
+  /* ─── Base ─── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.75;
+    color: #1a1a1a;
+    background: #f9f7f2;
+    padding: 40px 0 72px 0;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 48px 64px 64px 64px;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+  }
+  @media (max-width: 700px) { .page { padding: 28px 20px 48px 20px; } }
+
+  /* ─── Doc header ─── */
+  .doc-header {
+    border-bottom: 2px solid #3b2a2a;
+    padding-bottom: 18px;
+    margin-bottom: 32px;
+  }
+  .doc-header .label {
+    font-family: Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 6px;
+  }
+  .doc-header h1 {
+    font-size: 22pt;
+    font-weight: normal;
+    color: #2a1e1e;
+    margin-bottom: 4px;
+  }
+  .doc-header .sub {
+    font-size: 10pt;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* ─── Input section ─── */
+  .input-section {
+    background: #f7f3f0;
+    border: 1px solid #ddd0c8;
+    border-radius: 6px;
+    padding: 26px 28px 22px 28px;
+    margin-bottom: 32px;
+  }
+  .input-section h2 {
+    font-family: Arial, sans-serif;
+    font-size: 9pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 14px;
+  }
+  .format-hint {
+    background: #fff;
+    border-left: 3px solid #8b3a3a;
+    padding: 10px 14px;
+    font-size: 9pt;
+    color: #444;
+    margin-bottom: 14px;
+    border-radius: 0 4px 4px 0;
+    font-family: Arial, sans-serif;
+  }
+  .format-hint code {
+    font-family: 'Courier New', monospace;
+    background: #f0eaea;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+  textarea {
+    width: 100%;
+    height: 210px;
+    border: 1px solid #d0c0b8;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 9pt;
+    line-height: 1.7;
+    resize: vertical;
+    color: #1a1a1a;
+    background: #fdfaf8;
+  }
+  textarea:focus { outline: 2px solid #8b3a3a; border-color: transparent; }
+
+  .speaker-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .speaker-row label {
+    font-family: Arial, sans-serif;
+    font-size: 8.5pt;
+    color: #777;
+    letter-spacing: 0.04em;
+  }
+  .speaker-row input {
+    border: 1px solid #d0c0b8;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-family: Arial, sans-serif;
+    font-size: 9pt;
+    width: 150px;
+    background: #fdfaf8;
+  }
+
+  .btn {
+    margin-top: 16px;
+    background: #2a1e1e;
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 9pt;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .btn:hover { background: #1a1010; }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid #c0b0a8;
+    color: #888;
+    margin-left: 10px;
+  }
+  .btn-secondary:hover { background: #f0e8e2; color: #555; }
+
+  #results { display: none; }
+
+  /* ─── Section labels ─── */
+  .section-label {
+    font-family: Arial, sans-serif;
+    font-size: 9pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd0c8;
+  }
+
+  /* ─── Dashboard grid ─── */
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 800px) { .dashboard { grid-template-columns: 1fr 1fr; } }
+
+  .card {
+    background: #f7f3f0;
+    border: 1px solid #ddd0c8;
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+  .card h3 {
+    font-family: Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* ─── Score display ─── */
+  .score-big { font-size: 34px; font-weight: normal; color: #2a1e1e; line-height: 1; font-family: Georgia, serif; }
+  .score-label { font-size: 8.5pt; font-family: Arial, sans-serif; color: #888; margin-top: 4px; }
+  .score-bar-wrap { margin-top: 10px; }
+  .score-bar-bg { background: #ddd0c8; border-radius: 99px; height: 6px; margin-bottom: 5px; }
+  .score-bar-fill { height: 6px; border-radius: 99px; background: #8b3a3a; transition: width 0.6s; }
+  .score-row { display: flex; justify-content: space-between; align-items: center; font-size: 8.5pt; font-family: Arial, sans-serif; color: #777; margin-bottom: 2px; }
+  .score-row .score-left { display: flex; align-items: center; gap: 5px; }
+  .score-full-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 4px;
+  }
+  @media (max-width: 700px) { .score-full-grid { grid-template-columns: 1fr 1fr; } }
+  .score-metric-col { display: flex; flex-direction: column; }
+  .score-metric-feedback {
+    font-family: Georgia, serif;
+    font-size: 8.5pt;
+    font-style: italic;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #ede0d8;
+  }
+  .score-metric-feedback.fb-good { color: #0f4020; }
+  .score-metric-feedback.fb-ok   { color: #5a3a00; }
+  .score-metric-feedback.fb-low  { color: #6a0000; }
+
+  /* ─── Tooltips ─── */
+  .score-info {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: #ddd0c8; color: #888;
+    font-size: 7.5pt; font-family: Arial, sans-serif; font-weight: bold;
+    cursor: default; position: relative; flex-shrink: 0; line-height: 1;
+  }
+  .score-info:hover { background: #8b3a3a; color: #fff; }
+  .score-info .score-tooltip {
+    display: none; position: absolute; left: 18px; top: 50%;
+    transform: translateY(-50%);
+    background: #2a1e1e; color: #f0e8e2;
+    font-size: 8pt; font-family: Arial, sans-serif; font-weight: normal;
+    line-height: 1.5; padding: 8px 11px; border-radius: 5px;
+    width: 220px; z-index: 100; box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    pointer-events: none;
+  }
+  .score-info .score-tooltip::before {
+    content: ''; position: absolute; left: -5px; top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent; border-right-color: #2a1e1e; border-left: 0;
+  }
+  .score-info:hover .score-tooltip { display: block; }
+
+  /* ─── Phase phase bars ─── */
+  .phase-track { margin-top: 4px; }
+  .phase-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .phase-label-col { width: 110px; flex-shrink: 0; display: flex; flex-direction: column; gap: 1px; }
+  .phase-label { font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold; color: #555; line-height: 1.2; }
+  .phase-sublabel { font-family: Arial, sans-serif; font-size: 7pt; color: #aaa; text-transform: uppercase; letter-spacing: 0.04em; }
+  .phase-bar-bg { flex: 1; background: #ddd0c8; border-radius: 99px; height: 8px; }
+  .phase-bar-p1 { height: 8px; border-radius: 99px; background: #2176ae; }
+  .phase-bar-p2 { height: 8px; border-radius: 99px; background: #2a7a40; }
+  .phase-bar-p3 { height: 8px; border-radius: 99px; background: #7b3fa0; }
+  .phase-bar-p4 { height: 8px; border-radius: 99px; background: #8b3a3a; }
+  .phase-count { width: 20px; text-align: right; font-family: Arial, sans-serif; font-size: 8.5pt; color: #888; }
+  .phase-note { margin-top: 10px; font-size: 8.5pt; font-family: Arial, sans-serif; padding: 7px 11px; border-radius: 4px; }
+  .phase-good { background: #dff5e1; color: #0f4020; border-left: 3px solid #2a7a40; }
+  .phase-warn { background: #fff0d4; color: #5a3a00; border-left: 3px solid #b07a00; }
+  .phase-bad  { background: #ffd6d6; color: #6a0000; border-left: 3px solid #b02020; }
+
+  /* ─── Highlight styles ─── */
+  .highlight { padding: 0 2px; border-radius: 2px; }
+  .hl-fact     { background: #d0ecf7; border-bottom: 2px solid #2176ae; }
+  .hl-cause    { background: #dff5e1; border-bottom: 2px solid #2a7a40; }
+  .hl-value    { background: #e8d5f5; border-bottom: 2px solid #7b3fa0; }
+  .hl-policy   { background: #fde8d8; border-bottom: 2px solid #c0622a; }
+  .hl-poise    { background: #fef3c7; border-bottom: 2px solid #f59e0b; }
+  .hl-steelman { background: #d1fae5; border-bottom: 2px solid #34d399; }
+  .hl-filler   { background: #f9f200; border-radius: 2px; padding: 0 1px; }
+  .hl-evasion  { background: #ffd6d6; border-bottom: 2px dashed #b02020; }
+
+  /* ─── Annotation tags ─── */
+  .tag {
+    display: inline-block;
+    font-family: Arial, sans-serif; font-size: 7.5pt; font-weight: bold;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 1px 5px; border-radius: 3px;
+    vertical-align: middle; margin-left: 4px;
+    white-space: nowrap; opacity: 0.9;
+  }
+  .tag-fact     { background: #d0ecf7; color: #0d4a72; border: 1px solid #2176ae; }
+  .tag-cause    { background: #dff5e1; color: #1e5c30; border: 1px solid #2a7a40; }
+  .tag-value    { background: #e8d5f5; color: #4a1a70; border: 1px solid #7b3fa0; }
+  .tag-policy   { background: #fde8d8; color: #7a3210; border: 1px solid #c0622a; }
+  .tag-poise    { background: #fef3c7; color: #78350f; border: 1px solid #f59e0b; }
+  .tag-steelman { background: #d1fae5; color: #065f46; border: 1px solid #34d399; }
+  .tag-filler   { background: #ffd6d6; color: #6a0000; border: 1px solid #b02020; }
+  .tag-evasion  { background: #fde8d8; color: #7a3210; border: 1px solid #c0622a; }
+
+  /* ─── Filler words ─── */
+  .filler-count { font-size: 28px; font-weight: normal; font-family: Georgia, serif; color: #2a1e1e; }
+  .filler-detail { font-size: 8.5pt; font-family: Arial, sans-serif; color: #888; margin-top: 6px; }
+  .filler-chip {
+    display: inline-block; background: #ffd6d6; border: 1px solid #b02020;
+    border-radius: 3px; padding: 1px 6px; font-size: 8pt; margin: 2px;
+    font-family: 'Courier New', monospace; color: #6a0000;
+  }
+
+  /* ─── Pie chart ─── */
+  .pie-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  canvas#pieChart { flex-shrink: 0; }
+  .pie-legend { font-size: 9pt; font-family: Arial, sans-serif; width: 100%; }
+  .pie-legend div { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+  .pie-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ─── Flags ─── */
+  .flag-list { margin-top: 6px; }
+  .flag-item {
+    font-size: 9.5pt; padding: 8px 12px; border-radius: 4px;
+    margin-bottom: 6px; font-family: Georgia, serif;
+  }
+  .flag-gap     { background: #fff0d4; border-left: 3px solid #b07a00; }
+  .flag-evasion { background: #fde8d8; border-left: 3px solid #c0622a; }
+  .flag-label {
+    font-family: Arial, sans-serif; font-size: 7.5pt; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 0.06em; color: #999; margin-bottom: 3px;
+  }
+  .no-issues { font-size: 9.5pt; color: #999; font-style: italic; font-family: Georgia, serif; }
+
+  /* ─── Legend section ─── */
+  .legend-section {
+    background: #f7f3f0; border: 1px solid #ddd0c8; border-radius: 6px;
+    padding: 20px 24px 18px 24px; margin-bottom: 32px;
+  }
+  .legend-section h2 {
+    font-family: Arial, sans-serif; font-size: 9pt; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #666; margin-bottom: 14px;
+  }
+  .legend-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px 24px; }
+  @media (max-width: 700px) { .legend-grid { grid-template-columns: 1fr 1fr; } }
+  .legend-col h3 {
+    font-family: Arial, sans-serif; font-size: 8pt; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #999; margin-bottom: 8px;
+    padding-bottom: 4px; border-bottom: 1px solid #ddd;
+  }
+  .legend-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; font-size: 9pt; line-height: 1.4; }
+  .legend-swatch { display: inline-block; min-width: 14px; height: 14px; border-radius: 3px; margin-top: 1px; flex-shrink: 0; }
+  .legend-text strong { display: block; font-size: 8.5pt; }
+  .legend-text span { color: #777; font-size: 8pt; font-style: italic; }
+
+  /* ─── Annotated transcript ─── */
+  .transcript-section { margin-bottom: 36px; }
+  .transcript-section h2 {
+    font-family: Arial, sans-serif; font-size: 9pt; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #666; margin-bottom: 20px;
+  }
+  .turn {
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 0 16px; margin-bottom: 14px; padding-bottom: 14px;
+    border-bottom: 1px solid #f0e8e0;
+  }
+  .turn:last-child { border-bottom: none; }
+  .turn-label {
+    font-family: Arial, sans-serif; font-size: 8.5pt; font-weight: bold;
+    letter-spacing: 0.06em; text-transform: uppercase; padding-top: 2px;
+    color: #8b3a3a;
+  }
+  .turn-label.student { color: #2a1e1e; }
+  .turn-label.narrator { color: #aaa; font-weight: normal; font-style: italic; text-transform: none; letter-spacing: 0; font-size: 8pt; }
+  .turn-text { font-size: 10.5pt; line-height: 1.75; }
+
+  /* ─── Commentary ─── */
+  .commentary-section { margin-bottom: 36px; }
+  .commentary-section h2 {
+    font-family: Arial, sans-serif; font-size: 9pt; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #666; margin-bottom: 20px;
+    padding-bottom: 6px; border-bottom: 1px solid #ddd0c8;
+  }
+  .commentary-block {
+    background: #fdf8f5; border: 1px solid #e0c8b8;
+    border-top: 4px solid #8b3a3a; border-radius: 6px; padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .commentary-block h4 {
+    font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold;
+    letter-spacing: 0.06em; text-transform: uppercase; color: #6a2020;
+    margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(139,58,58,0.15);
+  }
+  .comment-item {
+    font-size: 9.5pt; margin-bottom: 9px; padding: 6px 10px 6px 12px;
+    border-left: 3px solid #ddd0c8; border-radius: 0 4px 4px 0;
+    line-height: 1.55; background: rgba(255,255,255,0.5);
+  }
+  .comment-item.strength { border-color: #2a7a40; background: rgba(212,237,218,0.4); }
+  .comment-item.growth   { border-color: #b07a00; background: rgba(255,240,212,0.5); }
+  .comment-item.flag     { border-color: #b02020; background: rgba(255,214,214,0.4); }
+
+  /* ─── Phase summary bar ─── */
+  .phase-summary-bar {
+    background: #f7f3f0; border: 1px solid #ddd0c8; border-radius: 6px;
+    padding: 18px 22px; margin-bottom: 28px;
+  }
+  .phase-summary-bar h2 {
+    font-family: Arial, sans-serif; font-size: 9pt; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #666; margin-bottom: 12px;
+  }
+  .phase-summary-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px 16px;
+    font-size: 9pt; font-family: Arial, sans-serif;
+  }
+  .phase-summary-total { margin-top: 12px; font-family: Arial, sans-serif; font-size: 8.5pt; color: #666; }
+
+  /* ─── Rubric score card ─── */
+  .rubric-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 4px;
+  }
+  @media (max-width: 700px) { .rubric-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ─── Footer ─── */
+  .doc-footer {
+    margin-top: 48px; padding-top: 18px; border-top: 1px solid #ddd0c8;
+    font-family: Arial, sans-serif; font-size: 8pt; color: #aaa; line-height: 1.5;
+  }
+
+  /* ─── PDF bar ─── */
+  .pdf-bar {
+    display: none; position: sticky; bottom: 0; left: 0; right: 0;
+    background: #2a1e1e; padding: 12px 24px; text-align: center;
+    z-index: 999; box-shadow: 0 -2px 12px rgba(0,0,0,0.18);
+  }
+  .pdf-bar .pdf-hint { font-family: Arial, sans-serif; font-size: 8.5pt; color: #aaa; margin-left: 14px; letter-spacing: 0.02em; }
+  .btn-pdf {
+    background: #f0e8e2; color: #2a1e1e; border: none; padding: 9px 24px;
+    border-radius: 4px; font-family: Arial, sans-serif; font-size: 9pt;
+    font-weight: bold; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+  }
+  .btn-pdf:hover { background: #fff; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; padding: 24px 40px; }
+    .input-section { display: none !important; }
+    .pdf-bar { display: none !important; }
+    #results { display: block !important; }
+    .score-info .score-tooltip { display: none !important; }
+    canvas { max-width: 130px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="label">Waste More, Want More — Unit 4 &nbsp;|&nbsp; Oral Defense Analyzer</div>
+    <h1>Defense Transcript Feedback Engine</h1>
+    <div class="sub">Paste a speaker-labeled transcript of an oral defense — get scored feedback on stasis phase coverage, argumentation moves, poise, and talk-time balance.</div>
+  </div>
+
+  <!-- INPUT -->
+  <div class="input-section">
+    <h2>Paste Your Transcript</h2>
+    <div class="format-hint">
+      Format: <code>Name: text</code> — e.g. <code>Mr. Finn: Can you walk me through your data?</code> or <code>Alex: According to the EPA...</code><br>
+      Speaker names just need to be <strong>consistent</strong>. Otter.ai exports paste directly — replace "Speaker 1 / Speaker 2" with actual names first. Timestamps and <code>[brackets]</code> are stripped automatically.
+    </div>
+    <textarea id="transcriptInput" placeholder="Mr. Finn: Walk me through the scope of the issue. Start with the facts.
+Alex: Sure. According to the EPA, Americans generate about 292 million tons of solid waste per year...
+Mr. Finn: And who is actually paying the price for that?
+Alex: Mostly low-income communities — landfills are disproportionately sited near them..."></textarea>
+    <div class="speaker-row">
+      <label>Teacher name:</label>
+      <input type="text" id="teacherName" placeholder="e.g. MR. FINN" />
+      <label>Student name:</label>
+      <input type="text" id="studentName" placeholder="e.g. ALEX" />
+    </div>
+    <div>
+      <button class="btn" onclick="analyze()">▶ Analyze Defense</button>
+      <button class="btn btn-secondary" onclick="loadExample()">Load Example</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- COMMENTARY + PHASE SUMMARY -->
+    <div class="commentary-section">
+      <h2>Summary Commentary</h2>
+      <div id="studentCommentary"></div>
+      <div class="phase-summary-bar" style="margin-top:20px;margin-bottom:0;">
+        <h2>Argumentation Moves — At a Glance</h2>
+        <div class="phase-summary-grid" id="phaseSummaryGrid"></div>
+        <div class="phase-summary-total" id="phaseSummaryTotal"></div>
+      </div>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="legend-section" id="legendSection">
+      <h2>Color-Coded Legend — Stasis Phases &amp; Argumentation Moves</h2>
+      <div class="legend-grid" id="legendGrid"></div>
+    </div>
+
+    <!-- ANNOTATED TRANSCRIPT -->
+    <div class="transcript-section">
+      <h2>Annotated Transcript</h2>
+      <div id="annotatedTranscript"></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="section-label" style="margin-bottom:16px;">Performance Dashboard</div>
+
+    <!-- Row 1: Talk time / Filler / Phase Coverage -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;">
+      <div class="card">
+        <h3>Talk Time</h3>
+        <div class="pie-wrap">
+          <canvas id="pieChart" width="130" height="130"></canvas>
+          <div class="pie-legend" id="pieLegend"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Verbal Filler (Student)</h3>
+        <div id="fillerDisplay"></div>
+      </div>
+      <div class="card">
+        <h3>Stasis Phase Coverage</h3>
+        <div id="phaseDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Row 2: Gaps / Evasions -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+      <div class="card">
+        <h3>Missing Phases</h3>
+        <div id="gapDisplay"></div>
+      </div>
+      <div class="card">
+        <h3>Evasion / Deflection Flags</h3>
+        <div id="evasionDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Row 3: Poise & Response moves -->
+    <div style="margin-bottom:14px;">
+      <div class="card">
+        <h3>Poise &amp; Responsiveness</h3>
+        <div id="poiseDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Row 4: Rubric scores -->
+    <div style="margin-bottom:28px;">
+      <div class="card" id="scoreCard">
+        <h3>Rubric Scores — Unit 4 Final Defense</h3>
+        <div id="scoreDisplay"></div>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <strong>Waste More, Want More — Unit 4 Oral Defense Analyzer</strong><br>
+      Analysis is pattern-based and should supplement teacher judgment, not replace it. Stasis phase detection matches language signals from the Oral Defense Blueprint. Evasion flags and poise moves are heuristic. Scores map to the Unit 4 rubric: I. Scope &amp; Impact (Fact) · II. Causal Analysis (Cause) · III. Rhetorical Diagnosis (Value) · IV. Judgment &amp; Trade-offs (Policy) · V. Poise &amp; Responsiveness.
+    </div>
+
+  </div><!-- /results -->
+
+</div><!-- /page -->
+
+<div class="pdf-bar" id="pdfBar">
+  <button class="btn-pdf" onclick="window.print()">⬇ Save as PDF</button>
+  <span class="pdf-hint">In the print dialog, choose "Save as PDF" as the destination.</span>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA — FILLER WORDS
+// ─────────────────────────────────────────────
+
+const FILLERS = ['um','uh','like','you know what i mean','you know','i mean','sort of','kind of','basically','literally','right','okay','so','well','anyway'];
+
+// ─────────────────────────────────────────────
+// DATA — STASIS PHASE DEFINITIONS
+// Each phase maps to a rubric criterion.
+// Patterns fire on STUDENT turns only.
+// ─────────────────────────────────────────────
+
+const PHASE_DEFS = [
+
+  // ── PHASE I: FACT — Scope & Impact ──
+  // Student cites data, scale, downstream effects, named victims/communities
+  {
+    key: 'fact',
+    label: 'Phase I — Fact',
+    shortLabel: 'Fact',
+    color: '#d0ecf7',
+    rubricCriterion: 'I. Scope & Impact',
+    patterns: [
+      /\baccording to\b/i,
+      /\bthe (epa|fda|cdc|who|un|usda|oecd|ipcc|world bank|federal|national|state|government)\b/i,
+      /\bresearch (shows?|suggests?|finds?|found|indicates?)\b/i,
+      /\bstudies? (show|suggest|find|found|indicate)\b/i,
+      /\bdata (shows?|suggests?|indicates?|reveals?)\b/i,
+      /\bstatistic(s|ally)?\b/i,
+      /\b\d+(\.\d+)?\s*(%|percent|million|billion|thousand|tons?|pounds?|gallons?|acres?|people|children|workers?|families|communities)\b/i,
+      /\beverywhere year\b/i,
+      /\bper (year|day|capita|household|person)\b/i,
+      /\b(downstream|ripple effect|paying the price|bearing the cost|externali[sz])\b/i,
+      /\b(low[- ]income|marginali[sz]ed|disproportionately|communities of color|environmental justice)\b/i,
+      /\b(public health|labor|environment[al]?) (impact|cost|consequence|burden|effect)\b/i,
+      /\b(cited|citation|source|peer[- ]reviewed|journal)\b/i,
+      /\bthe (scale|scope|magnitude|extent) of (the|this|that)\b/i,
+      /\baffects? (more than|over|approximately|roughly|nearly|about) \d/i,
+      /\b(landfills?|pollution|emissions?|runoff|contamination|toxins?|microplastics?)\b/i,
+      /\bwho (is|are|ends up) (paying|bearing|suffering|affected)\b/i,
+      /\b(fact|figure|number|statistic)[,:]?\s/i,
+      /\bas (of|a result of|evidence[,]?) (this|that|my research)\b/i,
+      /\b(this|that|the) (issue|problem|crisis|phenomenon) (affects?|impacts?|harms?)\b/i,
+      // Broad quantifier language — general factual claims without hard numbers
+      /\b(many|most|a lot of|millions of|thousands of)\b/i,
+      /\b(increasing|rising|declining) (rates?|levels?|numbers?)\b/i,
+    ]
+  },
+
+  // ── PHASE II: CAUSE — Causal Analysis ──
+  // Student identifies systemic drivers, avoids scapegoating, names competing explanations
+  {
+    key: 'cause',
+    label: 'Phase II — Cause',
+    shortLabel: 'Cause',
+    color: '#dff5e1',
+    rubricCriterion: 'II. Causal Analysis',
+    patterns: [
+      /\b(the (root|primary|main|underlying|systemic|structural) (cause|driver|force|reason|factor))\b/i,
+      /\b(caused|driven|fueled|enabled|perpetuated|sustained) by\b/i,
+      /\b(economic|financial|profit) (incentive|motive|pressure|model)\b/i,
+      /\b(system|structure|infrastructure|mechanism|loop|cycle) (that|of|keeps|makes|creates)\b/i,
+      /\b(convenience|habit|norm|culture|expectation) (drives?|creates?|enables?|perpetuates?)\b/i,
+      /\b(market (failure|forces?|incentive)|externali[sz]|subsidy|regulation|deregulation)\b/i,
+      /\bsome (would|might|could) argue\b/i,
+      /\bothers? (argue|claim|suggest|point out|say)\b/i,
+      /\ban? (alternative|competing|other) (explanation|view|argument|perspective|reading)\b/i,
+      /\bwhile i (argue|believe|think|maintain)[,]?\b/i,
+      /\b(inconvenient truth|complicated|complicates?|complication|nuance)\b/i,
+      /\bit'?s (not (just|only|simply)|more than just|more complex than)\b/i,
+      /\b(scapegoat|blame|vilif|finger[- ]point)\b/i,
+      /\b(lobbying|corporate|industry|manufacturer|producer) (pressure|influence|power|interests?)\b/i,
+      /\b(planned obsolescence|externalized cost|supply chain|fast fashion|overconsumption)\b/i,
+      /\bwhy (this|that|it) (happens?|exists?|persists?|continues?)\b/i,
+      /\b(keeps? (the|this) (system|cycle|problem) (running|going|in place))\b/i,
+      /\b(not just (a personal|an individual) (choice|decision|problem))\b/i,
+      // Implicit causal chains — natural student phrasing
+      /\b(leads to|results in|creates|produces|causes)\b/i,
+      /\b(due to|because of|as a result of)\b/i,
+      // Economic/system explanations
+      /\bcost(s)? (get|gets) passed (on|to)\b/i,
+      /\b(stagnant|rising|increasing|declining) (costs?|wages?|prices?)\b/i,
+      // Demand and system loops
+      /\bdriven by demand\b/i,
+      /\b(feedback loop|cycle of)\b/i,
+      // Multi-factor reasoning
+      /\b(multiple causes|several factors)\b/i,
+      /\b(one factor is|another factor is)\b/i,
+      // Systemic framing — natural student phrasing
+      /\bsystem is set up\b/i,
+      /\bbyproduct\b/i,
+      /\brely on\b/i,
+      /\bcost (structure|model)\b/i,
+      /\bnot just that .{0,40} it'?s how\b/i,
+    ]
+  },
+
+  // ── PHASE III: VALUE — Rhetorical Diagnosis / Steel-Man ──
+  // Student names value conflict, steel-mans opposition, uses diagnostic language
+  {
+    key: 'value',
+    label: 'Phase III — Value',
+    shortLabel: 'Value',
+    color: '#e8d5f5',
+    rubricCriterion: 'III. Rhetorical Diagnosis',
+    patterns: [
+      /\b(value|priority|principle|belief) (conflict|tension|collision|clash|trade[- ]off)\b/i,
+      /\b(sustainability|equity|justice|liberty|freedom|efficiency|growth|profit|convenience|safety|access)\b/i,
+      /\bthe (real|actual|underlying|true|hidden|deeper) (disagreement|conflict|tension|issue|divide)\b/i,
+      /\b(steel[- ]man|steelman|strongest (version|form|case) (of|for))\b/i,
+      /\b(a (smart|reasonable|intelligent|thoughtful|kind) person (who|would|might|could))\b/i,
+      /\b(prioritizing|prioritizes?|places? (a )?(higher )?(value|priority|weight) on)\b/i,
+      /\b(it'?s (not|less) about .{0,40} it'?s (more |really |actually )?about)\b/i,
+      /\b(the disagreement (is|lives|comes down to|boils down to))\b/i,
+      /\b(both sides|both (positions|views|values) (are|have))\b/i,
+      /\b(intergenerational|social justice|environmental|economic|individual|collective) (equity|justice|liberty|responsibility|priority|concern)\b/i,
+      /\b(on one (side|hand)[,]? .{0,40} on the other)\b/i,
+      /\b(not a (fact|factual) (dispute|disagreement|question) — it'?s a (value|moral|ethical))\b/i,
+      /\b(my (opponent|opposition|critics?|detractors?) (would|might|could) (say|argue|claim|point out))\b/i,
+      /\b(even (if|though|granting) .{0,60} (i still|i would still|that doesn'?t|it doesn'?t))\b/i,
+      /\b(they'?re not (wrong|evil|stupid|bad)[,]? they'?re (prioritizing|valuing|weighing))\b/i,
+      /\b(conflict between .{3,50} and .{3,50})\b/i,
+      /\b(reasonable (people|person) (can|could|might) (disagree|see it differently|have a different))\b/i,
+      // Implicit value framing — "comes down to whether", "it's a question of"
+      /\bwhat we('?re| are) willing to\b/i,
+      /\bcomes down to whether\b/i,
+      /\bwhether or not\b/i,
+      /\braises the question of\b/i,
+      /\bit'?s (a question of|about whether)\b/i,
+      /\bthe issue is whether\b/i,
+      // Responsibility and moral language
+      /\b(responsibility|obligation|duty) (to|of|for)\b/i,
+      /\b(justified|justifiable|justify)\b/i,
+      /\b(complicit|accountable|accountability)\b/i,
+      /\b(acceptable|unacceptable|tolerable)\b/i,
+      // Trade-off framing not tied to a specific policy proposal
+      /\bat the expense of\b/i,
+      /\beven if it means\b/i,
+      /\bwe (accept|accepted) that\b/i,
+      // Cultural and normalization framing
+      /\b(normalize|normalizing|normalized)\b/i,
+      /\bculture of (waste|consumption|disposability|convenience|excess)\b/i,
+      /\bexpectation that\b/i,
+      // Implicit perspective contrast
+      /\bsome people (see|view|believe|think)\b/i,
+      /\bothers (see|view|believe|think)\b/i,
+      /\bdifferent ways of (thinking about|looking at|seeing)\b/i,
+      // Generalized tension language
+      /\btension between\b/i,
+      /\bbalance between\b/i,
+      /\btrade[- ]off between\b/i,
+      // Consequence awareness — thinking forward from a value position
+      /\bif we prioritize\b/i,
+      /\bthis would (lead to|result in|mean that)\b/i,
+      /\bon the other hand[,]? that would mean\b/i,
+      /\bthe result would be\b/i,
+      /\bthat (comes|comes at) a cost\b/i,
+      /\b(accepting|prioritizing) (that|this|one) means (giving up|sacrificing|losing)\b/i,
+    ]
+  },
+
+  // ── PHASE IV: POLICY — Judgment & Trade-offs ──
+  // Student proposes action, names unintended consequences, owns trade-offs
+  {
+    key: 'policy',
+    label: 'Phase IV — Policy',
+    shortLabel: 'Policy',
+    color: '#fde8d8',
+    rubricCriterion: 'IV. Judgment & Trade-offs',
+    patterns: [
+      /\b(my (proposal|recommendation|solution|position|argument) is)\b/i,
+      /\b(i (propose|recommend|advocate|argue for|support|believe we should))\b/i,
+      /\b(we (should|need to|must|ought to|could|can) (implement|require|ban|tax|invest|regulate|reform|mandate|incentivize))\b/i,
+      /\b(policy|legislation|regulation|law|mandate|ban|tax|subsidy|incentive) (that|to|would|should|could)\b/i,
+      /\b(the (best|most logical|most effective|most feasible|most just) (path|solution|response|approach|way) (forward|is))\b/i,
+      /\b(trade[- ]off|cost[,]? .{0,20}benefit|unintended consequence|downside|sacrifice|who (loses?|pays?|bears?))\b/i,
+      /\b(yes[,]? it will .{0,40} (but|however|that'?s the|that is the))\b/i,
+      /\b(the (cost|price|sacrifice|downside) (is|of|worth|we (must|need to|have to)))\b/i,
+      /\b(that'?s the (trade[- ]off|cost) (we|i) (must|should|have to|am willing to) accept)\b/i,
+      /\b(worth (the|that) (cost|sacrifice|trade[- ]off|price))\b/i,
+      /\b(someone (loses?|pays?|bears? the cost|is burdened))\b/i,
+      /\b(no (perfect|cost[- ]free|painless) (solution|answer|fix|path))\b/i,
+      /\b(in the (short|long) term[,]?.{0,40}(in the (long|short) term))\b/i,
+      /\b(limited intervention|targeted|phased|incremental|market[- ]based|voluntary|mandatory)\b/i,
+      /\b(based on (my|this|the) research[,]?\s.{0,40}(the|a|this) (best|right|most))\b/i,
+      /\b(given (these|those|my|the) (findings?|values?|evidence|concerns?)[,]?)\b/i,
+      // Informal but clear proposals — natural student phrasing
+      /\bi'?d say\b/i,
+      /\bi would suggest\b/i,
+      /\bone solution (is|would be)\b/i,
+      /\ba solution would be\b/i,
+      /\b(requiring|limiting|reducing|increasing) .{3,50}(would|could|should|will)\b/i,
+    ]
+  },
+
+];
+
+// ─────────────────────────────────────────────
+// DATA — POISE MOVE DEFINITIONS
+// These fire on STUDENT turns only — strategic pivots from the Blueprint
+// ─────────────────────────────────────────────
+
+const POISE_DEFS = [
+  {
+    key: 'poise',
+    label: 'Poise / Pivot',
+    color: '#fef3c7',
+    patterns: [
+      // Clarifying the question
+      /\bto make sure i'?m (addressing|answering|understanding|getting at) (your|the) (point|question|concern)\b/i,
+      /\bare you asking (more about|about|whether|if)\b/i,
+      /\bwhen you (say|ask) .{0,30} do you mean\b/i,
+      /\bjust to (clarify|make sure)[,]? are you asking\b/i,
+      // Research bridge — "I don't have the specific figure, but based on my research..."
+      /\bi (hadn'?t|didn'?t|haven'?t) (thought|considered|looked at|researched) (it from|that) (that|this|that specific)\b/i,
+      /\bbased on (my|the) research[,]? (here'?s what|i know|i can say|what i do know)\b/i,
+      /\bi don'?t have (the specific|that specific|a specific|that exact) (figure|data|number|stat|citation|source)[,]? but\b/i,
+      /\bbased on (the trends?|what i found|my sources?|my findings?)[,]?\b/i,
+      /\bwe can (reasonably|safely|fairly) (infer|conclude|assume|extrapolate)\b/i,
+      // Reset scope pivot
+      /\bmy research (focused|centered|concentrated) (primarily|mainly|mostly) on\b/i,
+      /\bwhile (that|this|the question) (is|falls) (outside|beyond) (my|the scope of my)\b/i,
+      /\blooking at it through the lens of\b/i,
+      // Refocus on rubric
+      /\bthat (gets?|goes?) to the (heart of|core of|center of) the (value conflict|disagreement|tension)\b/i,
+      /\bthe (tension|conflict|disagreement) between .{3,50} and .{3,50}\b/i,
+      /\bthat'?s (exactly|precisely|essentially) the (value conflict|trade[- ]off|tension) i (mentioned|described|was talking about)\b/i,
+      // Think on feet
+      /\bthat'?s a (genuine|real|fair|good|interesting|important) (complication|challenge|pushback|concern|point)\b/i,
+      /\bgive me a (second|moment|beat) (to|and i'?ll)\b/i,
+      /\bif i'?m (weighing|considering|thinking about) that against\b/i,
+      /\bthat'?s a fair (challenge|point|pushback|question)\b/i,
+      /\blet me (think|work) through (that|this)\b/i,
+      /\bthinking (out loud|through this)[,]?\b/i,
+      // Natural conversational pivots — real student speech under pressure
+      /\bthat'?s a good point( to think through)?\b/i,
+      /\bi (see|understand) what you'?re saying\b/i,
+      /\bi think part of that is\b/i,
+      /\bi understand that\b/i,
+      /\bthat makes sense[,]? (but|and|however|though)\b/i,
+      /\blet me think about that\b/i,
+      /\bi need to think about that\b/i,
+    ]
+  },
+  // Steel-man gets its own highlight color (green) — separate from poise
+  {
+    key: 'steelman',
+    label: 'Steel-Man',
+    color: '#d1fae5',
+    patterns: [
+      /\b(steel[- ]man|steelman)\b/i,
+      /\b(the strongest|the best|the most compelling) (version|case|argument|form) (for|of|against) (the opposition|my (opponent|critics?)|those who disagree)\b/i,
+      /\ba (smart|reasonable|thoughtful|intelligent|well[- ]meaning) person (who|on the other side|that disagrees) (would|might|could)\b/i,
+      /\bthey'?re (not wrong|not evil|not stupid|not bad)[,]? they'?re (prioritizing|valuing|weighing|focused on)\b/i,
+      /\bif i'?m being (honest|fair|intellectually honest)[,]? (the|their|the opposition'?s) (strongest|best|most compelling) (point|argument|case)\b/i,
+      /\b(even|granting) (their|the opposition'?s) (strongest|best|most compelling) (point|argument|case)[,]?\b/i,
+      /\b(they (genuinely|legitimately|reasonably) (prioritize|value|care about|are concerned about))\b/i,
+      // Natural student phrasing for steel-manning
+      /\bthe strongest (argument|case|point|objection) (against|for|here) (is|would be)\b/i,
+      /\bthat concern is (valid|legitimate|real|understandable)\b/i,
+      /\bi understand why (someone|people|others) would (argue|say|think|believe|push back)\b/i,
+    ]
+  }
+];
+
+// ─────────────────────────────────────────────
+// DATA — POLICY SPECIFICITY PATTERNS
+// A student who names a mechanism (ban, tax, mandate) or explicitly owns
+// a cost/trade-off signals a SPECIFIC policy position.
+// Generic proposals ("we should do something") cap at score 3.
+// Specific proposals (mechanism + owned trade-off) are eligible for score 4.
+// ─────────────────────────────────────────────
+
+const POLICY_SPECIFIC_PATTERNS = [
+  /\b(implement|require|ban|tax|invest in|regulate|reform|mandate|incentivize)\b/i,
+  /\b(trade[- ]off|unintended consequence|who (loses?|pays?|bears?))\b/i,
+  /\byes[,]? it will .{0,40} (but|however|that'?s the)\b/i,
+  /\bthe (cost|price|sacrifice|downside) (is|of|worth|we (must|need to|have to))\b/i,
+  /\bthat'?s the (trade[- ]off|cost) (we|i) (must|should|have to|am willing to) accept\b/i,
+  /\bworth (the|that) (cost|sacrifice|trade[- ]off|price)\b/i,
+  /\bsomeone (loses?|pays?|bears? the cost|is burdened)\b/i,
+  /\bno (perfect|cost[- ]free|painless) (solution|answer|fix|path)\b/i,
+];
+
+// ─────────────────────────────────────────────
+// DATA — EVASION SIGNALS
+// Flag when student deflects, goes vague, or shuts down under pressure
+// ─────────────────────────────────────────────
+
+const EVASION_PATTERNS = [
+  /\bi (don'?t|didn'?t) (really|completely|fully|totally) know\b/i,
+  /\bi'?m not (sure|certain|totally sure|really sure) (about|of|how)\b/i,
+  /\bthat'?s (a|kind of a|sort of a|a really) (hard|tough|difficult|complex|complicated) question\b/i,
+  /\bi (would|could|might) (say|argue|think) (that|it'?s)\b/i,
+  /\bi (mean|guess)[,]? (it'?s|like|sort of|kind of|basically)\b/i,
+  /\b(it depends|depends on (who|what|how|the|your))\b/i,
+  /\bthere'?s (a lot of|many|different|various) (ways?|perspectives?|sides?|angles?) (to|of|on) (look at|think about|consider|view)\b/i,
+  /\bkind of (complicated|complex|a lot|hard to explain)\b/i,
+  /\b(pass|skip|i'?ll (come back to|get back to) that)\b/i,
+  /\bi (can'?t|couldn'?t) (really|quite|exactly) (say|answer|explain|put it into words)\b/i,
+];
+
+// ─────────────────────────────────────────────
+// PARSE TRANSCRIPT (reused from interview engine)
+// ─────────────────────────────────────────────
+
+function parseTranscript(raw) {
+  let cleaned = raw
+    .replace(/\r\n/g, '\n')
+    .replace(/[\[\(]\d{1,2}:\d{2}(?::\d{2})?\]?\)?/g, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\s{2,}\d{1,2}:\d{2}(?::\d{2})?\s*$/gm, '')
+    .replace(/^[ \t]+|[ \t]+$/gm, '');
+
+  const lines = cleaned.split('\n');
+  const turns = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+      turns.push({ speaker: 'NARRATOR', text: trimmed.slice(1,-1) }); continue;
+    }
+    const speakerMatch = trimmed.match(/^([^:\-—]{1,50}?)[\:\-—]\s+(.+)$/);
+    if (speakerMatch) {
+      const rawLabel = speakerMatch[1].trim();
+      const text = speakerMatch[2].trim();
+      if (/^\d+$/.test(rawLabel) || rawLabel.includes('http')) {
+        if (turns.length > 0) turns[turns.length-1].text += ' ' + trimmed;
+        continue;
+      }
+      if (text) turns.push({ speaker: rawLabel.toUpperCase(), text });
+    } else {
+      if (turns.length > 0) turns[turns.length-1].text += ' ' + trimmed;
+    }
+  }
+  return turns;
+}
+
+// ─────────────────────────────────────────────
+// COUNT FILLERS
+// ─────────────────────────────────────────────
+
+function countFillers(text) {
+  const counts = {};
+  let total = 0;
+  const lower = text.toLowerCase();
+  for (const f of FILLERS) {
+    const re = new RegExp('\\b' + f.replace(/\s+/g,'\\s+') + '\\b','gi');
+    const matches = lower.match(re);
+    if (matches && matches.length) {
+      counts[f] = (counts[f]||0) + matches.length;
+      total += matches.length;
+    }
+  }
+  return { counts, total };
+}
+
+// ─────────────────────────────────────────────
+// DETECT STASIS PHASES IN A STUDENT TURN
+// ─────────────────────────────────────────────
+
+function normalizeText(text) {
+  // Normalize smart/curly quotes and apostrophes to straight ASCII equivalents.
+  // Otter.ai and word processors output ‘/’ (' ') and “/” (" ")
+  // which break patterns written with literal straight apostrophes.
+  return text
+    .replace(/[‘’ʼʹ]/g, "'")   // curly single quotes → '
+    .replace(/[“”]/g, '"')                 // curly double quotes → "
+    .replace(/[–—]/g, '-')                 // en/em dash → hyphen
+    .replace(/ /g, ' ');                        // non-breaking space → space
+}
+
+function detectPhases(text) {
+  // Count distinct pattern matches per phase per turn.
+  // Each *unique* pattern that fires adds 1 to the phase counter —
+  // a turn with three distinct causal patterns contributes 3 to phaseTotals.cause.
+  // But we track which patterns have already fired this turn so the exact same
+  // phrase can't inflate the count by matching synonymous patterns twice.
+  // Poise/steelman still use presence-only (one tag per turn is correct there).
+  const found = [];
+  const lower = normalizeText(text).toLowerCase();
+
+  // Track which (def.key, pat.source) pairs fired this turn to prevent
+  // a single repeated phrase from accumulating via overlapping patterns.
+  const firedPatterns = new Set();
+
+  for (const def of PHASE_DEFS) {
+    for (const pat of def.patterns) {
+      const sig = def.key + '|' + pat.source;
+      if (!firedPatterns.has(sig) && pat.test(lower)) {
+        firedPatterns.add(sig);
+        found.push(def.key);
+      }
+    }
+  }
+  // Poise/steelman: presence-only — one recognition per turn is enough.
+  // This is enforced by the break below, which was already correct.
+  // (Poise distribution: max 1 poise signal per turn, regardless of how many
+  //  pivot phrases appear. This is intentional — we want distribution across
+  //  turns, not density within a single turn.)
+  for (const def of POISE_DEFS) {
+    for (const pat of def.patterns) {
+      if (pat.test(lower)) { found.push(def.key); break; }
+    }
+  }
+  // Return the full array (with duplicates for phases) so callers can tally density.
+  // Poise/steelman are deduplicated since they break early above.
+  return found;
+}
+
+// ─────────────────────────────────────────────
+// DETECT EVASION IN A STUDENT TURN
+// ─────────────────────────────────────────────
+
+function detectEvasion(text) {
+  const lower = normalizeText(text).toLowerCase();
+  for (const pat of EVASION_PATTERNS) {
+    const m = lower.match(pat);
+    if (m) return m[0];
+  }
+  return null;
+}
+
+// ─────────────────────────────────────────────
+// DETECT POLICY SPECIFICITY IN A STUDENT TURN
+// Returns true if the turn contains a mechanism or explicit cost-ownership
+// ─────────────────────────────────────────────
+
+function detectPolicySpecific(text) {
+  const lower = normalizeText(text).toLowerCase();
+  for (const pat of POLICY_SPECIFIC_PATTERNS) {
+    if (pat.test(lower)) return true;
+  }
+  return false;
+}
+
+// ─────────────────────────────────────────────
+// PIE CHART
+// ─────────────────────────────────────────────
+
+function drawPie(canvas, data) {
+  const ctx = canvas.getContext('2d');
+  const cx = canvas.width/2, cy = canvas.height/2, r = 56;
+  const total = data.reduce((a,d) => a+d.value, 0);
+  let angle = -Math.PI/2;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for (const d of data) {
+    const slice = (d.value/total) * Math.PI * 2;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,angle,angle+slice);
+    ctx.closePath();
+    ctx.fillStyle = d.color; ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    angle += slice;
+  }
+}
+
+// ─────────────────────────────────────────────
+// HTML ESCAPE
+// ─────────────────────────────────────────────
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─────────────────────────────────────────────
+// BUILD ANNOTATED HTML FOR STUDENT TURN
+// ─────────────────────────────────────────────
+
+function buildStudentHtml(rawText, moveKeys, evasionSnippet) {
+  // Normalize for matching (same pipeline as detectPhases/detectEvasion)
+  // but keep rawText for display so the rendered transcript looks unchanged.
+  const normText = normalizeText(rawText);
+  const allRanges = [];
+
+  // Filler ranges — run on normalized text so positions stay accurate
+  for (const f of FILLERS) {
+    const re = new RegExp('\\b' + f.replace(/\s+/g,'\\s+') + '\\b','gi');
+    let m;
+    while ((m = re.exec(normText)) !== null) {
+      allRanges.push({ start: m.index, end: m.index+m[0].length, type:'filler' });
+    }
+  }
+
+  // Phase + poise move ranges — run on normalized text
+  const activeMoveKeys = new Set(moveKeys || []);
+  const allDefs = [...PHASE_DEFS, ...POISE_DEFS];
+  for (const def of allDefs) {
+    if (!activeMoveKeys.has(def.key)) continue;
+    for (const pat of def.patterns) {
+      const gPat = new RegExp(pat.source, pat.flags.includes('g') ? pat.flags : pat.flags+'g');
+      let m;
+      while ((m = gPat.exec(normText)) !== null) {
+        allRanges.push({ start: m.index, end: m.index+m[0].length, type:'move', key: def.key, label: def.label });
+      }
+    }
+  }
+
+  allRanges.sort((a,b) => a.start - b.start || b.end - a.end);
+
+  let html = '';
+  let cursor = 0;
+  const used = new Set();
+
+  for (const range of allRanges) {
+    const rk = `${range.start}-${range.end}-${range.type}`;
+    if (used.has(rk)) continue;
+    used.add(rk);
+    if (range.start < cursor) continue;
+
+    html += escapeHtml(rawText.slice(cursor, range.start));
+    const matched = escapeHtml(rawText.slice(range.start, range.end));
+
+    if (range.type === 'filler') {
+      html += `<span class="highlight hl-filler">${matched}</span>`;
+    } else {
+      html += `<span class="highlight hl-${range.key}">${matched}</span><span class="tag tag-${range.key}">${range.label}</span>`;
+    }
+    cursor = range.end;
+  }
+  html += escapeHtml(rawText.slice(cursor));
+
+  if (evasionSnippet) {
+    html += ` <span class="highlight hl-evasion"><span class="tag tag-evasion">⚠ Evasion</span></span>`;
+  }
+
+  return html;
+}
+
+// ─────────────────────────────────────────────
+// BUILD ANNOTATED HTML FOR TEACHER TURN (fillers only)
+// ─────────────────────────────────────────────
+
+function buildTeacherHtml(rawText) {
+  const normText = normalizeText(rawText);
+  const ranges = [];
+  for (const f of FILLERS) {
+    const re = new RegExp('\\b' + f.replace(/\s+/g,'\\s+') + '\\b','gi');
+    let m;
+    while ((m = re.exec(normText)) !== null) {
+      ranges.push({ start: m.index, end: m.index+m[0].length });
+    }
+  }
+  ranges.sort((a,b) => a.start - b.start);
+  let html = '', cursor = 0;
+  for (const r of ranges) {
+    if (r.start < cursor) continue;
+    html += escapeHtml(rawText.slice(cursor, r.start));
+    html += `<span class="highlight hl-filler">${escapeHtml(rawText.slice(r.start, r.end))}</span>`;
+    cursor = r.end;
+  }
+  html += escapeHtml(rawText.slice(cursor));
+  return html;
+}
+
+// ─────────────────────────────────────────────
+// SCORE ENGINE — maps to Unit 4 Rubric (1–4 scale)
+// ─────────────────────────────────────────────
+
+// Diminishing-returns soft cap for raw pattern-match counts.
+// Prevents a single long turn with many synonymous patterns from inflating a score.
+// 0 → 1, 1 → 2, 2–3 → 3, 4+ → 4
+function dimReturns(n) {
+  if (n === 0) return 1;
+  if (n === 1) return 2;
+  if (n <= 3) return 3;
+  return 4;
+}
+
+function computeScores(phaseTotals, studentFillers, studentWords, evasionCount, poiseCount, steelmanCount, driftFromQ, specificPolicyCount) {
+  specificPolicyCount = specificPolicyCount || 0;
+
+  // I. Scope & Impact (Fact) — how well did the student ground the issue in data?
+  // Fact uses a wider threshold (5 for top score) since factual grounding
+  // naturally produces more pattern matches than analytical moves.
+  const factScore = phaseTotals.fact >= 5 ? 4 : phaseTotals.fact >= 3 ? 3 : phaseTotals.fact >= 1 ? 2 : 1;
+
+  // II. Causal Analysis (Cause) — did they diagnose systems, not scapegoats?
+  // Diminishing returns: accumulated matches capped to prevent synonymous-pattern inflation.
+  const causeScore = dimReturns(phaseTotals.cause);
+
+  // III. Rhetorical Diagnosis (Value) — did they name the value conflict, steel-man?
+  // Diminishing returns applied; +1 bonus for at least one steelman move (capped at 4).
+  const valueBase = dimReturns(phaseTotals.value);
+  const valueScore = Math.min(4, valueBase + (steelmanCount >= 1 ? 1 : 0));
+
+  // IV. Judgment & Trade-offs (Policy) — specific proposal + owned trade-off?
+  // Generic-only performances (no mechanism named, no cost owned) are capped at 3.
+  // Specific performances (mechanism or explicit cost-bearer present) are eligible for 4.
+  const policyRaw = phaseTotals.policy >= 4 ? 4 : phaseTotals.policy >= 2 ? 3 : phaseTotals.policy >= 1 ? 2 : 1;
+  const policyScore = (policyRaw === 4 && specificPolicyCount === 0) ? 3 : policyRaw;
+
+  // V. Poise & Responsiveness — pivot language, composure, intellectual honesty
+  // poiseCount = number of turns where at least one pivot phrase fired (max 1 per turn).
+  const poiseBase = poiseCount >= 3 ? 3 : poiseCount >= 1 ? 2 : 1;
+  const evasionPenalty = evasionCount >= 3 ? -1 : 0;
+  const poiseScore = Math.max(1, Math.min(4, poiseBase + evasionPenalty));
+
+  // Balance check: a student who has a genuine gap in any stasis phase
+  // (score of 1 on Fact, Cause, Value, or Policy) loses 1 from the overall total.
+  // This reflects that the defense rubric expects coverage of all four phases.
+  const hasGap = (factScore === 1 || causeScore === 1 || valueScore === 1 || policyScore === 1);
+  const balancePenalty = hasGap ? -1 : 0;
+
+  const overall = factScore + causeScore + valueScore + policyScore + poiseScore + balancePenalty;
+
+  return { factScore, causeScore, valueScore, policyScore, poiseScore, overall, hasGap };
+}
+
+// ─────────────────────────────────────────────
+// MAIN ANALYZE FUNCTION
+// ─────────────────────────────────────────────
+
+function analyze() {
+  const raw = document.getElementById('transcriptInput').value.trim();
+  if (!raw) { alert('Paste a transcript first.'); return; }
+
+  let teacher = document.getElementById('teacherName').value.trim().toUpperCase();
+  let student  = document.getElementById('studentName').value.trim().toUpperCase();
+
+  const turns = parseTranscript(raw);
+  const speakers = [...new Set(turns.map(t=>t.speaker).filter(s=>s!=='NARRATOR'))];
+  if (!teacher && speakers.length >= 1) teacher = speakers[0];
+  if (!student  && speakers.length >= 2) student  = speakers[1];
+
+  // ── Talk time ──
+  const tTurns = turns.filter(t=>t.speaker===teacher);
+  const sTurns = turns.filter(t=>t.speaker===student);
+  const tWords = tTurns.map(t=>t.text.split(/\s+/).length).reduce((a,b)=>a+b,0);
+  const sWords = sTurns.map(t=>t.text.split(/\s+/).length).reduce((a,b)=>a+b,0);
+  const totalWords = tWords + sWords;
+  const tPct = totalWords ? Math.round(tWords/totalWords*100) : 40;
+  const sPct = 100 - tPct;
+
+  // ── Fillers (student only for scoring; track teacher for display) ──
+  const sFillers = countFillers(sTurns.map(t=>t.text).join(' '));
+  const tFillers = countFillers(tTurns.map(t=>t.text).join(' '));
+
+  // ── Phase + poise detection ──
+  const phaseTotals = { fact:0, cause:0, value:0, policy:0, poise:0, steelman:0 };
+  const turnMoves = [];
+  const turnEvasions = [];
+  let evasionCount = 0;
+  let poiseCount = 0;
+  let steelmanCount = 0;
+  let specificPolicyCount = 0; // turns with mechanism or explicit cost-ownership
+
+  for (let i = 0; i < turns.length; i++) {
+    const turn = turns[i];
+    if (turn.speaker === student) {
+      const moves = detectPhases(turn.text);
+      moves.forEach(m => { if (phaseTotals[m] !== undefined) phaseTotals[m]++; });
+      if (moves.includes('poise')) poiseCount++;
+      if (moves.includes('steelman')) steelmanCount++;
+      turnMoves.push(moves);
+
+      const evasion = detectEvasion(turn.text);
+      if (evasion) evasionCount++;
+      turnEvasions.push(evasion);
+
+      // Track policy specificity (mechanism named or cost owned)
+      if (detectPolicySpecific(turn.text)) specificPolicyCount++;
+    } else {
+      turnMoves.push([]);
+      turnEvasions.push(null);
+    }
+  }
+
+  // ── Scores ──
+  const scores = computeScores(phaseTotals, sFillers.total, sWords, evasionCount, poiseCount, steelmanCount, null, specificPolicyCount);
+
+  // ─────────────── RENDER ───────────────
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('pdfBar').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const tColor = '#7ec8e3', sColor = '#c06a3a';
+
+  // PIE
+  drawPie(document.getElementById('pieChart'), [
+    { value: tPct, color: tColor },
+    { value: sPct, color: sColor },
+  ]);
+  const tName = teacher.charAt(0)+teacher.slice(1).toLowerCase();
+  const sName = student.charAt(0)+student.slice(1).toLowerCase();
+  document.getElementById('pieLegend').innerHTML = `
+    <div><span class="pie-dot" style="background:${tColor}"></span><strong>${tName}</strong>: ${tPct}%<span style="color:#aaa;margin-left:4px;font-size:8pt;">(${tWords} words)</span></div>
+    <div><span class="pie-dot" style="background:${sColor}"></span><strong>${sName}</strong>: ${sPct}%<span style="color:#aaa;margin-left:4px;font-size:8pt;">(${sWords} words)</span></div>
+    <div style="margin-top:8px;font-family:Arial,sans-serif;font-size:7.5pt;color:#aaa;border-top:1px solid #eee;padding-top:6px;">Ideal: student speaks ≥ 60% of the time during the defense</div>
+  `;
+
+  // FILLERS
+  const topSFillers = Object.entries(sFillers.counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  document.getElementById('fillerDisplay').innerHTML = `
+    <div class="filler-count">${sFillers.total}</div>
+    <div class="filler-detail">${topSFillers.map(([w,n])=>`<span class="filler-chip">${w} ×${n}</span>`).join('')||'<em>None detected</em>'}</div>
+  `;
+
+  // STASIS PHASE COVERAGE (bar chart)
+  const maxPhase = Math.max(phaseTotals.fact, phaseTotals.cause, phaseTotals.value, phaseTotals.policy, 1);
+  document.getElementById('phaseDisplay').innerHTML = `
+    <div class="phase-track">
+      ${PHASE_DEFS.map(def => `
+        <div class="phase-bar-row">
+          <div class="phase-label-col">
+            <span class="phase-label">${def.shortLabel}</span>
+            <span class="phase-sublabel">${def.rubricCriterion.split('—')[1]||def.rubricCriterion}</span>
+          </div>
+          <div class="phase-bar-bg"><div class="phase-bar-${def.key}" style="width:${Math.round(phaseTotals[def.key]/maxPhase*100)}%;height:8px;border-radius:99px;background:${def.color.replace('#d0ecf7','#2176ae').replace('#dff5e1','#2a7a40').replace('#e8d5f5','#7b3fa0').replace('#fde8d8','#c0622a')};"></div></div>
+          <span class="phase-count">${phaseTotals[def.key]}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // PHASE SUMMARY BAR
+  document.getElementById('phaseSummaryGrid').innerHTML = PHASE_DEFS.map(def => {
+    const cnt = phaseTotals[def.key] || 0;
+    if (!cnt) return `<div><span class="tag tag-${def.key}" style="opacity:0.4;">${def.shortLabel}</span> &nbsp;—</div>`;
+    return `<div><span class="tag tag-${def.key}">${def.shortLabel}</span>&nbsp;×${cnt}</div>`;
+  }).join('');
+
+  const phasesPresent = PHASE_DEFS.filter(d => phaseTotals[d.key] > 0).length;
+  const standingLabel = phasesPresent === 4 ? { label: 'All Four Phases Covered', color: '#2a7a40', mark: '✓' }
+    : phasesPresent === 3 ? { label: 'Three Phases — One Gap', color: '#2a5fa0', mark: '◑' }
+    : phasesPresent === 2 ? { label: 'Two Phases — Significant Gaps', color: '#b07a00', mark: '◐' }
+    : { label: 'One Phase or Fewer — Needs Work', color: '#b02020', mark: '✗' };
+
+  document.getElementById('phaseSummaryTotal').innerHTML =
+    `<strong>Phases detected: ${phasesPresent}/4</strong> &nbsp;·&nbsp; <span style="color:${standingLabel.color};font-weight:bold;">${standingLabel.mark} ${standingLabel.label}</span>
+    ${steelmanCount > 0 ? `&nbsp;·&nbsp; <span class="tag tag-steelman">✓ Steel-Man ×${steelmanCount}</span>` : ''}
+    ${poiseCount > 0 ? `&nbsp;·&nbsp; <span class="tag tag-poise">Poise Moves ×${poiseCount}</span>` : ''}`;
+
+  // GAPS
+  const missingPhases = PHASE_DEFS.filter(d => phaseTotals[d.key] === 0);
+  if (missingPhases.length === 0) {
+    document.getElementById('gapDisplay').innerHTML = `<p class="no-issues">All four stasis phases detected — full coverage.</p>`;
+  } else {
+    document.getElementById('gapDisplay').innerHTML = `
+      <div class="flag-list">
+        ${missingPhases.map(d => {
+          const hints = {
+            fact: 'No data, scale, or downstream effects cited. Try: "According to [source]..." or "The downstream cost is..."',
+            cause: 'No systemic driver identified. Try: "The primary driver is [economic incentive / structural failure]..." and acknowledge a competing explanation.',
+            value: 'No value conflict named. Try: "The disagreement here is really between [Value A] and [Value B]..." and steel-man the opposition.',
+            policy: 'No proposal made. Try: "My recommendation is... and the trade-off I accept is..." Own the cost.'
+          };
+          return `<div class="flag-item flag-gap"><div class="flag-label">Missing Phase</div><strong>${d.label}:</strong> ${hints[d.key]}</div>`;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  // EVASIONS
+  const evasionTurns = turns.map((t,i) => t.speaker===student && turnEvasions[i] ? { turn: t, snippet: turnEvasions[i] } : null).filter(Boolean);
+  if (evasionTurns.length === 0) {
+    document.getElementById('evasionDisplay').innerHTML = `<p class="no-issues">No significant evasion or deflection detected.</p>`;
+  } else {
+    document.getElementById('evasionDisplay').innerHTML = `
+      <div class="flag-list">
+        ${evasionTurns.map(e => `<div class="flag-item flag-evasion"><div class="flag-label">Evasion / Vague</div>"${e.snippet}..." — Use a poise pivot instead: clarify, bridge, or reset scope. Don't disappear.</div>`).join('')}
+      </div>
+    `;
+  }
+
+  // POISE DISPLAY
+  const poiseTotal = phaseTotals.poise + phaseTotals.steelman;
+  let poiseNote = '', poiseClass = '';
+  if (poiseTotal === 0) {
+    poiseNote = '✗ No strategic pivot language detected. Practice the Blueprint phrases: "To make sure I\'m addressing your point..." / "Based on my research, what I do know is..." / "That\'s a genuine complication..."';
+    poiseClass = 'phase-bad';
+  } else if (poiseTotal <= 2) {
+    poiseNote = `~ ${poiseTotal} poise move${poiseTotal > 1 ? 's' : ''} detected. A start — but under questioning pressure you\'ll need these more consistently. The Blueprint phrases are your anchor.`;
+    poiseClass = 'phase-warn';
+  } else {
+    poiseNote = `✓ ${poiseTotal} poise moves detected. You handled pressure with intellectual honesty and recovered well under questioning.`;
+    poiseClass = 'phase-good';
+  }
+  document.getElementById('poiseDisplay').innerHTML = `
+    <div style="margin-bottom:10px;font-family:Arial,sans-serif;font-size:8.5pt;color:#888;">
+      Poise moves fire when the student uses clarifying pivots, research bridges, scope resets, or think-out-loud language from the Defense Blueprint.
+    </div>
+    <div class="phase-note ${poiseClass}" style="font-size:10pt;padding:10px 14px;">${poiseNote}</div>
+    ${steelmanCount > 0 ? `<div class="phase-note phase-good" style="margin-top:8px;">✓ Steel-Man detected ×${steelmanCount} — the student explicitly engaged with the opposition's strongest argument.</div>` : ''}
+  `;
+
+  // RUBRIC SCORES
+  function scoreFeedback(criterion, score) {
+    const fb = {
+      fact: {
+        4: { cls:'fb-good', text:`Strong data foundation — ${phaseTotals.fact} factual moves detected. Scale and downstream effects were grounded in evidence.` },
+        3: { cls:'fb-good', text:`Solid facts cited (${phaseTotals.fact} moves). Downstream ripple effects could be more explicit.` },
+        2: { cls:'fb-ok',   text:`Some data present (${phaseTotals.fact} moves), but scope and impact need more grounding. Cite your sources by name.` },
+        1: { cls:'fb-low',  text:`Minimal factual grounding. No cited data detected. Start with "According to [source], [specific fact]..."` }
+      },
+      cause: {
+        4: { cls:'fb-good', text:`Systemic diagnosis (${phaseTotals.cause} moves) — drivers identified, complexity acknowledged, no scapegoating.` },
+        3: { cls:'fb-good', text:`Good causal work (${phaseTotals.cause} moves). Named a driver and acknowledged alternatives.` },
+        2: { cls:'fb-ok',   text:`Causal language present (${phaseTotals.cause} moves), but may rely on scapegoats over systems. Push deeper into the mechanics.` },
+        1: { cls:'fb-low',  text:`Cause phase largely absent. Why does this problem persist? Name the incentive structure or systemic failure.` }
+      },
+      value: {
+        4: { cls:'fb-good', text:`Value conflict explicitly named${steelmanCount > 0 ? ` and opposition steel-manned (×${steelmanCount})` : ''}. The diagnostic framing was clear.` },
+        3: { cls:'fb-good', text:`Value conflict present (${phaseTotals.value} moves). ${steelmanCount > 0 ? 'Steel-man detected — strong.' : 'Try explicitly steel-manning the opposition next time.'}` },
+        2: { cls:'fb-ok',   text:`Some value language (${phaseTotals.value} moves), but the core conflict between competing priorities wasn't made explicit.` },
+        1: { cls:'fb-low',  text:`Value conflict not detected. Name the two values in tension: "The disagreement is really between [X] and [Y]..."` }
+      },
+      policy: {
+        4: { cls:'fb-good', text:`Clear proposal (${phaseTotals.policy} moves) with acknowledged trade-offs. You owned the cost. That's the mark of strong policy thinking.` },
+        3: { cls:'fb-good', text:`Proposal present (${phaseTotals.policy} moves).${specificPolicyCount === 0 ? ' Capped at 3 — no mechanism or specific cost-bearer detected. Name <em>who loses</em> or name the policy mechanism (tax, ban, mandate).' : ' Trade-off language could be more explicit.'}` },
+        2: { cls:'fb-ok',   text:`Policy language present (${phaseTotals.policy} moves), but the proposal was vague or the trade-off wasn't named. "Yes, it will cost X — that's the trade-off I accept."` },
+        1: { cls:'fb-low',  text:`No proposal detected. What should be done? Take a position and name one unintended consequence.` }
+      },
+      poise: {
+        4: { cls:'fb-good', text:`Strong poise under questioning (${poiseCount} pivot moves + ${steelmanCount} steel-man). Handled complexity with intellectual honesty.` },
+        3: { cls:'fb-good', text:`Good composure (${poiseCount} poise moves). Used pivot language effectively${evasionCount > 0 ? ` — watch for ${evasionCount} evasion moment${evasionCount>1?'s':''}` : ''}.` },
+        2: { cls:'fb-ok',   text:`Some poise present (${poiseCount} moves), but ${evasionCount > 0 ? `${evasionCount} evasion flag${evasionCount>1?'s':''} suggest` : 'uncertainty shows'} under pressure. Lean on the Blueprint phrases.` },
+        1: { cls:'fb-low',  text:`Poise largely absent. Practice the five strategic pivots from the Blueprint before the real defense.` }
+      },
+    };
+    return (fb[criterion] && fb[criterion][score]) || { cls:'fb-ok', text:'Score recorded.' };
+  }
+
+  const rubricItems = [
+    { label:'I. Scope & Impact',      score: scores.factScore,   criterion:'fact',   tip:'Data cited, scale established, downstream effects named. 4=Exemplary, 1=Emerging.' },
+    { label:'II. Causal Analysis',    score: scores.causeScore,  criterion:'cause',  tip:'Systemic drivers identified. Competing explanations acknowledged. No scapegoating.' },
+    { label:'III. Value Conflict',    score: scores.valueScore,  criterion:'value',  tip:'Hidden value conflict diagnosed. Opposition steel-manned. +1 if steel-man detected.' },
+    { label:'IV. Policy & Trade-offs',score: scores.policyScore, criterion:'policy', tip:'Specific proposal made. Unintended consequence named. Cost owned.' },
+    { label:'V. Poise & Response',    score: scores.poiseScore,  criterion:'poise',  tip:'Strategic pivot language, intellectual honesty under questioning, no shutdown.' },
+  ];
+
+  const scoreGridHtml = rubricItems.map(s => {
+    const fb = scoreFeedback(s.criterion, s.score);
+    return `
+      <div class="score-metric-col">
+        <div class="score-bar-wrap" style="margin-top:0;">
+          <div class="score-row">
+            <span class="score-left" style="font-weight:bold;color:#555;font-size:8.5pt;">${s.label}
+              <span class="score-info">?<span class="score-tooltip">${s.tip}</span></span>
+            </span>
+            <span style="font-size:10pt;font-weight:bold;color:#2a1e1e;">${s.score}/4</span>
+          </div>
+          <div class="score-bar-bg"><div class="score-bar-fill" style="width:${s.score/4*100}%;height:8px;border-radius:99px;"></div></div>
+        </div>
+        <div class="score-metric-feedback ${fb.cls}">${fb.text}</div>
+      </div>
+    `;
+  }).join('');
+
+  const overallLabel = scores.overall >= 18 ? 'Exemplary' : scores.overall >= 14 ? 'Proficient' : scores.overall >= 10 ? 'Developing' : 'Emerging';
+  const overallColor = scores.overall >= 18 ? '#2a7a40' : scores.overall >= 14 ? '#2a5fa0' : scores.overall >= 10 ? '#b07a00' : '#b02020';
+
+  document.getElementById('scoreDisplay').innerHTML = `
+    <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:${scores.hasGap ? '8px' : '18px'};">
+      <div class="score-big">${scores.overall}<span style="font-size:18pt;color:#aaa;">/20</span></div>
+      <div class="score-label">Overall Score &nbsp;<span style="font-size:10pt;color:${overallColor};font-weight:bold;">${overallLabel}</span></div>
+    </div>
+    ${scores.hasGap ? `<div style="margin-bottom:14px;padding:7px 12px;background:#fff3cd;border-left:3px solid #f59e0b;font-family:Arial,sans-serif;font-size:8.5pt;color:#7a5a00;border-radius:0 4px 4px 0;">Balance penalty applied (−1): one or more stasis phases scored Emerging (1). A strong defense requires coverage of all four phases.</div>` : ''}
+    <div class="rubric-grid">
+      ${scoreGridHtml}
+    </div>
+  `;
+
+  // LEGEND
+  document.getElementById('legendGrid').innerHTML = `
+    <div class="legend-col">
+      <h3>Stasis Phases (Student)</h3>
+      ${PHASE_DEFS.map(d => `<div class="legend-item"><div class="legend-swatch hl-${d.key}" style="background:${d.color};border-bottom:2px solid"></div><div class="legend-text"><strong>${d.label}</strong><span>${d.rubricCriterion}</span></div></div>`).join('')}
+    </div>
+    <div class="legend-col">
+      <h3>Poise Moves (Student)</h3>
+      <div class="legend-item"><div class="legend-swatch hl-poise" style="background:#fef3c7;border-bottom:2px solid #f59e0b"></div><div class="legend-text"><strong>Poise / Pivot</strong><span>Strategic pivots, think-out-loud, research bridges</span></div></div>
+      <div class="legend-item"><div class="legend-swatch hl-steelman" style="background:#d1fae5;border-bottom:2px solid #34d399"></div><div class="legend-text"><strong>Steel-Man</strong><span>Explicitly engaging the opposition's strongest argument</span></div></div>
+    </div>
+    <div class="legend-col">
+      <h3>Flags</h3>
+      <div class="legend-item"><div class="legend-swatch" style="background:#f9f200;border:1px solid #d4c800;border-radius:2px;"></div><div class="legend-text"><strong>Verbal Filler</strong><span>um, uh, like, you know…</span></div></div>
+      <div class="legend-item"><div class="legend-swatch hl-evasion" style="background:#ffd6d6;border-bottom:2px dashed #b02020"></div><div class="legend-text"><strong>Evasion / Deflection</strong><span>Vague or shutdown response under questioning</span></div></div>
+    </div>
+  `;
+
+  // COMMENTARY
+  function buildCommentary(name) {
+    const strengths = [], growth = [];
+
+    const phasesHit = PHASE_DEFS.filter(d => phaseTotals[d.key] > 0).map(d => d.shortLabel);
+    const phasesMissed = PHASE_DEFS.filter(d => phaseTotals[d.key] === 0).map(d => d.shortLabel);
+
+    if (phasesHit.length === 4) strengths.push('Full stasis coverage — all four phases present in the defense.');
+    if (phaseTotals.fact >= 3) strengths.push(`Strong factual grounding (${phaseTotals.fact} moves) — data and scale clearly established.`);
+    if (steelmanCount >= 1) strengths.push(`Steel-manned the opposition (×${steelmanCount}) — that's the hardest move in this rubric. You did it.`);
+    if (phaseTotals.policy >= 2 && phaseTotals.policy > 0) {
+      // check if trade-off language is present
+      strengths.push(`Policy phase was present (${phaseTotals.policy} moves) — proposal and trade-off framing detected.`);
+    }
+    if (poiseCount >= 2) strengths.push(`Poise under pressure (${poiseCount} pivot moves) — you used the Blueprint language and stayed composed.`);
+    if (sPct >= 60) strengths.push(`Good talk-time balance — you drove the defense (${sPct}% of the words).`);
+
+    if (phasesMissed.length > 0) growth.push(`Missing phases: ${phasesMissed.join(', ')} — those rubric categories scored 1. Review the Blueprint for each.`);
+    if (phaseTotals.value === 0) growth.push('No value conflict detected. This is the hardest phase — practice saying: "The disagreement here isn\'t about facts, it\'s about whether we prioritize X or Y."');
+    if (steelmanCount === 0) growth.push('No steel-man detected. Before your next defense, write out the strongest possible argument against your position, then practice acknowledging it out loud.');
+    if (evasionCount >= 2) growth.push(`Evasion flags (×${evasionCount}) — under questioning, you went vague. Use the pivot phrases: "Based on my research, what I do know is..." instead of "I\'m not sure."'`);
+    if (sFillers.total > 15) growth.push(`High filler count (${sFillers.total}) — this undercuts your authority. Pause silently instead of filling with "like" or "um."`);
+    if (sPct < 50) growth.push(`Talk time was low (${sPct}%) — in a defense, you should be driving. Don't wait to be drawn out.`);
+
+    return `
+      <div class="commentary-block">
+        <h4>${name} — Defense Performance</h4>
+        ${strengths.map(s => `<div class="comment-item strength">✓ ${s}</div>`).join('')}
+        ${growth.map(g => `<div class="comment-item growth">→ ${g}</div>`).join('')}
+        ${strengths.length + growth.length === 0 ? '<div class="comment-item" style="color:#999;font-style:italic">Not enough data for commentary — check that speaker names match the transcript.</div>' : ''}
+      </div>
+    `;
+  }
+
+  document.getElementById('studentCommentary').innerHTML = buildCommentary(sName);
+
+  // ANNOTATED TRANSCRIPT
+  let transcriptHtml = '';
+  for (let i = 0; i < turns.length; i++) {
+    const turn = turns[i];
+    const isStudent = turn.speaker === student;
+    const isTeacher = turn.speaker === teacher;
+    const isNarrator = turn.speaker === 'NARRATOR';
+
+    let labelClass = isStudent ? 'student' : isTeacher ? '' : 'narrator';
+    let renderedText;
+
+    if (isStudent) {
+      renderedText = buildStudentHtml(turn.text, turnMoves[i], turnEvasions[i]);
+    } else if (isTeacher) {
+      renderedText = buildTeacherHtml(turn.text);
+    } else {
+      renderedText = escapeHtml(turn.text);
+    }
+
+    const displayName = isNarrator ? '[note]' : turn.speaker.charAt(0)+turn.speaker.slice(1).toLowerCase();
+
+    transcriptHtml += `
+      <div class="turn">
+        <div class="turn-label ${labelClass}">${displayName}</div>
+        <div class="turn-text">${renderedText}</div>
+      </div>
+    `;
+  }
+  document.getElementById('annotatedTranscript').innerHTML = transcriptHtml;
+}
+
+// ─────────────────────────────────────────────
+// LOAD EXAMPLE
+// ─────────────────────────────────────────────
+
+function loadExample() {
+  document.getElementById('teacherName').value = 'MR. FINN';
+  document.getElementById('studentName').value  = 'ALEX';
+  document.getElementById('transcriptInput').value =
+`Mr. Finn: Alright Alex, let's get into it. Walk me through the scope of the problem. Convince me this is worth studying.
+Alex: Sure. So according to the EPA, Americans generate about 292 million tons of solid waste every single year. That breaks down to about 4.9 pounds per person per day. But the part I find most alarming is the downstream cost — landfills are disproportionately sited in low-income communities and communities of color. So the environmental burden isn't shared equally. The people who consume the least end up paying the price the most.
+Mr. Finn: Good. And why is this happening? Why do we produce this much waste?
+Alex: The root cause isn't individual laziness — it's the economic incentive structure. Companies externalize disposal costs. It's cheaper for a manufacturer to package something in single-use plastic than to design for durability or reuse, because they don't pay for the landfill — the public does. It's a classic market failure. Now, some would argue that it's really a consumer behavior problem — that if people wanted sustainable products they'd buy them — and I'll acknowledge that's not entirely wrong, but I'd push back: if the sustainable option costs three times as much, that's not really a free choice.
+Mr. Finn: Okay, I'm going to push on that. What about the argument that regulation just kills jobs and hurts lower-income consumers who rely on cheap products?
+Alex: That's a fair challenge. Give me a second to think through that. The tension you're naming is real — it's actually the core value conflict I've been building toward. The disagreement here isn't really about facts, it's a conflict between prioritizing Affordability and Individual Liberty on one side, and Environmental Justice and Sustainability on the other. A reasonable person who prioritizes affordability and economic growth isn't wrong — they're just weighing things differently. If I'm being honest, the strongest version of that argument is that a plastic bag tax hits a single mother at the grocery store harder than it hits me. That's a real cost. And I still think we should implement it — but I have to own that trade-off.
+Mr. Finn: So what do you actually propose?
+Alex: My recommendation is a combination of extended producer responsibility legislation and a modest material tax on virgin plastics. The trade-off is real: prices on some consumer goods will go up, and lower-income households will feel that more acutely. That's the cost we have to accept if we're prioritizing long-term environmental justice over short-term affordability. Based on my research into similar policies in the EU, the price increases tend to be modest — but I want to be transparent that I don't have the exact US-specific figures in front of me. What I can say is the trends in my sources suggest the economic disruption is manageable if phased in over three to five years.
+Mr. Finn: What if I told you there's evidence that EPR legislation in some states has actually increased waste because it gave companies a "permission slip" to keep producing single-use materials?
+Alex: I hadn't thought about it from that specific angle — that's a genuine complication. If I'm weighing that against what I found, I think the response is in the design of the policy, not the idea itself. EPR works when it's paired with hard caps on production volume, not just responsibility for disposal. So I'd refine my proposal: EPR plus production limits, not EPR alone. That's actually a stronger version of my argument.`;
+}
+</script>
+</body>
+</html>

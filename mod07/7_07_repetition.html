@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.07 | Devices of Repetition</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #3DADA0; --teal-light: #E8F5F4; --teal-mid: #B2DDD9;
+    --dark: #2C4A48; --slate: #4A6B6A; --fog: #F4F8F8; --white: #ffffff;
+    --label-bg: #E0F0EF; --label-text: #2C5F5D;
+    --gold: #C99A2E; --gold-light: #FBF4E3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--fog); color: var(--dark); line-height: 1.7; padding: 40px 24px 80px; max-width: 820px; margin: 0 auto; }
+  .label { display: inline-block; background: var(--label-bg); color: var(--label-text); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 2.6rem; color: var(--dark); line-height: 1.15; margin-bottom: 8px; }
+  .subtitle { color: var(--slate); font-size: 1.05rem; font-weight: 300; margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid var(--teal-mid); }
+  .options-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+  .option-card { border-radius: 12px; padding: 22px 24px; border: 2px solid transparent; }
+  .option-card.written { background: var(--teal-light); border-color: var(--teal); }
+  .option-card.verbal { background: var(--gold-light); border-color: var(--gold); }
+  .option-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 8px; color: var(--dark); }
+  .option-card p { font-size: 0.88rem; color: var(--slate); line-height: 1.6; }
+  .score { font-size: 0.82rem; font-weight: 600; margin-top: 10px; text-transform: uppercase; }
+
+  /* Main device accordion — big green banners */
+  details.device { background: var(--white); border-radius: 14px; margin-bottom: 16px; overflow: hidden; border: 1px solid var(--teal-mid); }
+  details.device > summary { padding: 20px 28px; background: var(--dark); color: var(--white); cursor: pointer; font-family: 'DM Serif Display', serif; font-size: 1.5rem; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  details.device > summary::-webkit-details-marker { display: none; }
+  details.device > summary::after { content: '→'; transition: transform 0.3s; flex-shrink: 0; }
+  details.device[open] > summary::after { transform: rotate(90deg); }
+  .definition { font-size: 0.9rem; color: var(--teal-mid); font-family: 'DM Sans', sans-serif; font-weight: 300; display: block; margin-top: 2px; }
+  .content-body { padding: 24px 28px; }
+
+  /* Why it works */
+  .why-box { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 16px 18px; margin-bottom: 16px; font-size: 0.95rem; border-radius: 0 6px 6px 0; }
+  .why-box strong { color: var(--teal); }
+
+  /* Inner accordions — shared base */
+  details.inner { border-radius: 8px; margin-bottom: 12px; overflow: hidden; border: 1px solid var(--teal-mid); }
+  details.inner > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; padding: 10px 16px; letter-spacing: 0.04em; text-transform: uppercase; }
+  details.inner > summary::-webkit-details-marker { display: none; }
+  details.inner > summary::after { content: '+'; font-size: 1rem; flex-shrink: 0; }
+  details.inner[open] > summary::after { content: '−'; }
+  details.inner > .inner-body { padding: 16px; }
+
+  /* See Some Examples — teal */
+  details.examples > summary { background: var(--teal); color: var(--white); }
+  details.examples > summary::after { color: var(--white); }
+
+  /* Sub-section accordions inside examples (Speeches / Music) */
+  details.section-acc { border-radius: 6px; margin-bottom: 10px; overflow: hidden; border: 1px solid var(--teal-mid); }
+  details.section-acc > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; background: var(--teal-light); color: var(--dark); font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.8rem; padding: 8px 14px; letter-spacing: 0.05em; text-transform: uppercase; }
+  details.section-acc > summary::-webkit-details-marker { display: none; }
+  details.section-acc > summary::after { content: '+'; color: var(--teal); }
+  details.section-acc[open] > summary::after { content: '−'; }
+  details.section-acc > .inner-body { padding: 14px; background: var(--white); }
+
+  /* Music sub-section */
+  details.section-acc.music > summary { background: var(--gold-light); color: var(--dark); }
+  details.section-acc.music > summary::after { color: var(--gold); }
+
+  /* Weak vs Strong — gold */
+  details.ws > summary { background: var(--gold); color: var(--white); }
+
+  /* Skip to Assignment — dark */
+  details.assignment > summary { background: var(--dark); color: var(--white); }
+  details.assignment > summary::after { color: var(--white); }
+
+  /* Why? toggle inside ws pairs */
+  details.why { border: none; background: none; margin-top: 6px; margin-bottom: 0; }
+  details.why > summary { background: none; color: var(--teal); font-size: 0.75rem; font-weight: 700; padding: 2px 0; letter-spacing: 0.06em; border: none; }
+  details.why > summary::after { content: none; }
+  details.why > .inner-body { padding: 8px 12px; background: var(--teal-light); border-radius: 6px; font-size: 0.82rem; color: var(--slate); line-height: 1.65; margin-top: 4px; }
+
+  /* Example content */
+  .example-block { background: var(--fog); padding: 14px 16px; border-radius: 8px; margin-bottom: 12px; border-left: 3px solid var(--teal); }
+  .example-block:last-child { margin-bottom: 0; }
+  .example-item { margin-bottom: 14px; }
+  .example-item:last-child { margin-bottom: 0; }
+  .example-quote { font-style: italic; font-size: 0.97rem; color: var(--dark); line-height: 1.75; margin-bottom: 4px; }
+  .example-source { font-size: 0.78rem; color: var(--slate); }
+  mark { background: var(--teal-mid); color: var(--dark); padding: 0 3px; border-radius: 3px; font-style: normal; font-weight: 600; }
+  .music-note { font-size: 0.82rem; color: var(--slate); margin-top: 4px; }
+
+  /* Weak/Strong pairs */
+  .ws-pair { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--teal-light); }
+  .ws-pair:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .ws-label-weak { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #9B5D00; margin-bottom: 6px; }
+  .ws-label-strong { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin-bottom: 6px; margin-top: 12px; }
+  .ws-text { font-size: 0.93rem; font-style: italic; color: var(--dark); line-height: 1.7; }
+
+  /* Assignment steps */
+  .step { margin-bottom: 16px; }
+  .step-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .step p { font-size: 0.95rem; color: var(--dark); }
+  .no-copy { font-size: 0.82rem; background: #FFF3CD; border: 1px solid #F5C842; border-radius: 6px; padding: 6px 10px; margin-top: 8px; color: #7A5C00; }
+  hr.divider { border: none; border-top: 1px solid var(--teal-light); margin: 14px 0; }
+  hr.dark-divider { border: none; border-top: 2px solid var(--teal-mid); margin: 18px 0; }
+
+  /* Procedure moves */
+  .move-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+  .move-num { background: var(--teal); color: var(--white); font-family: 'DM Serif Display', serif; font-size: 1rem; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .move-text strong { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--teal); margin-bottom: 3px; }
+  .move-text p { font-size: 0.93rem; color: var(--dark); line-height: 1.6; margin: 0; }
+
+  /* Sketchnote prompt */
+  .sketchnote { background: var(--gold-light); border: 1.5px dashed var(--gold); border-radius: 8px; padding: 14px 16px; margin-top: 14px; }
+  .sketchnote-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 6px; }
+  .sketchnote p { font-size: 0.88rem; color: var(--dark); line-height: 1.6; margin: 0; }
+
+  /* Aloud check */
+  .aloud-box { background: #FDF3F2; border-left: 3px solid #C0392B; border-radius: 0 8px 8px 0; padding: 12px 14px; margin-top: 10px; }
+  .aloud-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: #C0392B; margin-bottom: 5px; }
+  .aloud-box p { font-size: 0.88rem; color: var(--dark); line-height: 1.6; margin: 0; }
+
+  /* Anti-tricolon warning */
+  .warning-block { background: #FDF3F2; border-left: 3px solid #C0392B; border-radius: 0 8px 8px 0; padding: 14px 16px; margin-bottom: 12px; }
+  .warning-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; color: #C0392B; margin-bottom: 8px; }
+  .bad-example { font-size: 0.9rem; font-style: italic; color: #4A6B6A; margin-bottom: 4px; }
+  .fix-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--teal); margin: 8px 0 4px; }
+  .fix-example { font-size: 0.9rem; font-style: italic; color: var(--dark); }
+</style>
+</head>
+<body>
+
+<span class="label">7.07 | Wednesday</span>
+<h1>Devices of Repetition</h1>
+<p class="subtitle">Anaphora · Antistrophe · Tricolon</p>
+
+<div class="options-row">
+  <div class="option-card written">
+    <h3>Notebook Route</h3>
+    <p>Define the term, look up your own example, jot it down, then try doing it in your own style. Hate what you wrote? Give it another go.</p>
+    <div class="score" style="color: var(--teal);">Full credit on completion.</div>
+  </div>
+  <div class="option-card verbal">
+    <h3>Performance Route</h3>
+    <p>Live demo. Perform all three devices on the spot. No notes. One shot. Stumble on one, you take a 3/5 on the whole assignment.</p>
+    <div class="score" style="color: var(--gold);">All or nothing.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ ANAPHORA ═══════════════ -->
+<details class="device">
+  <summary>
+    Anaphora
+    <span class="definition">Beginning repetition — the anchor word leads every line.</span>
+  </summary>
+  <div class="content-body">
+
+    <div class="why-box">
+      <strong>Why it works:</strong> The piece you repeat carries the emotional payload of the whole piece. Make it punchy.
+    </div>
+
+    <details class="inner examples">
+      <summary>See Some Examples</summary>
+      <div class="inner-body">
+
+        <details class="section-acc">
+          <summary>In Speeches &amp; Writing</summary>
+          <div class="inner-body">
+            <div class="example-item">
+              <div class="example-quote">"<mark>Where there is</mark> discord, may we bring harmony. <mark>Where there is</mark> error, may we bring truth. <mark>Where there is</mark> doubt, may we bring faith."</div>
+              <div class="example-source">— Margaret Thatcher, Downing Street, 1979</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"<mark>We shall fight</mark> on the beaches. <mark>We shall fight</mark> on the landing grounds. <mark>We shall fight</mark> in the fields and in the streets."</div>
+              <div class="example-source">— Winston Churchill, June 1940</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"<mark>I have a dream</mark> that one day this nation will rise up. <mark>I have a dream</mark> that my four little children will one day live in a nation where they will not be judged by the color of their skin. <mark>I have a dream</mark> today."</div>
+              <div class="example-source">— Martin Luther King Jr., August 1963</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"<mark>It takes</mark> strength to love, but <mark>it takes</mark> a specialized brand of magic to believe that the world can be better than it is. <mark>It takes</mark> more than just hope; it takes a refusal to be broken."</div>
+              <div class="example-source">— Original</div>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-acc music">
+          <summary>In Music — Pull These Up and Listen</summary>
+          <div class="inner-body">
+            <div class="example-item">
+              <div class="example-quote">"Every Breath You Take" — The Police (1983)</div>
+              <div class="example-source">Written by Sting</div>
+              <div class="music-note">"<mark>Every</mark> breath you take / <mark>Every</mark> move you make / <mark>Every</mark> bond you break / <mark>Every</mark> step you take / I'll be watching you." The anchor "every" turns what sounds like a love song into something far more unsettling. Notice how the repeated opener reframes each line that follows.</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"Yesterday" — The Beatles (1965)</div>
+              <div class="example-source">Written by Paul McCartney</div>
+              <div class="music-note">McCartney opens each verse with a single word — and that word is doing everything. Longing, loss, the gap between then and now. The anchor IS the thesis of the song. Count how many times a line begins with it.</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"Closing Time" — Semisonic (1998)</div>
+              <div class="example-source">Written by Dan Wilson</div>
+              <div class="music-note">On the surface it's a bar closing. The anchor phrase earns a second meaning by the end — leaving a place you've outgrown, stepping into something new. Count how many times the phrase opens a new line. What does it mean by the final verse?</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"Ain't No Mountain High Enough" — Marvin Gaye &amp; Tammi Terrell (1967)</div>
+              <div class="example-source">Written by Nickolas Ashford &amp; Valerie Simpson</div>
+              <div class="music-note">The title phrase is the anchor — repeated, built upon, returned to. Each repetition adds a new obstacle that gets dismissed. By the end it's not just a promise. It's a vow.</div>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+    <details class="inner ws">
+      <summary>Weak vs. Strong</summary>
+      <div class="inner-body">
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"I think we can do better. I think we should try harder. I think we owe it to ourselves."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"<mark>We owe it</mark> to the ones who didn't make it here. <mark>We owe it</mark> to the teachers who stayed late and never said a word about it. <mark>We owe it</mark> to every earlier version of ourselves who wasn't sure we could."</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">"I think" carries nothing. "We owe it" carries debt, responsibility, gratitude. The anchor has to mean something before the repetition can build on it.</div>
+          </details>
+        </div>
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"There are things we need to change. There are things we need to fix. There are things we need to do."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"<mark>We inherited</mark> a climate in crisis. <mark>We inherited</mark> a political system nobody under thirty designed. <mark>We inherited</mark> every problem the generation before us was too comfortable to solve."</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">"We inherited" is specific, charged, and slightly accusatory — it implies someone left something behind. "There are things" is filler. The anchor does the argument.</div>
+          </details>
+        </div>
+      </div>
+    </details>
+
+    <details class="inner assignment">
+      <summary>Skip to the Assignment</summary>
+      <div class="inner-body">
+
+        <div class="move-row">
+          <div class="move-num">1</div>
+          <div class="move-text">
+            <strong>Name the feeling first</strong>
+            <p>Before you write a word: what do you want the audience to feel when this lands? Write it down. One word. That's your target.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">2</div>
+          <div class="move-text">
+            <strong>Find the anchor — try three, reject two</strong>
+            <p>Write three possible anchor phrases. Cross out the first one — it's probably the cliché. Cross out the weakest of the remaining two. Circle the one that carries the most weight on its own, before any repetition. "I am grateful" carries nothing. "We owe it" carries debt. That's the difference.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">3</div>
+          <div class="move-text">
+            <strong>Draft three lines — each adds specific evidence</strong>
+            <p>Open every line with your anchor. After the anchor, give one specific piece of evidence: a person, a moment, a fact. Generic lines waste the anchor. Save your most specific, most emotionally loaded line for last. Do this twice — two drafts, two different anchors.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">4</div>
+          <div class="move-text">
+            <strong>Read it aloud — check the weight</strong>
+            <p>Say it out loud to a partner. One question: does the anchor feel heavier by the third line, or does it just repeat? If it just repeats, either the anchor is wrong or the lines aren't specific enough. Revise once.</p>
+          </div>
+        </div>
+
+        <div class="aloud-box">
+          <div class="aloud-label">The test</div>
+          <p>Your partner answers yes or no: did the anchor earn more weight each time it came back? No = find more specific evidence for each line. Yes = you're done.</p>
+        </div>
+
+        <div class="sketchnote">
+          <div class="sketchnote-label">Sketchnote It</div>
+          <p>In your notebook, draw what anaphora looks like. Think: three lines, each starting at the same point on the left, then branching out to the right with different content. Label the anchor. Show the evidence growing. Use arrows, icons, whatever makes the structure visible to you.</p>
+        </div>
+
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ═══════════════ ANTISTROPHE ═══════════════ -->
+<details class="device">
+  <summary>
+    Antistrophe
+    <span class="definition">Ending repetition — the anchor word closes every line.</span>
+  </summary>
+  <div class="content-body">
+
+    <div class="why-box">
+      <strong>Why it works:</strong> If anaphora sets up for takeoff, antistrophe sticks the landing. Like anaphora, choose your repeated phrase wisely — it's what echoes in the listener's mind.
+    </div>
+
+    <details class="inner examples">
+      <summary>See Some Examples</summary>
+      <div class="inner-body">
+
+        <details class="section-acc">
+          <summary>In Speeches &amp; Writing</summary>
+          <div class="inner-body">
+            <div class="example-item">
+              <div class="example-quote">"...government of the <mark>people,</mark> by the <mark>people,</mark> for the <mark>people.</mark>"</div>
+              <div class="example-source">— Abraham Lincoln, Gettysburg Address, 1863</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"People are illogical, unreasonable, and self-centered. Love them <mark>anyway.</mark> If you are successful, you will win some false friends and some true enemies. Succeed <mark>anyway.</mark> The good you do today will be forgotten tomorrow. Do good <mark>anyway.</mark>"</div>
+              <div class="example-source">— Kent M. Keith, "The Paradoxical Commandments," 1968</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"If you do not choose your path, the world will choose it for <mark>you.</mark> If you do not define your worth, the market will define it for <mark>you.</mark> If you do not guard your time, your distractions will guard it for <mark>you.</mark>"</div>
+              <div class="example-source">— Original example</div>
+            </div>
+          </div>
+        </details>
+
+        <details class="section-acc music">
+          <summary>In Music — Pull This Up and Listen</summary>
+          <div class="inner-body">
+            <div class="example-item">
+              <div class="example-quote">"Single Ladies (Put a Ring on It)" — Beyoncé (2008)</div>
+              <div class="example-source">Written by Beyoncé, Terius Nash, Thaddis Harrell, Christopher Stewart</div>
+              <div class="music-note">The hook closes line after line with the same phrase — and that closing phrase is the verdict. Track how many different situations get punctuated by the same closer. By the third or fourth time, you're not just hearing it. You're agreeing with it.</div>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+    <details class="inner ws">
+      <summary>Weak vs. Strong</summary>
+      <div class="inner-body">
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"They questioned us. They doubted us. They underestimated us."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"They questioned us — and we kept going <mark>anyway.</mark> They doubted us — and we kept going <mark>anyway.</mark> They underestimated us — and we kept going <mark>anyway.</mark>"</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">"Us" is just the object of a verb. "Anyway" is defiance. Every time it closes a line, it reframes everything before it as an obstacle that got cleared.</div>
+          </details>
+        </div>
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"The law said no. The system said no. The world said no."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"The law said she couldn't <mark>vote.</mark> The system said she couldn't <mark>vote.</mark> The world said she couldn't <mark>vote.</mark> She organized until the Constitution said she could."</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">"Vote" is specific, consequential, historically charged. Closing on it three times builds the injustice. The final flip to "could" makes the resolution feel earned.</div>
+          </details>
+        </div>
+      </div>
+    </details>
+
+    <details class="inner assignment">
+      <summary>Skip to the Assignment</summary>
+      <div class="inner-body">
+
+        <div class="move-row">
+          <div class="move-num">1</div>
+          <div class="move-text">
+            <strong>Name the feeling first</strong>
+            <p>What do you want the audience to feel when each line lands? The closing anchor is what echoes — so name the emotional target before you pick the word.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">2</div>
+          <div class="move-text">
+            <strong>Find the closing anchor — try three, reject two</strong>
+            <p>Write three candidates for your closing word or phrase. Look for something that signals resolution, defiance, or verdict. "Anyway." "Still." "For us." "Vote." Cross out the flat one. Cross out the vague one. Circle the one that stings. It should be able to close three completely different lines without wearing out.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">3</div>
+          <div class="move-text">
+            <strong>Draft three lines — each arrives at the same destination</strong>
+            <p>Write three lines with different content — different situations, different people, different stakes — that all end with your anchor. The contrast between lines is what makes the repeated closing feel like a verdict rather than a pattern. Do this twice with two different closing words.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">4</div>
+          <div class="move-text">
+            <strong>Read it aloud — check the echo</strong>
+            <p>Say it out loud to a partner. One question: by the third time the closing word arrives, does it feel like a verdict — or just a repetition? If it's just a repetition, the lines before it are too similar. Vary the content more, then try again.</p>
+          </div>
+        </div>
+
+        <div class="aloud-box">
+          <div class="aloud-label">The test</div>
+          <p>Your partner answers: verdict or repetition? Repetition = your three lines aren't different enough from each other. Find more contrast between them.</p>
+        </div>
+
+        <div class="sketchnote">
+          <div class="sketchnote-label">Sketchnote It</div>
+          <p>Draw antistrophe in your notebook. Think: three lines converging from the left, all arriving at the same point on the right. Show the different content on the left side. Show the shared anchor landing on the right. Label what makes each line different — and what stays the same.</p>
+        </div>
+
+      </div>
+    </details>
+
+  </div>
+</details>
+
+<!-- ═══════════════ TRICOLON ═══════════════ -->
+<details class="device">
+  <summary>
+    Tricolon
+    <span class="definition">The Rule of Three — crescendo required.</span>
+  </summary>
+  <div class="content-body">
+
+    <div class="why-box">
+      <strong>Why it works:</strong> For some reason our brains like things in three. Make the last one count — longer, more specific, more emotionally loaded than the first two. Items one and two are the setup. Save your heaviest hitter for last.
+    </div>
+
+    <details class="inner examples">
+      <summary>See Some Examples</summary>
+      <div class="inner-body">
+
+        <details class="section-acc">
+          <summary>Examples in Action</summary>
+          <div class="inner-body">
+            <div class="example-item">
+              <div class="example-quote">"<mark>Life,</mark> <mark>liberty,</mark> and <mark>the pursuit of happiness.</mark>"</div>
+              <div class="example-source">— Declaration of Independence, 1776</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"I have the <mark>ambition of a CEO,</mark> the <mark>schedule of a world leader,</mark> and the <mark>bank account of a Victorian orphan.</mark>"</div>
+              <div class="example-source">— Original example</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"It's the hope of <mark>slaves sitting around a fire singing freedom songs;</mark> the hope of <mark>immigrants setting out for distant shores;</mark> the hope of <mark>a young naval lieutenant bravely patrolling the Mekong Delta.</mark>"</div>
+              <div class="example-source">— Barack Obama, 2004 DNC Keynote</div>
+            </div>
+            <div class="example-item">
+              <div class="example-quote">"We lost <mark>sleep</mark> over it. We lost <mark>friends</mark> over it. We lost <mark>years we're never getting back.</mark>"</div>
+              <div class="example-source">— Original example</div>
+            </div>
+          </div>
+        </details>
+
+        <div class="warning-block">
+          <div class="warning-label">The Anti-Tricolon — What to Avoid</div>
+          <p style="font-size: 0.85rem; color: var(--slate); margin-bottom: 10px;">The most common mistake: putting the heavy item first. The sentence has nowhere to go, and items two and three feel like a letdown.</p>
+          <div class="bad-example">✗ "We leave behind our legacy, our lockers, and our old teachers."</div>
+          <div style="font-size: 0.8rem; color: var(--slate); margin: 4px 0 10px;">Legacy — the heaviest word — lands first. Everything after it deflates.</div>
+          <div class="fix-label">✓ Fix it</div>
+          <div class="fix-example">"We leave behind our lockers, we leave behind our teachers, and we leave behind <mark>a legacy that will outlast our time here.</mark>"</div>
+          <div style="font-size: 0.8rem; color: var(--slate); margin-top: 4px;">Now the weight builds. The heaviest item lands last, where it belongs.</div>
+        </div>
+
+      </div>
+    </details>
+
+    <details class="inner ws">
+      <summary>Weak vs. Strong</summary>
+      <div class="inner-body">
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"We are young, smart, and ready."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"We are young, we are sharp, and we are <mark>finally ready to speak for ourselves.</mark>"</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">The third item grows — more syllables, more specificity. The sentence feels complete because the breath runs out at exactly the right moment.</div>
+          </details>
+        </div>
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"I remember the tests, the sports, and the friends."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"I remember the panic of the tests, the adrenaline of the games, and <mark>the quiet moments in the hallway that made it all worth it.</mark>"</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">The third item expands into a full scene. The emotional landing is earned because the first two set it up — and the extra length signals: this one matters most.</div>
+          </details>
+        </div>
+        <div class="ws-pair">
+          <div class="ws-label-weak">Weak</div>
+          <div class="ws-text">"We have the tools, the time, and the goal."</div>
+          <div class="ws-label-strong">Strong</div>
+          <div class="ws-text">"We have the tools, we have the time, and we have <mark>a world that is waiting for us to fix it.</mark>"</div>
+          <details class="inner why">
+            <summary>Why?</summary>
+            <div class="inner-body">The repeated "we have" builds a drumbeat — anaphora inside a tricolon. The third item breaks the expected rhythm with a bigger claim, and the sentence earns its ending.</div>
+          </details>
+        </div>
+      </div>
+    </details>
+
+    <details class="inner assignment">
+      <summary>Skip to the Assignment</summary>
+      <div class="inner-body">
+
+        <div class="move-row">
+          <div class="move-num">1</div>
+          <div class="move-text">
+            <strong>Name the feeling first</strong>
+            <p>What do you want the audience to feel when the third item lands? The whole sentence builds to that moment — so know where you're going before you write item one.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">2</div>
+          <div class="move-text">
+            <strong>Write item three first</strong>
+            <p>Start at the end. Write the most specific, most emotionally loaded thing you want to say. If it fits in five words, it isn't heavy enough yet — expand it until it costs something to say. That's your item three. Items one and two are the setup; write them after.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">3</div>
+          <div class="move-text">
+            <strong>Draft the full tricolon — then flip it deliberately</strong>
+            <p>Write items one and two: shorter, simpler, leading toward item three. Read the full sequence. Then write the anti-tricolon: put item three first, items one and two after. Read that version too. The collapse in momentum is the lesson. Do this twice with different content.</p>
+          </div>
+        </div>
+
+        <div class="move-row">
+          <div class="move-num">4</div>
+          <div class="move-text">
+            <strong>Read both versions aloud — let your partner call it</strong>
+            <p>Read your real tricolon, then your anti-tricolon. Your partner says which one lands harder. If the anti-tricolon somehow sounds better, your "item three" isn't actually the heaviest — go back and find the right one.</p>
+          </div>
+        </div>
+
+        <div class="aloud-box">
+          <div class="aloud-label">The breath test</div>
+          <p>Are you slightly out of breath at the end of item three? If the sentence ends too easily, it hasn't earned the landing. Expand item three until it takes real effort to finish.</p>
+        </div>
+
+        <div class="sketchnote">
+          <div class="sketchnote-label">Sketchnote It</div>
+          <p>Draw a staircase in your notebook — three steps, each one higher than the last. Label each step with an item from your tricolon. Show item three as the tallest step, with the most text or the biggest visual weight. Add an arrow showing the direction of build. Bonus: draw the anti-tricolon as a staircase going the wrong way — tallest step first, then descending.</p>
+        </div>
+
+      </div>
+    </details>
+
+  </div>
+</details>
+
+</body>
+</html>
