@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERWC | Course Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #3DADA0;
+      --teal-dark: #2C8A80;
+      --teal-light: #E8F5F4;
+      --dark: #2C4A48;
+      --slate: #4A6B6A;
+      --fog: #F4F8F8;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--fog);
+      color: var(--dark);
+      padding: 48px 20px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ─────────────────────────────────── */
+    .course-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .subtitle {
+      color: var(--slate);
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 560px;
+      margin-bottom: 36px;
+    }
+
+    /* ── Section label ───────────────────────────── */
+    .section-label {
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 14px;
+      margin-top: 36px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #d4e8e6;
+      margin: 10px 0 28px;
+    }
+
+    /* ── Module cards ────────────────────────────── */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .module-card {
+      background: var(--white);
+      border: 1px solid #ddeeed;
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      text-decoration: none;
+      color: var(--dark);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      display: block;
+      position: relative;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(61, 173, 160, 0.13);
+      border-color: var(--teal);
+    }
+
+    .module-card.coming-soon {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .module-num {
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .module-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      line-height: 1.2;
+      color: var(--dark);
+    }
+
+    .module-card p {
+      font-size: 0.84rem;
+      color: var(--slate);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    .lesson-count {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      background: var(--teal-light);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #a0a0a0;
+      background: #f0f0f0;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    .footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid #d4e8e6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .footer-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .footer-meta {
+      font-size: 0.78rem;
+      color: #a0b8b6;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="course-label">Expository Reading &amp; Writing Course</p>
+  <h1>ERWC</h1>
+  <p class="subtitle">
+    Reference guides, lesson materials, and unit resources — organized by module.
+    Select a module below to access its lessons.
+  </p>
+
+  <p class="section-label">Modules</p>
+  <hr class="divider">
+
+  <div class="module-grid">
+
+    <!-- Module 7 — Active -->
+    <a href="7.00/index.html" class="module-card">
+      <span class="module-num">Module 7</span>
+      <h2>The Commencement Address</h2>
+      <p>Analyzing and writing commencement speeches through rhetoric, tone, and audience awareness.</p>
+      <span class="lesson-count">9 Lessons</span>
+    </a>
+
+    <!-- Placeholder modules — add href and remove coming-soon class when ready -->
+    <div class="module-card coming-soon">
+      <span class="module-num">Module 6</span>
+      <h2>Coming Soon</h2>
+      <p>Materials for this module will be added when available.</p>
+      <span class="coming-soon-badge">Not yet available</span>
+    </div>
+
+    <div class="module-card coming-soon">
+      <span class="module-num">Module 8</span>
+      <h2>Coming Soon</h2>
+      <p>Materials for this module will be added when available.</p>
+      <span class="coming-soon-badge">Not yet available</span>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="footer-name">ERWC — All Modules</span>
+    <span class="footer-meta">timofinn.github.io/ERWC</span>
+  </div>
+
+</body>
+</html>
