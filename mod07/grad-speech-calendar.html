@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +84,8 @@
         }
 
         .day-row.today {
-            background: rgba(74, 155, 142, 0.04);
+            background: rgba(74, 155, 142, 0.08);
+            border-left: 4px solid var(--teal);
         }
 
         .day-row.no-class {
@@ -117,18 +119,13 @@
         }
 
         .week-label {
-            padding: 12px 24px;
             background: var(--light-gray);
+            padding: 12px 24px;
             font-weight: 600;
             font-size: 12px;
             color: var(--text-light);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-top: 1px solid var(--border);
-        }
-
-        .week-label:first-of-type {
-            border-top: none;
         }
     </style>
 </head>
@@ -144,75 +141,139 @@
             <div>What's Happening</div>
         </div>
         <div class="calendar-body">
-            <!-- This Week -->
-            <div class="week-label">This Week: May 18–22</div>
+            <!-- Unit Launch Week -->
+            <div class="week-label">Unit Launch: May 6–10</div>
 
-            <div class="day-row today">
+            <div class="day-row" data-date="2026-05-06">
+                <div class="date">Wed, May 6</div>
+                <div class="activity">7.01 — Unit launch in class. Five questions warm-up in your handout packet.</div>
+            </div>
+
+            <div class="day-row" data-date="2026-05-08">
+                <div class="date">Thu, May 8</div>
+                <div class="activity">7.02 & 7.03 — Watch Chase Dahl + Roohan Jamshed. Complete both response sections in the handout.</div>
+            </div>
+
+            <div class="day-row no-class" data-date="2026-05-09">
+                <div class="date no-class">Fri, May 9</div>
+                <div class="activity"><em>Day off. Exist freely.</em></div>
+            </div>
+
+            <!-- Speech Viewing Week -->
+            <div class="week-label">Speeches & Lenses: May 11–15</div>
+
+            <div class="day-row" data-date="2026-05-11">
+                <div class="date">Mon, May 11</div>
+                <div class="activity">7.04 & 7.05 — Watch Larissa Martinez, Larkin Richards, and Nataly Buhr. Complete all three response sections in the handout.</div>
+            </div>
+
+            <div class="day-row" data-date="2026-05-12">
+                <div class="date">Tue, May 12</div>
+                <div class="activity">7.06 — I'm baaaaack. Sub couldn't show you the talks because tech. I got it.</div>
+            </div>
+
+            <div class="day-row" data-date="2026-05-13">
+                <div class="date">Wed, May 13</div>
+                <div class="activity">7.07 | Devices of Repetition — Anaphora · Antistrophe · Tricolon</div>
+            </div>
+
+            <div class="day-row" data-date="2026-05-14">
+                <div class="date">Thu, May 14</div>
+                <div class="activity">7.08 | Devices of Comparison — Antithesis · Metaphor · Analogy</div>
+            </div>
+
+            <div class="day-row" data-date="2026-05-15">
+                <div class="date">Fri, May 15</div>
+                <div class="activity">7.09 | Devices of Structure — Chiasmus · Hypophora · Parallelism</div>
+            </div>
+
+            <!-- Current Week -->
+            <div class="week-label">Easing Up & Prep: May 18–22</div>
+
+            <div class="day-row" data-date="2026-05-20">
                 <div class="date">Wed, May 20</div>
                 <div class="activity">Demo your understanding. Speech or writing — show what you know about the devices.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-05-21">
                 <div class="date">Thu, May 21</div>
                 <div class="activity"><strong>Grad night.</strong> <em>No class — seniors heading to So Cal.</em></div>
             </div>
 
-            <div class="day-row no-class">
+            <div class="day-row no-class" data-date="2026-05-22">
                 <div class="date no-class">Fri, May 22</div>
                 <div class="activity"><em>No school — district wide closure.</em></div>
             </div>
 
-            <!-- Next Week -->
-            <div class="week-label">Next Week: May 26–29</div>
+            <!-- Drafting Week -->
+            <div class="week-label">Drafting & Revising: May 26–29</div>
 
-            <div class="day-row no-class">
+            <div class="day-row no-class" data-date="2026-05-25">
                 <div class="date no-class">Mon, May 25</div>
                 <div class="activity"><em>Memorial Day — no school.</em></div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-05-26">
                 <div class="date">Tue, May 26</div>
                 <div class="activity"><strong>Drafting.</strong> Start your speech. Get words on the page.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-05-27">
                 <div class="date">Wed, May 27</div>
                 <div class="activity"><strong>Drafting & revising.</strong> Keep building. Read it aloud. Fix what doesn't land.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-05-28">
                 <div class="date">Thu, May 28</div>
                 <div class="activity"><strong>Drafting & revising.</strong> Tighten it. Cut the fat. Make every word earn its keep.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-05-29">
                 <div class="date">Fri, May 29</div>
                 <div class="activity"><strong>Drafting & revising.</strong> Final push. Polish. Prepare to record.</div>
             </div>
 
-            <!-- Final Week -->
-            <div class="week-label">Final Week: June 2–5</div>
+            <!-- Recording Week -->
+            <div class="week-label">Recording & Delivery: June 2–5</div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-06-02">
                 <div class="date">Mon, Jun 2</div>
                 <div class="activity"><strong>Recording & delivery.</strong> Get it on video. Own it.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-06-03">
                 <div class="date">Tue, Jun 3</div>
                 <div class="activity"><strong>Recording & delivery.</strong> Record. Share. Celebrate.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-06-04">
                 <div class="date">Wed, Jun 4</div>
                 <div class="activity"><strong>Recording & delivery.</strong> Finishing up recordings.</div>
             </div>
 
-            <div class="day-row">
+            <div class="day-row" data-date="2026-06-05">
                 <div class="date">Thu, Jun 5</div>
                 <div class="activity"><strong>Done.</strong> <em>Unit complete.</em></div>
             </div>
         </div>
     </div>
+
+    <script>
+        function highlightToday() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayString = `${year}-${month}-${day}`;
+
+            const todayRow = document.querySelector(`[data-date="${todayString}"]`);
+            if (todayRow) {
+                todayRow.classList.add('today');
+            }
+        }
+
+        // Run on page load
+        highlightToday();
+    </script>
 </body>
 </html>
