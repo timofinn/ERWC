@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduation Speech Unit Calendar</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --teal: #4a9b8e;
+            --dark-teal: #2d6b62;
+            --light-gray: #f5f5f5;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --border: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: white;
+            padding: 24px;
+            line-height: 1.6;
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .calendar {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .calendar-head {
+            background: var(--dark-teal);
+            color: white;
+            padding: 16px 24px;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 24px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .calendar-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 24px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            align-items: start;
+        }
+
+        .day-row:last-child {
+            border-bottom: none;
+        }
+
+        .day-row.today {
+            background: rgba(74, 155, 142, 0.04);
+        }
+
+        .day-row.no-class {
+            background: var(--light-gray);
+            opacity: 0.7;
+        }
+
+        .date {
+            font-weight: 600;
+            color: var(--teal);
+            font-size: 14px;
+            min-width: 120px;
+        }
+
+        .date.no-class {
+            color: var(--text-light);
+        }
+
+        .activity {
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .activity strong {
+            font-weight: 600;
+        }
+
+        .activity em {
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .week-label {
+            padding: 12px 24px;
+            background: var(--light-gray);
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-top: 1px solid var(--border);
+        }
+
+        .week-label:first-of-type {
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Graduation Speech Unit Calendar</h1>
+        <p>ERWC — Speeches Through Four Lenses</p>
+    </div>
+
+    <div class="calendar">
+        <div class="calendar-head">
+            <div>Day</div>
+            <div>What's Happening</div>
+        </div>
+        <div class="calendar-body">
+            <!-- This Week -->
+            <div class="week-label">This Week: May 18–22</div>
+
+            <div class="day-row today">
+                <div class="date">Wed, May 20</div>
+                <div class="activity">Demo your understanding. Speech or writing — show what you know about the devices.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Thu, May 21</div>
+                <div class="activity"><strong>Grad night.</strong> <em>No class — seniors heading to So Cal.</em></div>
+            </div>
+
+            <div class="day-row no-class">
+                <div class="date no-class">Fri, May 22</div>
+                <div class="activity"><em>No school — district wide closure.</em></div>
+            </div>
+
+            <!-- Next Week -->
+            <div class="week-label">Next Week: May 26–29</div>
+
+            <div class="day-row no-class">
+                <div class="date no-class">Mon, May 25</div>
+                <div class="activity"><em>Memorial Day — no school.</em></div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Tue, May 26</div>
+                <div class="activity"><strong>Drafting.</strong> Start your speech. Get words on the page.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Wed, May 27</div>
+                <div class="activity"><strong>Drafting & revising.</strong> Keep building. Read it aloud. Fix what doesn't land.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Thu, May 28</div>
+                <div class="activity"><strong>Drafting & revising.</strong> Tighten it. Cut the fat. Make every word earn its keep.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Fri, May 29</div>
+                <div class="activity"><strong>Drafting & revising.</strong> Final push. Polish. Prepare to record.</div>
+            </div>
+
+            <!-- Final Week -->
+            <div class="week-label">Final Week: June 2–5</div>
+
+            <div class="day-row">
+                <div class="date">Mon, Jun 2</div>
+                <div class="activity"><strong>Recording & delivery.</strong> Get it on video. Own it.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Tue, Jun 3</div>
+                <div class="activity"><strong>Recording & delivery.</strong> Record. Share. Celebrate.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Wed, Jun 4</div>
+                <div class="activity"><strong>Recording & delivery.</strong> Finishing up recordings.</div>
+            </div>
+
+            <div class="day-row">
+                <div class="date">Thu, Jun 5</div>
+                <div class="activity"><strong>Done.</strong> <em>Unit complete.</em></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
