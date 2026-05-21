@@ -129,6 +129,7 @@
         font-size: 16px;
         padding: 10px 10px;
         border: 2px solid var(--white);
+        border-radius: 7px;
         text-transform: none;
         letter-spacing: 0;
     }
@@ -137,7 +138,7 @@
 <body>
     <div class="header">
         <h1>Graduation Speech Unit Calendar</h1>
-        <h2>ERWC — Speeches Through Four Lenses</h2>
+        <h2>Four Lenses. Nine Devices. One Speech</h2>
     </div>
 
     <div class="calendar">
@@ -214,7 +215,7 @@
                 <div class="activity"><strong>Grad night.</strong> Empty class likely. Nothing to see here.</div>
             </div>
 
-            <div class="day-row no-class" data-date="2026-05-22">
+            <div class="day-row" data-date="2026-05-22">
                 <div class="date no-class">Fri, May 22</div>
                 <div class="activity"><strong>Memorial Day Holiday! No school.</strong></div>
             </div>
@@ -222,9 +223,9 @@
             <!-- Drafting Week -->
             <div class="week-label">Week 4| May 26–29 | Drafting & Revising</div>
 
-            <div class="day-row no-class" data-date="2026-05-25">
-                <div class="date no-class">Mon, May 25</div>
-                <div class="activity"><em>Actual</em> Memorial Day — no school.</div>
+            <div class="day-row" data-date="2026-05-25">
+                <div class="date">Mon, May 25</div>
+                <div class="activity"><strong>Actual Memorial Day</strong> — no school.</div>
             </div>
 
             <div class="day-row" data-date="2026-05-26">
@@ -286,8 +287,45 @@
             }
         }
 
+        function toggleWeekGroup(label) {
+            const isOpen = label.getAttribute('aria-expanded') === 'true';
+            label.setAttribute('aria-expanded', String(!isOpen));
+
+            let sibling = label.nextElementSibling;
+            while (sibling && !sibling.classList.contains('week-label')) {
+                sibling.classList.toggle('week-group-hidden', isOpen);
+                sibling = sibling.nextElementSibling;
+            }
+        }
+
+        function setupWeekAccordions() {
+            const labels = document.querySelectorAll('.week-label');
+            labels.forEach((label, index) => {
+                label.setAttribute('role', 'button');
+                label.setAttribute('tabindex', '0');
+                label.setAttribute('aria-expanded', index === 0 ? 'true' : 'false');
+
+                if (index !== 0) {
+                    let sibling = label.nextElementSibling;
+                    while (sibling && !sibling.classList.contains('week-label')) {
+                        sibling.classList.add('week-group-hidden');
+                        sibling = sibling.nextElementSibling;
+                    }
+                }
+
+                label.addEventListener('click', () => toggleWeekGroup(label));
+                label.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleWeekGroup(label);
+                    }
+                });
+            });
+        }
+
         // Run on page load
         highlightToday();
+        setupWeekAccordions();
     </script>
 </body>
 </html>
