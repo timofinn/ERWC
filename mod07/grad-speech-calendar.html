@@ -16,7 +16,16 @@
             --text-light: #666;
             --border: #ddd;
             --white: #ffffff;
+            background: linear-gradient(90deg, #ff0000, #0000ff); /* Red to blue */
+            background: linear-gradient(135deg, #667eea, #764ba2); /* Purple diagonal */
+            background: linear-gradient(45deg, #f093fb, #f5576c); /* Pink gradient */
         }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+}
 
         * {
             margin: 0;
@@ -137,7 +146,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Graduation Speech Unit Calendar</h1>
+        <h1 class="gradient-text">Graduation Speech Unit Calendar</h1>
         <h2>Four Lenses. Nine Devices. One Speech</h2>
     </div>
 
