@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.12 | Speech Outline</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2d6a5e;
+    --teal-mid: #4a9585;
+    --teal-light: #e8f4f1;
+    --gold: #c9962a;
+    --gold-light: #fdf4e3;
+    --dark: #1a1a2e;
+    --slate: #4a5568;
+    --fog: #f4f6f8;
+    --white: #ffffff;
+    --red: #c0392b;
+    --red-light: #fdf0f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fog);
+    color: var(--dark);
+    padding: 0 0 60px 0;
+  }
+
+  /* HEADER */
+  .hero {
+    background: var(--teal);
+    color: var(--white);
+    padding: 36px 32px 30px;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  /* MAIN */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin: 36px 0 12px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 0.92rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* TIMING GRID */
+  .timing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .timing-block {
+    background: var(--teal-light);
+    border-radius: 8px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .timing-block .time {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .timing-block .label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .timing-block .note {
+    font-size: 0.8rem;
+    color: var(--slate);
+    line-height: 1.4;
+  }
+
+  /* MISTAKE LIST */
+  .mistake-list {
+    list-style: none;
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mistake-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .mistake-list .x {
+    background: var(--red);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* OUTLINE SECTION */
+  .outline-block {
+    border-left: 4px solid var(--teal-mid);
+    padding-left: 18px;
+    margin-bottom: 24px;
+  }
+  .outline-block .block-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .outline-block .block-time {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .outline-block .field-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    margin-top: 14px;
+  }
+  .outline-block textarea {
+    width: 100%;
+    border: 1.5px solid #dde3ea;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--dark);
+    resize: vertical;
+    min-height: 72px;
+    background: var(--fog);
+    transition: border-color 0.2s;
+  }
+  .outline-block textarea:focus {
+    outline: none;
+    border-color: var(--teal-mid);
+    background: var(--white);
+  }
+  .outline-block textarea::placeholder {
+    color: #aab0bb;
+  }
+
+  /* GOLD ACCENT for hook */
+  .outline-block.hook {
+    border-color: var(--gold);
+  }
+  .outline-block.hook .block-title {
+    color: var(--gold);
+  }
+
+  /* RED ACCENT for closing */
+  .outline-block.close {
+    border-color: #2d5fa3;
+  }
+  .outline-block.close .block-title {
+    color: #2d5fa3;
+  }
+
+  /* PARTNER CHECK */
+  .partner-card {
+    background: var(--gold-light);
+    border: 2px dashed var(--gold);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .partner-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .partner-card p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .partner-checks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 4px;
+  }
+  .partner-checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+  .partner-checks li::before {
+    content: "□";
+    color: var(--gold);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: -1px;
+  }
+
+  /* SUBMIT */
+  .submit-card {
+    background: var(--teal);
+    border-radius: 10px;
+    padding: 22px 26px;
+    color: var(--white);
+  }
+  .submit-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .submit-card p {
+    font-size: 0.88rem;
+    opacity: 0.88;
+    line-height: 1.6;
+  }
+  .submit-card code {
+    background: rgba(255,255,255,0.15);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">7.12 &nbsp;|&nbsp; Graduation Speech</div>
+    <h1>Build the Blueprint</h1>
+    <p>You've got raw material. Now put it in order. Today you'll build a working outline — the skeleton your draft will hang on.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION: HOW LONG IS THIS THING -->
+  <div class="section-label">Before You Structure</div>
+
+  <div class="card">
+    <h2>Know Your Clock</h2>
+    <p>A graduation speech is not an essay. It has a hard stop. Here's where your time goes:</p>
+    <div class="timing-grid">
+      <div class="timing-block">
+        <div class="time">30–45s</div>
+        <div class="label">Opening</div>
+        <div class="note">Hook + one line that sets your angle</div>
+      </div>
+      <div class="timing-block">
+        <div class="time">3–5 min</div>
+        <div class="label">Body</div>
+        <div class="note">2–3 story beats, the turn, the lesson</div>
+      </div>
+      <div class="timing-block">
+        <div class="time">30–45s</div>
+        <div class="label">Closing</div>
+        <div class="note">Callback + send-off that lands clean</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: COMMON MISTAKES -->
+  <div class="section-label">Clear These Off the Table</div>
+
+  <div class="card" style="border-left: 4px solid var(--red);">
+    <h2 style="color: var(--red);">The List You Don't Want to Be On</h2>
+    <p>These are the five most common ways graduation speeches lose the room. Check yours against them before you outline.</p>
+    <ul class="mistake-list">
+      <li>
+        <span class="x">✕</span>
+        <span><strong>Inside jokes.</strong> You're not talking to your five closest friends. The whole class — and their families — are in that room.</span>
+      </li>
+      <li>
+        <span class="x">✕</span>
+        <span><strong>Going over time.</strong> Nothing kills goodwill faster than running long. If your outline doesn't fit 5 minutes, cut it now, not on the day.</span>
+      </li>
+      <li>
+        <span class="x">✕</span>
+        <span><strong>Too much "I."</strong> Your story is the vehicle, not the destination. The speech should feel like it belongs to everyone in the room.</span>
+      </li>
+      <li>
+        <span class="x">✕</span>
+        <span><strong>Reading the whole thing.</strong> You can have notes. You should not disappear into a paper. Make eye contact. Breathe. Talk to people.</span>
+      </li>
+      <li>
+        <span class="x">✕</span>
+        <span><strong>Forcing inspiration.</strong> You don't have to deliver a TED talk. A specific, honest moment lands harder than borrowed wisdom that doesn't fit your voice.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SECTION: BUILD THE OUTLINE -->
+  <div class="section-label">Build the Outline</div>
+
+  <div class="card">
+    <h2>Your Speech, Section by Section</h2>
+    <p style="margin-bottom: 20px;">Use what you dug up in 7.11. Don't write sentences yet — just map the moves. You're staking out territory, not decorating it.</p>
+
+    <!-- HOOK -->
+    <div class="outline-block hook">
+      <div class="block-title">Opening Hook</div>
+      <div class="block-time">≈ 30–45 seconds</div>
+      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">One strong move — a question, a line, a scene, a contradiction — that makes the room lean in. Don't explain it yet. Just land it.</p>
+      <div class="field-label">My hook</div>
+      <textarea placeholder="Write it here. One or two sentences max. If it takes three, trim."></textarea>
+      <div class="field-label">Why it works (one sentence)</div>
+      <textarea style="min-height: 48px;" placeholder="e.g. It creates contrast / It names something everyone felt but never said / It sets up the turn in the body"></textarea>
+    </div>
+
+    <!-- BODY -->
+    <div class="outline-block">
+      <div class="block-title">Body — Story Beat 1</div>
+      <div class="block-time">3–5 minutes total for all beats</div>
+      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">A specific moment or scene from your brainstorm. Anchor it in time and place — not "sophomore year was hard" but "the day I walked into Mr. Reyes's class and everyone was silent."</p>
+      <div class="field-label">The moment (one or two sentences)</div>
+      <textarea placeholder="Where are we? What happens? Who's there?"></textarea>
+      <div class="field-label">What it says (what does this beat carry?)</div>
+      <textarea style="min-height: 48px;" placeholder="e.g. This is where I show that the class didn't know what was coming. Sets up the contrast."></textarea>
+    </div>
+
+    <div class="outline-block">
+      <div class="block-title">Body — Story Beat 2</div>
+      <div class="block-time">Optional — use if you have a strong second scene</div>
+      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">A second scene that adds tension, raises the stakes, or widens the lens to the whole class.</p>
+      <div class="field-label">The moment</div>
+      <textarea placeholder="Skip this if your beat 1 can carry the whole body. Don't pad."></textarea>
+      <div class="field-label">What it adds</div>
+      <textarea style="min-height: 48px;" placeholder="Why does this beat need to be here?"></textarea>
+    </div>
+
+    <div class="outline-block">
+      <div class="block-title">The Turn</div>
+      <div class="block-time">The pivot point — maybe 30 seconds</div>
+      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">This is where "I" becomes "we." The moment your story opens up and speaks to everyone. If you're stuck, ask: <em>What did this teach me that's also true for everyone else in this room?</em></p>
+      <div class="field-label">The turn (one or two sentences)</div>
+      <textarea placeholder="e.g. 'I thought that was my story. But look around — we all have a version of that day.'"></textarea>
+    </div>
+
+    <!-- CLOSE -->
+    <div class="outline-block close">
+      <div class="block-title">Closing</div>
+      <div class="block-time">≈ 30–45 seconds</div>
+      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">Callback to your hook, or a clean send-off that ends on a specific image or line — not "in conclusion." The last thing they hear should feel like a door opening, not a summary.</p>
+      <div class="field-label">The closing move</div>
+      <textarea placeholder="What's the last image, line, or call-to-action you leave them with?"></textarea>
+      <div class="field-label">Does it echo the hook? (yes/no + how)</div>
+      <textarea style="min-height: 48px;" placeholder="e.g. Yes — the hook asked a question; the close answers it. / No — the close is a new image but it earns its own landing."></textarea>
+    </div>
+
+  </div>
+
+  <!-- SECTION: PARTNER CHECK -->
+  <div class="section-label">Before You Leave Today</div>
+
+  <div class="partner-card">
+    <h2>Partner Check</h2>
+    <p>Swap outlines with someone near you. You have three minutes each. Your job is not to fix their speech — it's to tell them what you saw and what you missed.</p>
+    <ul class="partner-checks">
+      <li>Can you describe their hook in one sentence? (If not, it's not clear enough yet.)</li>
+      <li>Is there a real, specific moment in the body — or just a vague concept?</li>
+      <li>Does the turn make the shift from "I" to "we"? Point to the line where it happens.</li>
+      <li>Does the close land, or does it just stop?</li>
+      <li>Flag anything on the Common Mistakes list that shows up.</li>
+    </ul>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-card">
+    <h2>Save Your Outline</h2>
+    <p>Copy your outline fields into a Google Doc titled <code>7.12 | [Your Name] | Speech Outline</code> and submit the link in Canvas. Tomorrow, you write.</p>
+  </div>
+
+</div>
+</body>
+</html>
