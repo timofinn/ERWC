@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.14 | Rehearsal + Record</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2d6a5e;
+    --teal-mid: #4a9585;
+    --teal-light: #e8f4f1;
+    --gold: #c9962a;
+    --gold-light: #fdf4e3;
+    --dark: #1a1a2e;
+    --slate: #4a5568;
+    --fog: #f4f6f8;
+    --white: #ffffff;
+    --blue: #2d5fa3;
+    --blue-light: #eef4fb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fog);
+    color: var(--dark);
+    padding: 0 0 60px 0;
+  }
+
+  .hero {
+    background: var(--teal);
+    color: var(--white);
+    padding: 36px 32px 30px;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin: 36px 0 12px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 0.92rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* ROUND STEPS */
+  .round {
+    border-left: 4px solid var(--teal-mid);
+    padding-left: 18px;
+    margin-bottom: 24px;
+  }
+  .round-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .round-time {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .round p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .round ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 6px;
+  }
+  .round li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .round li::before {
+    content: "→";
+    color: var(--teal-mid);
+    flex-shrink: 0;
+  }
+
+  /* TIMING BOX */
+  .timing-note {
+    background: var(--gold-light);
+    border: 1.5px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+  .timing-note strong {
+    color: var(--gold);
+  }
+
+  /* PEER FEEDBACK */
+  .feedback-card {
+    background: var(--blue-light);
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .feedback-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+  .feedback-card p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .feedback-table th {
+    background: var(--blue);
+    color: white;
+    font-size: 0.73rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .feedback-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #d0ddef;
+    vertical-align: top;
+    color: var(--slate);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .feedback-table tr:last-child td {
+    border-bottom: none;
+  }
+  .feedback-table td:first-child {
+    color: var(--dark);
+    font-weight: 600;
+    width: 180px;
+  }
+
+  /* RECORD CARD */
+  .record-card {
+    background: var(--teal-light);
+    border: 2px solid var(--teal-mid);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .record-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .record-card p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .record-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .record-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .record-list li::before {
+    content: "□";
+    color: var(--teal-mid);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: -1px;
+  }
+
+  /* ABSENT CALLOUT */
+  .absent-card {
+    background: #fff9ec;
+    border: 2px dashed var(--gold);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .absent-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .absent-card p {
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+  .absent-card code {
+    background: rgba(201,150,42,0.12);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.82rem;
+    color: var(--dark);
+  }
+
+  /* SUBMIT */
+  .submit-card {
+    background: var(--teal);
+    border-radius: 10px;
+    padding: 22px 26px;
+    color: var(--white);
+  }
+  .submit-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .submit-card p {
+    font-size: 0.88rem;
+    opacity: 0.88;
+    line-height: 1.6;
+  }
+  .submit-card code {
+    background: rgba(255,255,255,0.15);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+  }
+  .submit-card ul {
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .submit-card li {
+    font-size: 0.87rem;
+    opacity: 0.9;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .submit-card li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">7.14 &nbsp;|&nbsp; Graduation Speech</div>
+    <h1>Say It Out Loud</h1>
+    <p>The speech lives on a stage, not a screen. Today you get off the page — read it aloud, hear what works, get feedback, and record.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION: TODAY -->
+  <div class="section-label">Today's Plan</div>
+
+  <div class="card">
+    <h2>Three Rounds</h2>
+    <p style="margin-bottom: 16px;">Fifty-five minutes. Here's the shape:</p>
+
+    <div class="round">
+      <div class="round-title">Round 1 — Solo Read-Aloud</div>
+      <div class="round-time">0–15 min</div>
+      <p>Read your draft out loud to yourself. Not in your head — actually out loud. Time it.</p>
+      <ul>
+        <li>Mark any line that feels awkward to say. Put a star in the margin.</li>
+        <li>Notice where you speed up. That's usually a sign you don't trust the line.</li>
+        <li>Note the total time. Under 4 minutes? Add a beat. Over 6? Find 30 seconds to cut.</li>
+      </ul>
+      <div class="timing-note">
+        <strong>Target:</strong> 4–6 minutes at your actual speaking pace. If you can't hit that today, that's what revision is for.
+      </div>
+    </div>
+
+    <div class="round">
+      <div class="round-title">Round 2 — Partner Listen</div>
+      <div class="round-time">15–40 min</div>
+      <p>Find a partner. Read your speech to them — not at them. Put the paper down as much as you can. Your partner's job is to listen, not follow along.</p>
+      <p>After each reading, use the feedback table below. Switch roles. Be specific.</p>
+    </div>
+
+    <div class="round">
+      <div class="round-title">Round 3 — Final Pass + Record</div>
+      <div class="round-time">40–55 min</div>
+      <p>Take five minutes to fix anything that came up. Then record yourself reading the full speech. One take is fine. Two if you need it.</p>
+      <ul>
+        <li>Use your phone, a Chromebook camera, or whatever's available.</li>
+        <li>Stand up if you can. It changes the delivery.</li>
+        <li>Don't start over because you stumbled. Real speeches have stumbles. Keep going.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION: PEER FEEDBACK -->
+  <div class="section-label">Partner Feedback</div>
+
+  <div class="feedback-card">
+    <h2>Listen. Then Tell the Truth.</h2>
+    <p>Good feedback is specific. "It was good" tells them nothing. "The part about the hallway made me remember something" — that's something they can use.</p>
+    <table class="feedback-table">
+      <thead>
+        <tr>
+          <th>What to notice</th>
+          <th>What to say to your partner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The hook</td>
+          <td>Tell them what image or idea stuck with you in the first 30 seconds. Did it make you want to keep listening?</td>
+        </tr>
+        <tr>
+          <td>The moment</td>
+          <td>Name the specific scene or detail you remember most. If you can't name one, the story might not be landing yet.</td>
+        </tr>
+        <tr>
+          <td>The turn</td>
+          <td>Point to the line where it felt like it stopped being just their story. Did that shift happen?</td>
+        </tr>
+        <tr>
+          <td>The close</td>
+          <td>What's the last thing you actually heard? Did it feel like it ended, or just stopped?</td>
+        </tr>
+        <tr>
+          <td>Delivery</td>
+          <td>One moment they made eye contact or slowed down and it worked. One moment you lost them to the paper.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RECORD -->
+  <div class="section-label">Recording Checklist</div>
+
+  <div class="record-card">
+    <h2>Before You Hit Record</h2>
+    <p>You don't need a studio. You need a quiet-ish spot and a way to see yourself or hear yourself back.</p>
+    <ul class="record-list">
+      <li>Find a spot with decent sound — not right next to an open window or a loud HVAC.</li>
+      <li>Stand up, or sit up straight. Slouching changes your voice more than you think.</li>
+      <li>Have your Google Doc open but try not to read every word. You can glance — don't stare.</li>
+      <li>Record at least the full speech, start to finish, without stopping.</li>
+      <li>Watch it back or listen once. You don't have to be happy with it. You just have to submit it.</li>
+    </ul>
+  </div>
+
+  <!-- ABSENT STUDENTS -->
+  <div class="section-label">If You're Not Here Today</div>
+
+  <div class="absent-card">
+    <h2>Record at Home</h2>
+    <p>If you miss class, you can complete the recording on your own. Use your phone — voice memo or video, either works. Read your speech aloud at least twice before you record. Then do one full take and submit it.</p>
+    <p style="margin-top: 8px;">Upload your recording to Google Drive and paste the link in the Canvas submission for this assignment. Title it: <code>7.14 | [Your Name] | Speech Recording</code></p>
+    <p style="margin-top: 8px;">Deadline is the same as everyone else's.</p>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-card">
+    <h2>Submission</h2>
+    <p>Submit two things in Canvas for 7.14:</p>
+    <ul>
+      <li>Your final Google Doc (same one from 7.13, with any revisions made today)</li>
+      <li>A link to your recording — Google Drive video or audio memo</li>
+    </ul>
+    <p style="margin-top: 10px;">That's the speech. Written and said. You're done.</p>
+  </div>
+
+</div>
+</body>
+</html>

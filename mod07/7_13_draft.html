@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.13 | Draft + Shape</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2d6a5e;
+    --teal-mid: #4a9585;
+    --teal-light: #e8f4f1;
+    --gold: #c9962a;
+    --gold-light: #fdf4e3;
+    --dark: #1a1a2e;
+    --slate: #4a5568;
+    --fog: #f4f6f8;
+    --white: #ffffff;
+    --red: #c0392b;
+    --red-light: #fdf0f0;
+    --purple: #6c4fa3;
+    --purple-light: #f3f0fb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fog);
+    color: var(--dark);
+    padding: 0 0 60px 0;
+  }
+
+  .hero {
+    background: var(--teal);
+    color: var(--white);
+    padding: 36px 32px 30px;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin: 36px 0 12px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 0.92rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* PHASE STEPS */
+  .phase-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .phase-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .step-num {
+    background: var(--teal);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.55;
+  }
+
+  /* DEVICE REFERENCE TABLE */
+  .device-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.85rem;
+  }
+  .device-table th {
+    background: var(--teal-light);
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .device-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #edf0f4;
+    vertical-align: top;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .device-table tr:last-child td {
+    border-bottom: none;
+  }
+  .device-table td:first-child {
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
+    width: 130px;
+  }
+  .device-table tr:hover td {
+    background: var(--fog);
+  }
+
+  /* DEVICE LABEL CARD */
+  .label-card {
+    background: var(--purple-light);
+    border: 2px solid var(--purple);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .label-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+  .label-card p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .label-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+  .label-table th {
+    background: var(--purple);
+    color: white;
+    font-size: 0.73rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .label-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #e0d8f0;
+    vertical-align: top;
+    color: var(--slate);
+    font-size: 0.85rem;
+  }
+  .label-table tr:last-child td {
+    border-bottom: none;
+  }
+  .label-table td:first-child {
+    font-weight: 600;
+    color: var(--dark);
+    width: 30px;
+    text-align: center;
+  }
+
+  /* SELF-CHECK */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .check-list li::before {
+    content: "□";
+    color: var(--teal-mid);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: -1px;
+  }
+
+  /* SUBMIT */
+  .submit-card {
+    background: var(--teal);
+    border-radius: 10px;
+    padding: 22px 26px;
+    color: var(--white);
+  }
+  .submit-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .submit-card p {
+    font-size: 0.88rem;
+    opacity: 0.88;
+    line-height: 1.6;
+  }
+  .submit-card code {
+    background: rgba(255,255,255,0.15);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+  }
+  .submit-card ul {
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .submit-card li {
+    font-size: 0.87rem;
+    opacity: 0.9;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .submit-card li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">7.13 &nbsp;|&nbsp; Graduation Speech</div>
+    <h1>Draft It. Shape It.</h1>
+    <p>Outline in hand, pen moving. You've got the plan — now write the actual speech and make the devices do some work.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION: TODAY'S PLAN -->
+  <div class="section-label">How This Period Goes</div>
+
+  <div class="card">
+    <h2>Your Schedule</h2>
+    <p>Fifty-five minutes. Split it like this:</p>
+    <div class="phase-steps" style="margin-top: 16px;">
+      <div class="phase-step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>0–5 min</strong> — Review your outline from 7.12. Make any quick fixes before you write. Don't rewrite the whole thing. Tweak and go.</div>
+      </div>
+      <div class="phase-step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>5–35 min</strong> — Write the full draft in Google Docs. Start from the hook. Move section by section. Don't edit as you go. Get words on the page.</div>
+      </div>
+      <div class="phase-step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>35–50 min</strong> — Label your devices. Use the table below. You need at least five, across at least two different types. Highlight the passage, then add a comment in Google Docs naming the device.</div>
+      </div>
+      <div class="phase-step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>50–55 min</strong> — Self-check using the list at the bottom of this page. Clean up anything that fails it.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: DEVICE REFERENCE -->
+  <div class="section-label">Device Reference</div>
+
+  <div class="card">
+    <h2>The Nine Devices — Quick Lookup</h2>
+    <p style="margin-bottom: 4px;">You've studied these. Use this as a fast reminder while you draft. The goal isn't to force all nine in — it's to find the five (or more) that already fit what you're saying, and make them land harder.</p>
+    <table class="device-table">
+      <thead>
+        <tr>
+          <th>Device</th>
+          <th>What it does</th>
+          <th>Speech example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Anaphora</td>
+          <td>Repeats a word or phrase at the start of consecutive clauses</td>
+          <td>"We stayed late. We came early. We showed up."</td>
+        </tr>
+        <tr>
+          <td>Antistrophe</td>
+          <td>Repeats at the end of clauses</td>
+          <td>"This class built something. This class lost something. This class became something."</td>
+        </tr>
+        <tr>
+          <td>Tricolon</td>
+          <td>Three parallel items, building in force</td>
+          <td>"We were loud, we were tired, we were unstoppable."</td>
+        </tr>
+        <tr>
+          <td>Antithesis</td>
+          <td>Puts opposites side by side to create contrast</td>
+          <td>"The year started in chaos. It ended in clarity."</td>
+        </tr>
+        <tr>
+          <td>Metaphor</td>
+          <td>Calls one thing another to fuse their meanings</td>
+          <td>"Senior year was a construction site — nothing looked finished until suddenly it was."</td>
+        </tr>
+        <tr>
+          <td>Analogy</td>
+          <td>Draws a comparison to make a complex idea clear</td>
+          <td>"Graduating is like finishing a long hike — you don't feel proud until you look back."</td>
+        </tr>
+        <tr>
+          <td>Chiasmus</td>
+          <td>Reverses the structure of two parallel phrases</td>
+          <td>"We didn't just leave this school — this school left something in us."</td>
+        </tr>
+        <tr>
+          <td>Hypophora</td>
+          <td>Asks a question, then immediately answers it</td>
+          <td>"Did we know this would be hard? We did. Did we do it anyway? Look around."</td>
+        </tr>
+        <tr>
+          <td>Parallelism</td>
+          <td>Repeats a grammatical structure across phrases</td>
+          <td>"To the freshmen: stay curious. To the juniors: hold on. To my class: we made it."</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION: DEVICE LABELING -->
+  <div class="section-label">Label Your Devices</div>
+
+  <div class="label-card">
+    <h2>Minimum Five. At Least Two Types.</h2>
+    <p>Don't just drop a device in — make sure it's earning its keep. A device that fits sounds natural. One that's forced sticks out. Find the spots in your draft where the language already has rhythm or contrast, then identify what's happening.</p>
+    <p><strong>How to label in Google Docs:</strong> Highlight the phrase → Insert → Comment → Type the device name + one sentence on what it does.</p>
+    <table class="label-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Device</th>
+          <th>The passage (copy it here)</th>
+          <th>What it does in this moment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="color: #bbb;">+</td>
+          <td style="color: #bbb; font-style: italic;">bonus</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION: SELF-CHECK -->
+  <div class="section-label">Before You Submit</div>
+
+  <div class="card">
+    <h2>Self-Check</h2>
+    <p style="margin-bottom: 4px;">Run through this before you hand it in. If you can't check a box, fix it first.</p>
+    <ul class="check-list">
+      <li>The hook is specific — not "high school was a journey" but a scene, a question, or a line that earns its spot.</li>
+      <li>The body has at least one story that's anchored in time and place.</li>
+      <li>There's a turn where "I" becomes "we."</li>
+      <li>The closing echoes or answers something from the opening.</li>
+      <li>I labeled at least five rhetorical devices with comments in the doc.</li>
+      <li>The draft would take 4–6 minutes to read aloud at a normal pace. (If you're not sure — read it aloud right now and time it.)</li>
+      <li>Nothing on the Mistakes list from 7.12 made it into the draft.</li>
+    </ul>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-card">
+    <h2>Turn It In</h2>
+    <p>Submit your Google Doc in Canvas. Make sure sharing is set so your teacher can comment.</p>
+    <p style="margin-top: 8px;">Title your doc: <code>7.13 | [Your Name] | Speech Draft</code></p>
+    <p style="margin-top: 10px; opacity: 0.8;">Your doc should have:</p>
+    <ul>
+      <li>The full speech draft (complete opening, body, and close)</li>
+      <li>Inline comments labeling at least five devices</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

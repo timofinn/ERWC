@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.11 | Speech Brainstorm Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2d6a5e;
+    --teal-mid: #4a9585;
+    --teal-light: #e8f4f1;
+    --gold: #c9962a;
+    --gold-light: #fdf4e3;
+    --dark: #1a1a2e;
+    --slate: #4a5568;
+    --fog: #f4f6f8;
+    --white: #ffffff;
+    --red-light: #fdf0f0;
+    --red: #c0392b;
+    --purple-light: #f3f0fb;
+    --purple: #6c4fa3;
+    --blue-light: #eef4fb;
+    --blue: #2d5fa3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fog);
+    color: var(--dark);
+    padding: 0 0 60px 0;
+  }
+
+  /* HEADER */
+  .hero {
+    background: var(--teal);
+    color: var(--white);
+    padding: 36px 32px 30px;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    font-size: 0.97rem;
+    opacity: 0.85;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* PHASE WRAPPER */
+  .phase-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* PHASE LABEL */
+  .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 36px 0 14px;
+  }
+  .phase-num {
+    background: var(--teal);
+    color: var(--white);
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .phase-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--dark);
+  }
+  .phase-sub {
+    font-size: 0.88rem;
+    color: var(--slate);
+    margin-top: 2px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    border: 1.5px solid #e2e8f0;
+  }
+
+  .card-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 0.93rem;
+    color: var(--slate);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* LENS SELECTOR */
+  .lens-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  @media (max-width: 560px) { .lens-grid { grid-template-columns: 1fr; } }
+
+  .lens-btn {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: var(--white);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s ease;
+  }
+  .lens-btn:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+  .lens-btn.selected { border-color: var(--teal); background: var(--teal-light); }
+
+  .lens-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .lens-desc {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* LENS TRACKS */
+  .lens-track {
+    display: none;
+  }
+  .lens-track.active {
+    display: block;
+  }
+
+  /* PROMPT BLOCKS */
+  .prompt-block {
+    background: var(--fog);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .prompt-block strong {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .prompt-block p {
+    font-size: 0.92rem;
+    color: var(--dark);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* LENS COLOR VARIANTS */
+  .lens-humor .phase-num, .lens-humor .card-title { background: none; color: var(--gold); }
+  .lens-humor .phase-num { background: var(--gold); color: var(--white); }
+  .lens-humor .prompt-block strong { color: var(--gold); }
+
+  .lens-nostalgia .phase-num { background: var(--purple); color: var(--white); }
+  .lens-nostalgia .card-title, .lens-nostalgia .prompt-block strong { color: var(--purple); }
+
+  .lens-identity .phase-num { background: var(--blue); color: var(--white); }
+  .lens-identity .card-title, .lens-identity .prompt-block strong { color: var(--blue); }
+
+  .lens-risque .phase-num { background: var(--red); color: var(--white); }
+  .lens-risque .card-title, .lens-risque .prompt-block strong { color: var(--red); }
+
+  /* LIST PROMPTS */
+  .list-prompt {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+  }
+  .list-prompt li {
+    font-size: 0.92rem;
+    color: var(--dark);
+    line-height: 1.6;
+    padding: 5px 0 5px 20px;
+    position: relative;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+  .list-prompt li:last-child { border-bottom: none; }
+  .list-prompt li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--teal-mid);
+    font-size: 0.85rem;
+  }
+
+  /* TRIAGE BLOCK */
+  .triage-box {
+    background: var(--gold-light);
+    border: 1.5px dashed var(--gold);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .triage-box .card-title { color: var(--gold); }
+
+  /* DEVICE HOOK */
+  .hook-box {
+    background: var(--teal-light);
+    border: 1.5px solid var(--teal-mid);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1.5px dashed #e2e8f0;
+    margin: 28px 0 0;
+  }
+
+  /* STEP NOTE */
+  .step-note {
+    font-size: 0.83rem;
+    color: var(--slate);
+    font-style: italic;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">7.11 | Speech Lab</div>
+  <h1>Find What You Actually Want to Say</h1>
+  <p>The devices come later. Right now, you need raw material — real memories, real tensions, real moments. That's what this is for.</p>
+</div>
+
+<div class="phase-wrap">
+
+  <!-- PHASE 1: PICK YOUR LENS -->
+  <div class="phase-label">
+    <div class="phase-num">1</div>
+    <div>
+      <div class="phase-title">Pick Your Lens</div>
+      <div class="phase-sub">Your lens is your angle of attack. Everything you write today runs through it.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Which one is yours?</div>
+    <div class="lens-grid">
+      <button class="lens-btn" onclick="selectLens('humor')" id="btn-humor">
+        <div class="lens-name">Humor → Wholesome</div>
+        <div class="lens-desc">Win them with laughs, awe them with heart. The joke opens the door.</div>
+      </button>
+      <button class="lens-btn" onclick="selectLens('nostalgia')" id="btn-nostalgia">
+        <div class="lens-name">Nostalgia → Motivational</div>
+        <div class="lens-desc">Shared memory as setup. The past earns the call to move forward.</div>
+      </button>
+      <button class="lens-btn" onclick="selectLens('identity')" id="btn-identity">
+        <div class="lens-name">Identity-Centered</div>
+        <div class="lens-desc">Personal difference becomes universal insight. The "I" has to do broad work.</div>
+      </button>
+      <button class="lens-btn" onclick="selectLens('risque')" id="btn-risque">
+        <div class="lens-name">Risqué → Critical</div>
+        <div class="lens-desc">Name the elephant. Trust the audience first, then tell them what's wrong.</div>
+      </button>
+    </div>
+    <p class="step-note">Click one to unlock your brainstorm track below.</p>
+  </div>
+
+  <!-- PHASE 2: MINE THE MATERIAL (lens-specific tracks) -->
+  <div class="phase-label">
+    <div class="phase-num">2</div>
+    <div>
+      <div class="phase-title">Mine the Material</div>
+      <div class="phase-sub">Work all three prompts. Don't filter. Volume now, quality later.</div>
+    </div>
+  </div>
+
+  <!-- ===== HUMOR TRACK ===== -->
+  <div class="lens-track lens-humor" id="track-humor">
+    <div class="card">
+      <div class="card-title" style="color:var(--gold)">Prompt A — The Funny List</div>
+      <p>List 5–7 things from this year (or your school career) that were genuinely absurd, awkward, or ridiculous. The more specific, the better. No one needs to hear "lunch was chaotic." Give us the incident.</p>
+      <ul class="list-prompt">
+        <li>A moment that was embarrassing in the best possible way</li>
+        <li>Something that went completely wrong and became a story</li>
+        <li>A rule, tradition, or ritual that makes no sense if you actually think about it</li>
+        <li>A teacher or classmate moment that the whole class still references</li>
+        <li>The one thing that was universally, reliably frustrating — but also kind of funny in retrospect</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--gold)">Prompt B — Find the Turn</div>
+      <p>A Humor → Wholesome speech lives and dies on its pivot. Somewhere in your funny material, there's a genuine feeling hiding underneath. Answer this:</p>
+      <div class="prompt-block">
+        <strong>The freewrite</strong>
+        <p>Take one item from your list above. Write for 3 minutes without stopping: what was actually going on underneath that moment? What did it reveal about who you were, who these people are, or what this place meant to you? Don't be cute. Be honest.</p>
+      </div>
+      <div class="prompt-block">
+        <strong>The turn question</strong>
+        <p>In one sentence: what is the joke actually <em>about</em> at its core? What does it say about growing up, about this class, about being 18 and figuring things out?</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--gold)">Prompt C — The Heart Under the Joke</div>
+      <p>Most forgettable graduation speeches are either all laughs (no landing) or all sincerity (no hook). Your job is the pivot. Finish these sentences — don't overthink them:</p>
+      <ul class="list-prompt">
+        <li>The thing we laughed about most was ___, but what it was really about was ___.</li>
+        <li>We complained about ___ constantly, and honestly, I'm going to miss it.</li>
+        <li>There's one person in this room who ___, and I don't think they know how much that mattered.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== NOSTALGIA TRACK ===== -->
+  <div class="lens-track lens-nostalgia" id="track-nostalgia">
+    <div class="card">
+      <div class="card-title" style="color:var(--purple)">Prompt A — The Memory List</div>
+      <p>List 5–7 shared memories — things the class or school experienced together. The more specific, the stronger. "Prom" is a category. "The moment the DJ played that song and everyone lost it" is a memory.</p>
+      <ul class="list-prompt">
+        <li>A moment everyone in the room was present for — a game, a protest, a performance, a disaster</li>
+        <li>A before-and-after: something that changed the class's mood or trajectory</li>
+        <li>A small, specific detail that captures what freshman year actually felt like</li>
+        <li>The thing that's different about your class compared to the ones before you</li>
+        <li>A tradition, a running joke, a phrase — something that belongs to your class specifically</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--purple)">Prompt B — The Setup / Payoff</div>
+      <p>Nostalgia → Motivational only works if the past feels like <em>setup</em>, not just warmup. The memory has to point somewhere.</p>
+      <div class="prompt-block">
+        <strong>The freewrite</strong>
+        <p>Pick one memory from your list. Write for 3 minutes: what did you not understand then that you understand now? What did that moment teach you that you couldn't have named at the time?</p>
+      </div>
+      <div class="prompt-block">
+        <strong>The bridge question</strong>
+        <p>In one sentence: what does looking back at that moment make you want to do <em>next</em>? That's your call to action. That's your payoff.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--purple)">Prompt C — Then and Now</div>
+      <p>The best nostalgic speeches hold two time frames at once: who we were and who we became. Finish these:</p>
+      <ul class="list-prompt">
+        <li>When we started, we thought ___ mattered. Now we know it was really about ___.</li>
+        <li>The version of me that walked in freshman year would not believe ___.</li>
+        <li>What held us together through ___ was ___. That's worth keeping.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== IDENTITY TRACK ===== -->
+  <div class="lens-track lens-identity" id="track-identity">
+    <div class="card">
+      <div class="card-title" style="color:var(--blue)">Prompt A — Name What's Different</div>
+      <p>Identity-Centered speeches only work if the "I" earns its way to "we." Start by getting honest about what makes your experience specific — then we'll figure out what it connects to.</p>
+      <ul class="list-prompt">
+        <li>Something about your background, identity, or story that shapes how you moved through this school</li>
+        <li>A moment where your difference was visible — not necessarily painful, but noticeable</li>
+        <li>Something you had to figure out that most people in the room didn't have to think about</li>
+        <li>A way you changed yourself to fit in — and whether it was worth it</li>
+        <li>Something you know, because of who you are, that this room needs to hear</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--blue)">Prompt B — The Universal Under the Specific</div>
+      <p>The "I" has to do broad work. Your story isn't just about you — it's evidence of something true for everyone.</p>
+      <div class="prompt-block">
+        <strong>The freewrite</strong>
+        <p>Pick one item from your list. Write for 3 minutes: what does this experience say about something bigger — about this school, this generation, this country, or what it means to grow up right now? Don't be modest. Make the claim.</p>
+      </div>
+      <div class="prompt-block">
+        <strong>The universal question</strong>
+        <p>Complete this: "I'm not the only one in this room who has felt ___." That's where your "I" becomes "we."</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--blue)">Prompt C — What You Want Them to Walk Away Knowing</div>
+      <p>Your speech is an argument. It's making a case for something. Finish these:</p>
+      <ul class="list-prompt">
+        <li>I spent too long thinking ___ was a weakness. It was actually ___.</li>
+        <li>The thing I wish someone had told me freshman year is ___.</li>
+        <li>What I know about ___ [your specific identity/experience] that applies to everyone in this room: ___.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== RISQUÉ TRACK ===== -->
+  <div class="lens-track lens-risque" id="track-risque">
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Prompt A — Name the Elephant</div>
+      <p>The Risqué → Critical lens only works if you go somewhere real. List the things everyone knows but nobody says out loud at graduation. Be specific — vague complaints land flat.</p>
+      <ul class="list-prompt">
+        <li>Something about this school that genuinely doesn't work — and everyone knows it</li>
+        <li>A contradiction: what this place says it values vs. what it actually rewards</li>
+        <li>Something students were told that turned out to be wrong, misleading, or just absurd</li>
+        <li>A system, rule, or expectation that treated students like children when they weren't</li>
+        <li>What graduating actually means — honest answer, not the brochure version</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Prompt B — Earn the Trust First</div>
+      <p>You can't open with the critique. The audience has to like you first — or they'll hear the criticism as bitterness. You need a hook that makes them laugh or nod before you name the problem.</p>
+      <div class="prompt-block">
+        <strong>The freewrite</strong>
+        <p>Write for 3 minutes: what do you genuinely appreciate about this place, these people, or this experience — something real, not a platitude? You need something true to stand on before you take a swing.</p>
+      </div>
+      <div class="prompt-block">
+        <strong>The trust question</strong>
+        <p>In one sentence: what do you and this audience agree on — the thing that makes you one of them — before you ask them to think critically?</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Prompt C — The Critique With a Point</div>
+      <p>Naming what's wrong isn't enough. The best critical speeches end with something to do with the critique — a challenge, a standard, a different story. Finish these:</p>
+      <ul class="list-prompt">
+        <li>We were told ___, and most of us believed it. Here's what was actually true: ___.</li>
+        <li>This place got ___ wrong. The version I wish it had been: ___.</li>
+        <li>If the next class walking through those doors got one thing different, I'd want it to be ___.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PLACEHOLDER WHEN NO LENS SELECTED -->
+  <div id="no-lens-msg" class="card" style="border: 1.5px dashed #cbd5e0; background: var(--fog); text-align: center; padding: 30px;">
+    <p style="color: var(--slate); font-size: 0.95rem;">← Select your lens above to unlock your brainstorm prompts.</p>
+  </div>
+
+  <!-- PHASE 3: TRIAGE -->
+  <hr class="divider">
+  <div class="phase-label">
+    <div class="phase-num">3</div>
+    <div>
+      <div class="phase-title">Triage</div>
+      <div class="phase-sub">You've got raw material. Now cut it down to what's actually worth building on.</div>
+    </div>
+  </div>
+
+  <div class="triage-box">
+    <div class="card-title">Circle your three best lines</div>
+    <p style="font-size:0.93rem; color:var(--dark); line-height:1.65; margin-bottom:12px;">Go back through everything you wrote. Look for the moments where you said something real — specific, honest, surprising. Not the line you're proud of. The line that feels a little risky to say out loud. That's the one.</p>
+    <div class="prompt-block" style="background:var(--white);">
+      <strong>Three tests</strong>
+      <p>Is it <strong>specific</strong>? (A name, a place, a moment — not a category.)<br>
+      Is it <strong>true</strong>? (Does it actually represent your experience?)<br>
+      Does it <strong>connect outward</strong>? (Would someone else in the room recognize it?)</p>
+    </div>
+    <p style="font-size:0.88rem; color:var(--slate); font-style:italic; margin-top:10px;">Write your three best lines in your handout packet, labeled "my material."</p>
+  </div>
+
+  <!-- PHASE 4: DEVICE HOOK -->
+  <div class="phase-label">
+    <div class="phase-num">4</div>
+    <div>
+      <div class="phase-title">Find the Device Hook</div>
+      <div class="phase-sub">One of your three lines is ready to become a rhetorical device. Here's how to spot it.</div>
+    </div>
+  </div>
+
+  <div class="hook-box">
+    <div class="card-title">Match your material to a device</div>
+    <p style="font-size:0.93rem; color:var(--dark); line-height:1.65; margin-bottom:14px;">Look at your three lines and ask: which of these has a <em>shape</em> already hiding in it?</p>
+
+    <div class="prompt-block" style="background:var(--white);">
+      <strong>Repetition devices (7.07)</strong>
+      <p>If one of your lines has an anchor word or phrase that could lead or close three parallel ideas — that's anaphora or antistrophe.<br>
+      If you have three parallel items and the third is the heaviest — that's a tricolon.</p>
+    </div>
+    <div class="prompt-block" style="background:var(--white);">
+      <strong>Comparison devices (7.08)</strong>
+      <p>If your line sets two things against each other — a before and after, a contradiction, a cost — that's antithesis.<br>
+      If you're describing one thing as if it's something else entirely — that's a metaphor or analogy.</p>
+    </div>
+    <div class="prompt-block" style="background:var(--white);">
+      <strong>Structure devices (7.09)</strong>
+      <p>If you want to flip an idea on itself — A-B becomes B-A — that's chiasmus.<br>
+      If you want to ask a question you already know how to answer — that's hypophora.<br>
+      If you have a list of parallel actions or commitments — that's parallelism.</p>
+    </div>
+
+    <p style="font-size:0.88rem; color:var(--slate); font-style:italic; margin-top:12px;">Next class: you'll take this material and shape it. Today's job was to find it.</p>
+  </div>
+
+</div><!-- end phase-wrap -->
+
+<script>
+function selectLens(lens) {
+  // Deselect all buttons
+  ['humor','nostalgia','identity','risque'].forEach(l => {
+    document.getElementById('btn-' + l).classList.remove('selected');
+    document.getElementById('track-' + l).classList.remove('active');
+  });
+  // Select chosen
+  document.getElementById('btn-' + lens).classList.add('selected');
+  document.getElementById('track-' + lens).classList.add('active');
+  document.getElementById('no-lens-msg').style.display = 'none';
+  // Scroll to the track
+  document.getElementById('track-' + lens).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
