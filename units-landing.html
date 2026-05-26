@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Units 4–7 | English</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wdth@75;100&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "Bricolage Grotesque Variable";
+      src: url("https://assets.codepen.io/8914/BricolageGrotesqueVariable_1.woff2") format("woff2-variations");
+      font-style: normal;
+      font-stretch: 75% 100%;
+      font-weight: 200 800;
+      font-display: block;
+    }
+
+    :root {
+      --font-default: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      --font-display: "Bricolage Grotesque Variable", var(--font-default);
+      --offset-1: 150;
+      --offset-2: 210;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-display);
+      font-variation-settings: "wght" 300, "wdth" 95;
+      background: #fafaf8;
+      color: #2a2a1e;
+    }
+
+    .site-header {
+      padding: 3rem 2rem 2rem;
+      background: linear-gradient(135deg, #f0eedf 0%, #fafaf8 100%);
+      border-bottom: 1px solid #e8e5d0;
+    }
+
+    .site-header h1 {
+      font-variation-settings: "wght" 800, "wdth" 75;
+      font-size: 2.8rem;
+      line-height: 1.1;
+      color: #4a4a38;
+      margin-bottom: 0.5rem;
+    }
+
+    .site-header p {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #6a6a58;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .grid {
+      --hue: 180;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      --accent-1: calc(var(--hue) + var(--offset-1));
+      --accent-2: calc(var(--hue) + var(--offset-2));
+      --hue-shift: 0deg;
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      align-items: start;
+      background: oklch(95% 0.02 calc(var(--hue) + var(--hue-shift) + var(--offset-1)));
+      border: 1px solid oklch(88% 0.03 calc(var(--hue) + var(--hue-shift) + var(--offset-1)));
+      border-radius: 16px;
+      padding: 2rem;
+      cursor: pointer;
+      transition: all 0.7s ease;
+      min-height: 100%;
+    }
+
+    .card:hover {
+      --hue-shift: 60deg;
+      border-color: oklch(76% 0.07 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      box-shadow: 0 8px 32px oklch(0% 0 0 / 0.08);
+    }
+
+    .card-header {
+      border-bottom: 2px solid oklch(88% 0.03 calc(var(--hue) + var(--hue-shift) + var(--offset-1)));
+      padding-bottom: 1.2rem;
+      transition: border-color 0.7s ease;
+    }
+
+    .card-unit-number {
+      font-size: 0.85rem;
+      font-variation-settings: "wght" 600;
+      color: oklch(52% 0.12 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+      transition: color 0.7s ease;
+    }
+
+    .card-title {
+      font-variation-settings: "wght" 800, "wdth" 75;
+      font-size: 1.8rem;
+      color: oklch(18% 0.2 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      line-height: 1.25;
+      transition: color 0.7s ease;
+    }
+
+    .card-subtitle {
+      font-variation-settings: "wght" 500;
+      font-size: 1rem;
+      color: oklch(46% 0.14 calc(var(--hue) + var(--hue-shift) + var(--offset-1)));
+      margin-top: 0.75rem;
+      font-style: italic;
+      transition: color 0.7s ease;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #5a5a48;
+    }
+
+    .card-goals {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .card-goals-label {
+      font-size: 0.8rem;
+      font-variation-settings: "wght" 700;
+      color: oklch(52% 0.12 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: color 0.7s ease;
+    }
+
+    .goal-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: oklch(98% 0.01 calc(var(--hue) + var(--hue-shift) + var(--offset-1)));
+      border-left: 3px solid oklch(76% 0.07 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #4a4a38;
+      transition: background 0.7s ease, border-color 0.7s ease;
+    }
+
+    .goal-marker {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: oklch(76% 0.07 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.75rem;
+      font-variation-settings: "wght" 700;
+      transition: background 0.7s ease;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 2px solid oklch(88% 0.03 calc(var(--hue) + var(--hue-shift) + var(--offset-1)));
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      transition: border-color 0.7s ease;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.2rem;
+      background: oklch(76% 0.07 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      color: oklch(18% 0.2 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      text-decoration: none;
+      border-radius: 8px;
+      font-variation-settings: "wght" 600;
+      font-size: 0.9rem;
+      transition: all 0.7s ease;
+    }
+
+    .card-link:hover {
+      background: oklch(68% 0.1 calc(var(--hue) + var(--hue-shift) + var(--offset-2)));
+      transform: translateX(2px);
+    }
+
+    .arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .card-link:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* Unit-specific hues */
+    .card:nth-child(1) {
+      --hue: 45; /* Waste More, Want More - warm amber */
+    }
+
+    .card:nth-child(2) {
+      --hue: 280; /* Into the Wild - purple */
+    }
+
+    .card:nth-child(3) {
+      --hue: 180; /* Narrative Medicine - cool blue-green */
+    }
+
+    .card:nth-child(4) {
+      --hue: 340; /* Graduation Speeches - red-pink */
+    }
+
+    @media (width < 768px) {
+      .site-header {
+        padding: 2rem 1.5rem;
+      }
+
+      .site-header h1 {
+        font-size: 2rem;
+      }
+
+      .grid {
+        padding: 1.5rem;
+        gap: 1.5rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Units 4–7</h1>
+    <p>The final four units of the year: exploring consumption, nature, listening, and rhetoric.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Unit 4: Waste More, Want More -->
+    <article class="card">
+      <header class="card-header">
+        <div class="card-unit-number">Unit 4</div>
+        <h2 class="card-title">Waste More,<br>Want More</h2>
+        <p class="card-subtitle">Consumption & consequence</p>
+      </header>
+
+      <p class="card-description">
+        A 7-day curriculum sequence exploring consumption, waste, and their consequences. You'll move from exploring issues that matter to you, through research and advocacy skills, to committing to a project pathway—either a research investigation or an advocacy piece designed to create real impact.
+      </p>
+
+      <div class="card-goals">
+        <div class="card-goals-label">Key Learning Goals</div>
+        <div class="goal-item">
+          <div class="goal-marker">1</div>
+          <div>Frame consumption and waste problems through a systemic lens—understanding causes, consequences, and who's affected</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">2</div>
+          <div>Research credible sources and extract meaningful data to support an argument</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">3</div>
+          <div>Craft an inquiry question and working claim that drives either a research project or advocacy piece</div>
+        </div>
+      </div>
+
+      <footer class="card-footer">
+        <a href="#unit-4" class="card-link">
+          Explore Unit 4
+          <span class="arrow">→</span>
+        </a>
+      </footer>
+    </article>
+
+    <!-- Unit 5: Into the Wild -->
+    <article class="card">
+      <header class="card-header">
+        <div class="card-unit-number">Unit 5</div>
+        <h2 class="card-title">Into the<br>Wild</h2>
+        <p class="card-subtitle">Ideas, risk, and meaning</p>
+      </header>
+
+      <p class="card-description">
+        Read Jon Krakauer's <em>Into the Wild</em> as a study in how people search for meaning. This is not a judgment on whether Chris McCandless was a hero or an idiot. Instead, we're exploring what he believed, why he acted on those beliefs, and what happens when ideals collide with reality.
+      </p>
+
+      <div class="card-goals">
+        <div class="card-goals-label">Key Learning Goals</div>
+        <div class="goal-item">
+          <div class="goal-marker">1</div>
+          <div>Understand the philosophical influences on McCandless—Thoreau, Tolstoy, London, Dostoevsky—and the ideas they represented</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">2</div>
+          <div>Read for nuance: examine character motivation without rushing to judgment</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">3</div>
+          <div>Reflect on your own values and commitments in a time capsule letter addressed to future you</div>
+        </div>
+      </div>
+
+      <footer class="card-footer">
+        <a href="#unit-5" class="card-link">
+          Explore Unit 5
+          <span class="arrow">→</span>
+        </a>
+      </footer>
+    </article>
+
+    <!-- Unit 6: Narrative Medicine -->
+    <article class="card">
+      <header class="card-header">
+        <div class="card-unit-number">Unit 6</div>
+        <h2 class="card-title">Narrative<br>Medicine</h2>
+        <p class="card-subtitle">Listening as a practice</p>
+      </header>
+
+      <p class="card-description">
+        There's an art to listening—not for your turn to speak, but so you can get the fuller picture of someone who trusts you enough to share. This unit challenges you to listen deeply, ask better questions, and conduct a real interview with an elder in your community.
+      </p>
+
+      <div class="card-goals">
+        <div class="card-goals-label">Key Learning Goals</div>
+        <div class="goal-item">
+          <div class="goal-marker">1</div>
+          <div>Read the room: pick up on body language, tone, and hesitation before someone says it in words</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">2</div>
+          <div>Ask questions that go somewhere—moving from surface openers to real depth with authentic presence</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">3</div>
+          <div>Conduct, record, annotate, and reflect on a real conversation with an elder subject</div>
+        </div>
+      </div>
+
+      <footer class="card-footer">
+        <a href="#unit-6" class="card-link">
+          Explore Unit 6
+          <span class="arrow">→</span>
+        </a>
+      </footer>
+    </article>
+
+    <!-- Unit 7: Graduation Speeches -->
+    <article class="card">
+      <header class="card-header">
+        <div class="card-unit-number">Unit 7</div>
+        <h2 class="card-title">Graduation<br>Speeches</h2>
+        <p class="card-subtitle">Rhetoric & voice</p>
+      </header>
+
+      <p class="card-description">
+        You're watching five graduation speeches written and delivered by people your age. Your job is to watch like a writer: figure out what they're doing, decide if it works, and figure out what you might steal. Learn the lenses, devices, and moves that make a speech land.
+      </p>
+
+      <div class="card-goals">
+        <div class="card-goals-label">Key Learning Goals</div>
+        <div class="goal-item">
+          <div class="goal-marker">1</div>
+          <div>Recognize the four lenses: humor-to-wholesome, nostalgia-to-motivational, identity-centered, and risqué-to-critical</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">2</div>
+          <div>Master nine rhetorical devices: anaphora, antithesis, metaphor, analogy, chiasmus, hypophora, and more</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-marker">3</div>
+          <div>Craft your own graduation speech that deploys at least five devices and reflects your authentic voice</div>
+        </div>
+      </div>
+
+      <footer class="card-footer">
+        <a href="#unit-7" class="card-link">
+          Explore Unit 7
+          <span class="arrow">→</span>
+        </a>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
