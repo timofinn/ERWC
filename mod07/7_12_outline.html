@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>7.12 | Speech Outline</title>
+<title>7.12 | Graduation Speech: Build the Blueprint</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -18,17 +18,16 @@
     --white: #ffffff;
     --red: #c0392b;
     --red-light: #fdf0f0;
+    --blue: #2d5fa3;
+    --blue-light: #eef4fb;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--fog);
     color: var(--dark);
     padding: 0 0 60px 0;
   }
-
   /* HEADER */
   .hero {
     background: var(--teal);
@@ -55,15 +54,11 @@
     max-width: 600px;
     line-height: 1.5;
   }
-
-  /* MAIN */
   .container {
     max-width: 760px;
     margin: 0 auto;
     padding: 0 20px;
   }
-
-  /* SECTION LABEL */
   .section-label {
     font-size: 0.7rem;
     font-weight: 700;
@@ -72,8 +67,6 @@
     color: var(--teal-mid);
     margin: 36px 0 12px;
   }
-
-  /* CARD */
   .card {
     background: var(--white);
     border-radius: 10px;
@@ -92,41 +85,44 @@
     color: var(--slate);
     line-height: 1.6;
   }
-
-  /* TIMING GRID */
-  .timing-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
+  /* TIMING TABLE */
+  .timing-table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 14px;
+    font-size: 0.88rem;
   }
-  .timing-block {
-    background: var(--teal-light);
-    border-radius: 8px;
-    padding: 16px 14px;
-    text-align: center;
-  }
-  .timing-block .time {
-    font-size: 1.3rem;
+  .timing-table th {
+    text-align: left;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: var(--teal);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .timing-block .label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--teal);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
+    color: var(--teal);
+    padding: 0 10px 8px 0;
+    border-bottom: 2px solid var(--teal-light);
   }
-  .timing-block .note {
-    font-size: 0.8rem;
+  .timing-table td {
+    padding: 10px 10px 10px 0;
     color: var(--slate);
-    line-height: 1.4;
+    border-bottom: 1px solid var(--teal-light);
+    line-height: 1.5;
+    vertical-align: top;
   }
-
+  .timing-table td:first-child {
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.95rem;
+    color: var(--dark);
+    white-space: nowrap;
+    padding-right: 20px;
+  }
+  .timing-table td:nth-child(2) {
+    font-weight: 600;
+    color: var(--gold);
+    white-space: nowrap;
+    padding-right: 20px;
+  }
+  .timing-table tr:last-child td { border-bottom: none; }
   /* MISTAKE LIST */
   .mistake-list {
     list-style: none;
@@ -157,8 +153,97 @@
     flex-shrink: 0;
     margin-top: 2px;
   }
-
-  /* OUTLINE SECTION */
+  /* EXEMPLAR TABS */
+  .tab-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--teal-light);
+    padding-bottom: 0;
+  }
+  .tab-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--slate);
+    background: none;
+    border: none;
+    padding: 10px 16px 12px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.15s, border-color 0.15s;
+    text-transform: uppercase;
+  }
+  .tab-btn:hover { color: var(--teal); }
+  .tab-btn.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+  .tab-panel { display: none; padding-top: 20px; }
+  .tab-panel.active { display: block; }
+  .exemplar-section {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed #dde3ea;
+  }
+  .exemplar-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .ex-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 4px;
+  }
+  .ex-time {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .ex-text {
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.65;
+    font-style: italic;
+    background: var(--fog);
+    border-radius: 6px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--teal-mid);
+    margin-bottom: 4px;
+  }
+  .ex-note {
+    font-size: 0.78rem;
+    color: var(--slate);
+    margin-top: 5px;
+  }
+  /* Theory tab */
+  .theory-block {
+    background: var(--teal-light);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .theory-block strong {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    margin-bottom: 5px;
+  }
+  .theory-block p {
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+  /* OUTLINE BLOCKS */
   .outline-block {
     border-left: 4px solid var(--teal-mid);
     padding-left: 18px;
@@ -200,31 +285,133 @@
     background: var(--fog);
     transition: border-color 0.2s;
   }
+  .outline-block textarea.large-box {
+    min-height: 120px;
+  }
   .outline-block textarea:focus {
     outline: none;
     border-color: var(--teal-mid);
     background: var(--white);
   }
-  .outline-block textarea::placeholder {
-    color: #aab0bb;
+  .outline-block textarea::placeholder { color: #aab0bb; }
+  .outline-block.hook { border-color: var(--gold); }
+  .outline-block.hook .block-title { color: var(--gold); }
+  .outline-block.close { border-color: var(--blue); }
+  .outline-block.close .block-title { color: var(--blue); }
+  /* WEAK VS. STRONG */
+  details.ws {
+    border-radius: 8px;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    border: 1px solid var(--teal-mid);
   }
-
-  /* GOLD ACCENT for hook */
-  .outline-block.hook {
-    border-color: var(--gold);
+  details.ws > summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--gold);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 9px 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
-  .outline-block.hook .block-title {
-    color: var(--gold);
+  details.ws > summary::-webkit-details-marker { display: none; }
+  details.ws > summary::after { content: '+'; font-size: 1rem; }
+  details.ws[open] > summary::after { content: '−'; }
+  details.ws > .ws-body { padding: 16px; background: var(--white); }
+  .ws-pair {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--teal-light);
   }
-
-  /* RED ACCENT for closing */
-  .outline-block.close {
-    border-color: #2d5fa3;
+  .ws-pair:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .ws-label-weak {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: #9B5D00; margin-bottom: 6px;
   }
-  .outline-block.close .block-title {
-    color: #2d5fa3;
+  .ws-label-strong {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--teal); margin-bottom: 6px; margin-top: 12px;
   }
-
+  .ws-text {
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.7;
+    background: var(--fog);
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  mark { background: var(--teal-light); color: var(--dark); padding: 0 3px; border-radius: 3px; font-style: normal; font-weight: 600; }
+  details.why {
+    border: none;
+    background: none;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  details.why > summary {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    color: var(--teal);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 0;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    user-select: none;
+  }
+  details.why > summary::-webkit-details-marker { display: none; }
+  details.why > summary::before { content: '▸'; font-size: 0.7rem; transition: transform 0.2s; display: inline-block; }
+  details.why[open] > summary::before { transform: rotate(90deg); }
+  details.why > .why-body {
+    padding: 8px 12px;
+    background: var(--teal-light);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.65;
+    margin-top: 4px;
+  }
+  /* OPTIONAL TOGGLE — matches gold header treatment */
+  details.optional-toggle {
+    border-radius: 8px;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    border: 1px solid var(--teal-mid);
+  }
+  details.optional-toggle > summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--gold);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 9px 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  details.optional-toggle > summary::-webkit-details-marker { display: none; }
+  details.optional-toggle > summary::after { content: '+'; font-size: 1rem; }
+  details.optional-toggle[open] > summary::after { content: '−'; }
+  details.optional-toggle > .optional-body { padding: 16px; background: var(--white); }
   /* PARTNER CHECK */
   .partner-card {
     background: var(--gold-light);
@@ -267,7 +454,6 @@
     flex-shrink: 0;
     margin-top: -1px;
   }
-
   /* SUBMIT */
   .submit-card {
     background: var(--teal);
@@ -292,156 +478,319 @@
     font-family: monospace;
     font-size: 0.85rem;
   }
+  .block-desc {
+    font-size: 0.85rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
 </style>
 </head>
 <body>
-
 <div class="hero">
   <div class="container">
     <div class="hero-tag">7.12 &nbsp;|&nbsp; Graduation Speech</div>
     <h1>Build the Blueprint</h1>
-    <p>You've got raw material. Now put it in order. Today you'll build a working outline — the skeleton your draft will hang on.</p>
+    <p>You have raw material. Now put it in order. Today you will build a working outline. This is the skeleton your draft will hang on.</p>
   </div>
 </div>
-
 <div class="container">
-
-  <!-- SECTION: HOW LONG IS THIS THING -->
+  <!-- ===================== KNOW YOUR CLOCK ===================== -->
   <div class="section-label">Before You Structure</div>
-
   <div class="card">
     <h2>Know Your Clock</h2>
-    <p>A graduation speech is not an essay. It has a hard stop. Here's where your time goes:</p>
-    <div class="timing-grid">
-      <div class="timing-block">
-        <div class="time">30–45s</div>
-        <div class="label">Opening</div>
-        <div class="note">Hook + one line that sets your angle</div>
-      </div>
-      <div class="timing-block">
-        <div class="time">3–5 min</div>
-        <div class="label">Body</div>
-        <div class="note">2–3 story beats, the turn, the lesson</div>
-      </div>
-      <div class="timing-block">
-        <div class="time">30–45s</div>
-        <div class="label">Closing</div>
-        <div class="note">Callback + send-off that lands clean</div>
-      </div>
-    </div>
+    <p>A graduation speech is not an essay. It has a hard stop. If you run long, people don't listen; they just look at their phones and wish you were done. Here is where your time goes:</p>
+    <table class="timing-table">
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Time Limit</th>
+          <th>The Core Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Opening</td>
+          <td>30–45 sec</td>
+          <td>A hook and one line that sets your angle.</td>
+        </tr>
+        <tr>
+          <td>Body</td>
+          <td>3–5 min</td>
+          <td>Two or three story beats, the turn, and the lesson.</td>
+        </tr>
+        <tr>
+          <td>Closing</td>
+          <td>30–45 sec</td>
+          <td>A callback and a send-off that lands clean.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <!-- SECTION: COMMON MISTAKES -->
+  <!-- ===================== MISTAKE LIST ===================== -->
   <div class="section-label">Clear These Off the Table</div>
-
   <div class="card" style="border-left: 4px solid var(--red);">
     <h2 style="color: var(--red);">The List You Don't Want to Be On</h2>
-    <p>These are the five most common ways graduation speeches lose the room. Check yours against them before you outline.</p>
+    <p>Five ways graduation speeches lose the room. Check your ideas against them before you outline.</p>
     <ul class="mistake-list">
       <li>
         <span class="x">✕</span>
-        <span><strong>Inside jokes.</strong> You're not talking to your five closest friends. The whole class — and their families — are in that room.</span>
+        <span><strong>Inside jokes.</strong> You are not talking to your five closest friends. The whole class and their families are in that room. If only three people get it, cut it.</span>
       </li>
       <li>
         <span class="x">✕</span>
-        <span><strong>Going over time.</strong> Nothing kills goodwill faster than running long. If your outline doesn't fit 5 minutes, cut it now, not on the day.</span>
+        <span><strong>Going over time.</strong> Nothing kills goodwill faster than running long. If your outline does not fit five minutes, cut it now. Do not wait for the stage.</span>
       </li>
       <li>
         <span class="x">✕</span>
-        <span><strong>Too much "I."</strong> Your story is the vehicle, not the destination. The speech should feel like it belongs to everyone in the room.</span>
+        <span><strong>Too much "I."</strong> Your story is the vehicle, not the destination. The speech must belong to everyone in the room.</span>
       </li>
       <li>
         <span class="x">✕</span>
-        <span><strong>Reading the whole thing.</strong> You can have notes. You should not disappear into a paper. Make eye contact. Breathe. Talk to people.</span>
+        <span><strong>Reading the whole thing.</strong> You can use notes. You must not disappear into a piece of paper. Look at people. Breathe. Talk to them.</span>
       </li>
       <li>
         <span class="x">✕</span>
-        <span><strong>Forcing inspiration.</strong> You don't have to deliver a TED talk. A specific, honest moment lands harder than borrowed wisdom that doesn't fit your voice.</span>
+        <span><strong>Forcing inspiration.</strong> You do not need to give a TED talk. A specific, honest moment lands harder than borrowed wisdom that does not fit your voice.</span>
       </li>
     </ul>
   </div>
-
-  <!-- SECTION: BUILD THE OUTLINE -->
-  <div class="section-label">Build the Outline</div>
-
+  <!-- ===================== EXEMPLARS ===================== -->
+  <div class="section-label">See What Done Looks Like</div>
   <div class="card">
-    <h2>Your Speech, Section by Section</h2>
-    <p style="margin-bottom: 20px;">Use what you dug up in 7.11. Don't write sentences yet — just map the moves. You're staking out territory, not decorating it.</p>
-
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('theory', this)">How It Works</button>
+      <button class="tab-btn" onclick="switchTab('ex1', this)">Exemplar A</button>
+      <button class="tab-btn" onclick="switchTab('ex2', this)">Exemplar B</button>
+    </div>
+    <!-- THEORY TAB -->
+    <div class="tab-panel active" id="tab-theory">
+      <div class="theory-block">
+        <strong>What makes an outline work</strong>
+        <p>An outline is not a draft. It is a map. You are not writing sentences; you are staking out territory. Each section should be specific enough that a stranger could read it and know exactly what your speech is about. If it could describe anyone's graduation speech, rewrite it.</p>
+      </div>
+      <div class="theory-block">
+        <strong>The test for specificity</strong>
+        <p>Weak outlines use categories: "I'll talk about a hard time sophomore year." Strong outlines name the scene: "The day I failed the AP exam and had to call my dad from the parking lot." The second one has a movie in it. The first one has nothing.</p>
+      </div>
+      <div class="theory-block">
+        <strong>The turn is the whole speech</strong>
+        <p>Every section points toward the turn. This is the moment the story stops being about you and starts being about the room. If you cannot locate your turn in the outline, you do not have a speech yet. You have a diary entry.</p>
+      </div>
+    </div>
+    <!-- EXEMPLAR A: Humor → Wholesome -->
+    <div class="tab-panel" id="tab-ex1">
+      <p style="font-size:0.8rem; color:var(--slate); margin-bottom:16px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;">Lens: Humor → Wholesome</p>
+      <div class="exemplar-section">
+        <div class="ex-label">Opening Hook</div>
+        <div class="ex-time">≈ 30–45 seconds</div>
+        <div class="ex-text">"I want to start by apologizing to Mr. Kim for what happened to his classroom turtle in March 2022. I won't say more. He knows."</div>
+        <div class="ex-note">Why it works: Immediate laugh, names a specific person, creates a mystery the audience wants resolved. Sets a tone of honesty without being heavy.</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">Body — Story Beat 1</div>
+        <div class="ex-time">3–5 minutes total</div>
+        <div class="ex-text">The moment: Junior year, period 3 AP Chemistry. The day four of us decided to collectively pretend we had done the lab; we proceeded to make up confident data for 40 minutes while Ms. Flores watched with pure professional pity.<br><br>What it carries: The gap between the self we performed and the self we actually were. We were faking it, and most of us were faking it in different ways all four years.</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">The Turn</div>
+        <div class="ex-time">≈ 30 seconds</div>
+        <div class="ex-text">"I thought that was my story; the kid who bluffed his way through Chemistry. But look around. We all had a class, a test, a moment where we had no idea what we were doing and just kept moving anyway. That's not embarrassing. That's actually the whole job."</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">Closing</div>
+        <div class="ex-time">≈ 30–45 seconds</div>
+        <div class="ex-text">Callback to the turtle: "Mr. Kim, I still don't know how it got out. But I think about that turtle a lot. It got out of its tank, it had no plan, and it made it to the hallway. That's all of us today."</div>
+        <div class="ex-note">Echoes the hook. The joke turns into a landmark. The room gets to laugh and feel something at the same time.</div>
+      </div>
+    </div>
+    <!-- EXEMPLAR B: Identity-Centered -->
+    <div class="tab-panel" id="tab-ex2">
+      <p style="font-size:0.8rem; color:var(--slate); margin-bottom:16px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;">Lens: Identity-Centered</p>
+      <div class="exemplar-section">
+        <div class="ex-label">Opening Hook</div>
+        <div class="ex-time">≈ 30–45 seconds</div>
+        <div class="ex-text">"The first time someone asked me where I was really from, I was in 7th grade. I said my zip code. That was the wrong answer, apparently."</div>
+        <div class="ex-note">Why it works: Specific age, specific moment, and a small contradiction that holds the whole tension of the speech in one sentence. Doesn't over-explain. Trusts the audience.</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">Body — Story Beat 1</div>
+        <div class="ex-time">3–5 minutes total</div>
+        <div class="ex-text">The moment: Freshman orientation. The part where they asked everyone to raise their hand if they spoke a second language at home; half the room went quiet and kept their hands down. Including me.<br><br>What it carries: There is a person you pretend to be in the hallway and the person you are at home. I spent four years trying to figure out which one was real.</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">Body — Story Beat 2</div>
+        <div class="ex-time">Optional</div>
+        <div class="ex-text">The moment: Senior year, the day I did the college essay in two languages because I could not figure out which one sounded like me.<br><br>What it adds: The choice became impossible to avoid. It widens the lens because many people in this room had to decide which face to put on paper.</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">The Turn</div>
+        <div class="ex-time">≈ 30 seconds</div>
+        <div class="ex-text">"I'm not the only person in this room who kept part of themselves in the hallway. We all had something we decided wasn't safe to bring through the front door. Today I'm saying: bring it in. There's more room than they told us."</div>
+      </div>
+      <div class="exemplar-section">
+        <div class="ex-label">Closing</div>
+        <div class="ex-time">≈ 30–45 seconds</div>
+        <div class="ex-text">Callback to the zip code line: "I know where I'm really from now. And so do you. Take it with you."</div>
+        <div class="ex-note">Short. Echoes the hook. Turns the opening question into a statement. Done.</div>
+      </div>
+    </div>
+  </div><!-- end card -->
+  <!-- ===================== BUILD THE OUTLINE ===================== -->
+  <div class="section-label">Build the Outline</div>
+  <div class="card">
+    <h2>Section by Section</h2>
+    <p style="margin-bottom: 20px;">Use what you dug up in 7.11. Do not write full sentences yet. Just map the moves. You are staking out territory, not decorating it.</p>
     <!-- HOOK -->
     <div class="outline-block hook">
-      <div class="block-title">Opening Hook</div>
+      <div class="block-title">1. Opening Hook</div>
       <div class="block-time">≈ 30–45 seconds</div>
-      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">One strong move — a question, a line, a scene, a contradiction — that makes the room lean in. Don't explain it yet. Just land it.</p>
+      <p class="block-desc">One strong move. A question, a line, a scene, or a contradiction that makes the room lean in. Don't explain it yet. Just land it.</p>
       <div class="field-label">My hook</div>
-      <textarea placeholder="Write it here. One or two sentences max. If it takes three, trim."></textarea>
-      <div class="field-label">Why it works (one sentence)</div>
-      <textarea style="min-height: 48px;" placeholder="e.g. It creates contrast / It names something everyone felt but never said / It sets up the turn in the body"></textarea>
+      <textarea placeholder="One or two sentences max. If it takes three, trim."></textarea>
+      <div class="field-label">Why it works</div>
+      <textarea style="min-height: 48px;" placeholder="How does this grab a human being who is currently hot, tired, and sitting in a folding chair?"></textarea>
+      <details class="ws">
+        <summary>Weak vs. Strong &nbsp;·&nbsp; Hook</summary>
+        <div class="ws-body">
+          <div class="ws-pair">
+            <div class="ws-label-weak">Weak</div>
+            <div class="ws-text">"Today is a day we will all remember forever."</div>
+            <div class="ws-label-strong">Strong</div>
+            <div class="ws-text"><mark>"The last time I sat in this gym, I was crying because we lost the semifinals by one point; then Mr. Garza gave me a granola bar without saying anything."</mark></div>
+            <details class="why">
+              <summary>Why?</summary>
+              <div class="why-body">The weak version is a generic script. The strong version names a specific place, a loss, and a person. It creates immediate mystery and sets up a story.</div>
+            </details>
+          </div>
+          <div class="ws-pair">
+            <div class="ws-label-weak">Weak</div>
+            <div class="ws-text">"High school has been quite a journey for all of us."</div>
+            <div class="ws-label-strong">Strong</div>
+            <div class="ws-text"><mark>"I changed my major plan four times in four years. The last choice involved marine biology. I have never been to the ocean."</mark></div>
+            <details class="why">
+              <summary>Why?</summary>
+              <div class="why-body">The weak phrase says nothing. The strong line is specific and self-aware. It earns a laugh and signals an honest speech.</div>
+            </details>
+          </div>
+        </div>
+      </details>
     </div>
-
-    <!-- BODY -->
+    <!-- BEAT 1 -->
     <div class="outline-block">
-      <div class="block-title">Body — Story Beat 1</div>
+      <div class="block-title">2. Body — Story Beat 1</div>
       <div class="block-time">3–5 minutes total for all beats</div>
-      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">A specific moment or scene from your brainstorm. Anchor it in time and place — not "sophomore year was hard" but "the day I walked into Mr. Reyes's class and everyone was silent."</p>
-      <div class="field-label">The moment (one or two sentences)</div>
-      <textarea placeholder="Where are we? What happens? Who's there?"></textarea>
-      <div class="field-label">What it says (what does this beat carry?)</div>
-      <textarea style="min-height: 48px;" placeholder="e.g. This is where I show that the class didn't know what was coming. Sets up the contrast."></textarea>
-    </div>
-
-    <div class="outline-block">
-      <div class="block-title">Body — Story Beat 2</div>
-      <div class="block-time">Optional — use if you have a strong second scene</div>
-      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">A second scene that adds tension, raises the stakes, or widens the lens to the whole class.</p>
+      <p class="block-desc">A specific moment or scene from your brainstorm. Anchor it in time and place. Do not write "sophomore year was hard." Write "the day I walked into Mr. Reyes's room and everyone was silent."</p>
       <div class="field-label">The moment</div>
-      <textarea placeholder="Skip this if your beat 1 can carry the whole body. Don't pad."></textarea>
-      <div class="field-label">What it adds</div>
-      <textarea style="min-height: 48px;" placeholder="Why does this beat need to be here?"></textarea>
+      <textarea class="large-box" placeholder="Where are we? What happens? Who is there?"></textarea>
+      <div class="field-label">The cargo</div>
+      <textarea style="min-height: 48px;" placeholder="What does this beat carry? What is the point of telling it?"></textarea>
+      <details class="ws">
+        <summary>Weak vs. Strong &nbsp;·&nbsp; Story Beat</summary>
+        <div class="ws-body">
+          <div class="ws-pair">
+            <div class="ws-label-weak">Weak</div>
+            <div class="ws-text">"Junior year was really hard for me. I struggled a lot and didn't know if I could keep going."</div>
+            <div class="ws-label-strong">Strong</div>
+            <div class="ws-text"><mark>"October of junior year. 11 p.m. I was sitting on the kitchen floor because my desk felt too official for how bad things had gotten. My mom walked in, said nothing, and made me toast."</mark></div>
+            <details class="why">
+              <summary>Why?</summary>
+              <div class="why-body">The weak line summarizes. The strong line uses physical time, location, and objects (the floor, the toast) to show the struggle without forcing labels.</div>
+            </details>
+          </div>
+        </div>
+      </details>
     </div>
-
+    <!-- BEAT 2 (OPTIONAL TOGGLE) -->
     <div class="outline-block">
-      <div class="block-title">The Turn</div>
-      <div class="block-time">The pivot point — maybe 30 seconds</div>
-      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">This is where "I" becomes "we." The moment your story opens up and speaks to everyone. If you're stuck, ask: <em>What did this teach me that's also true for everyone else in this room?</em></p>
-      <div class="field-label">The turn (one or two sentences)</div>
-      <textarea placeholder="e.g. 'I thought that was my story. But look around — we all have a version of that day.'"></textarea>
+      <div class="block-title">3. Body — Story Beat 2</div>
+      <div class="block-time">Optional — use if you have a strong second scene</div>
+      <p class="block-desc">A second scene that adds tension, raises the stakes, or widens the lens to the whole class.</p>
+      <details class="optional-toggle">
+        <summary>Add Beat 2</summary>
+        <div class="optional-body">
+          <div class="field-label">The moment</div>
+          <textarea class="large-box" placeholder="Where are we? What happens? Who is there?"></textarea>
+          <div class="field-label">What it adds</div>
+          <textarea style="min-height: 48px;" placeholder="Why does this beat need to be here?"></textarea>
+        </div>
+      </details>
     </div>
-
-    <!-- CLOSE -->
+    <!-- THE TURN -->
+    <div class="outline-block">
+      <div class="block-title">4. The Turn</div>
+      <div class="block-time">The pivot point — ≈ 30 seconds</div>
+      <p class="block-desc">This is where "I" becomes "we." Flip the lens from your life to the room. If you are stuck, ask: <em>What did this teach me that is also true for the person sitting next to me?</em></p>
+      <div class="field-label">The turn</div>
+      <textarea placeholder="e.g. 'I thought that was my story. But look around. We all have a version of that day.'"></textarea>
+      <details class="ws">
+        <summary>Weak vs. Strong &nbsp;·&nbsp; The Turn</summary>
+        <div class="ws-body">
+          <div class="ws-pair">
+            <div class="ws-label-weak">Weak</div>
+            <div class="ws-text">"And I think we can all learn something from this. Life is hard, but we get through it together."</div>
+            <div class="ws-label-strong">Strong</div>
+            <div class="ws-text"><mark>"I spent two years thinking I was the only person in this building who didn't have a plan. Then I asked around. Turns out half of you were also making it up. We were all improvising."</mark></div>
+            <details class="why">
+              <summary>Why?</summary>
+              <div class="why-body">The weak option is a bumper sticker slogan. The strong option names a specific false belief and instantly opens it up to the room.</div>
+            </details>
+          </div>
+        </div>
+      </details>
+    </div>
+    <!-- CLOSING -->
     <div class="outline-block close">
-      <div class="block-title">Closing</div>
+      <div class="block-title">5. Closing</div>
       <div class="block-time">≈ 30–45 seconds</div>
-      <p style="font-size:0.85rem; color:var(--slate); margin-bottom: 8px;">Callback to your hook, or a clean send-off that ends on a specific image or line — not "in conclusion." The last thing they hear should feel like a door opening, not a summary.</p>
+      <p class="block-desc">A callback to your hook, or a clean send-off that ends on a sharp image. Do not write "in conclusion" or "thank you." The last thing they hear should feel like a door opening.</p>
       <div class="field-label">The closing move</div>
-      <textarea placeholder="What's the last image, line, or call-to-action you leave them with?"></textarea>
-      <div class="field-label">Does it echo the hook? (yes/no + how)</div>
-      <textarea style="min-height: 48px;" placeholder="e.g. Yes — the hook asked a question; the close answers it. / No — the close is a new image but it earns its own landing."></textarea>
+      <textarea placeholder="What is the final image or line you leave them with?"></textarea>
+      <div class="field-label">The echo</div>
+      <textarea style="min-height: 48px;" placeholder="How does this tie back to the very first thing you said?"></textarea>
+      <details class="ws">
+        <summary>Weak vs. Strong &nbsp;·&nbsp; Closing</summary>
+        <div class="ws-body">
+          <div class="ws-pair">
+            <div class="ws-label-weak">Weak</div>
+            <div class="ws-text">"Thank you to my teachers and parents. Good luck to the class of 2026. We did it."</div>
+            <div class="ws-label-strong">Strong</div>
+            <div class="ws-text"><mark>"Mr. Kim, I still don't know how that turtle got loose. But it had no instructions, no map, and it made it out anyway. Don't look back. Walk out the door."</mark></div>
+            <details class="why">
+              <summary>Why?</summary>
+              <div class="why-body">The weak close is white noise; it signals to the audience that they can clap now. The strong version circles back to the joke from the opening hook and transforms it into a clean, sharp landing order.</div>
+            </details>
+          </div>
+        </div>
+      </details>
     </div>
-
   </div>
-
-  <!-- SECTION: PARTNER CHECK -->
-  <div class="section-label">Before You Leave Today</div>
-
+  <!-- ===================== PARTNER CHECK ===================== -->
+  <div class="section-label">Before You Leave</div>
   <div class="partner-card">
-    <h2>Partner Check</h2>
-    <p>Swap outlines with someone near you. You have three minutes each. Your job is not to fix their speech — it's to tell them what you saw and what you missed.</p>
+    <h2>The Reality Check</h2>
+    <p>Swap outlines with a partner. Three minutes each. Do not sit there and tell your partner their outline is "good." A true friend tells you when you have food caught in your teeth. Find the food.</p>
+    <p>You are an outside reader. You cannot see inside their brain. If a section feels boring or confusing, point right at it. Ask these exact questions:</p>
     <ul class="partner-checks">
-      <li>Can you describe their hook in one sentence? (If not, it's not clear enough yet.)</li>
-      <li>Is there a real, specific moment in the body — or just a vague concept?</li>
-      <li>Does the turn make the shift from "I" to "we"? Point to the line where it happens.</li>
-      <li>Does the close land, or does it just stop?</li>
-      <li>Flag anything on the Common Mistakes list that shows up.</li>
+      <li><strong>Where did you lose me?</strong> Point to the exact spot where your mind wandered or the logic lost its grip.</li>
+      <li><strong>Is this a real scene?</strong> If they wrote something vague like "I talk about failure," tell them to scrap it and pick a real, physical moment.</li>
+      <li><strong>Where is the turn?</strong> Can you see the exact line where the speech stops being about them and starts being about the whole room? If not, they are talking to themselves.</li>
+      <li><strong>Did they flag any common mistakes?</strong> If you see an inside joke or a generic quote, call it out and kill it.</li>
     </ul>
   </div>
-
   <!-- SUBMIT -->
   <div class="submit-card">
     <h2>Save Your Outline</h2>
     <p>Copy your outline fields into a Google Doc titled <code>7.12 | [Your Name] | Speech Outline</code> and submit the link in Canvas. Tomorrow, you write.</p>
   </div>
-
 </div>
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
 </body>
 </html>
