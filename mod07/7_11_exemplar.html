@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7.11 | Find What You Want to Say</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2d6a5e;
+    --teal-mid: #4a9585;
+    --teal-light: #e8f4f1;
+    --gold: #c9962a;
+    --gold-light: #fdf4e3;
+    --dark: #1a1a2e;
+    --slate: #4a5568;
+    --fog: #f4f6f8;
+    --white: #ffffff;
+    --purple: #6c4fa3;
+    --purple-light: #f3f0fb;
+    --red: #c0392b;
+    --red-light: #fdf0f0;
+    --blue: #2d5fa3;
+    --blue-light: #eef4fb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--fog);
+    color: var(--dark);
+    padding: 0 0 60px 0;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--teal);
+    color: var(--white);
+    padding: 36px 32px 0;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  /* TAB BAR */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .tab-btn {
+    padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn:hover {
+    background: rgba(255,255,255,0.25);
+    color: white;
+  }
+  .tab-btn.active {
+    background: var(--fog);
+    color: var(--teal);
+  }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* CONTAINER */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin: 36px 0 12px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 0.92rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+  .card p + p { margin-top: 10px; }
+
+  /* STEP CARDS (theory) */
+  .step-block {
+    border-left: 4px solid var(--teal-mid);
+    padding-left: 18px;
+    margin-bottom: 28px;
+  }
+  .step-block .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .step-block .step-subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .step-block p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+
+  /* LENS GRID */
+  .lens-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .lens-tile {
+    background: var(--fog);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border-left: 4px solid var(--teal-mid);
+  }
+  .lens-tile .lens-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .lens-tile p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .lens-tile.gold { border-color: var(--gold); }
+  .lens-tile.gold .lens-name { color: var(--gold); }
+  .lens-tile.purple { border-color: var(--purple); }
+  .lens-tile.purple .lens-name { color: var(--purple); }
+  .lens-tile.blue { border-color: var(--blue); }
+  .lens-tile.blue .lens-name { color: var(--blue); }
+  .lens-tile.red { border-color: var(--red); }
+  .lens-tile.red .lens-name { color: var(--red); }
+
+  /* TRIAGE TESTS */
+  .test-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .test-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.55;
+  }
+  .test-num {
+    background: var(--teal);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* DEVICE LIST */
+  .device-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .device-chip {
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  /* ── EXEMPLAR PANEL ── */
+  .student-block {
+    background: var(--white);
+    border-radius: 10px;
+    border-left: 5px solid var(--gold);
+    padding: 22px 24px;
+    margin-bottom: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .student-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .student-label::before { content: "✎"; font-size: 0.85rem; }
+  .student-block p {
+    font-size: 0.92rem;
+    color: var(--dark);
+    line-height: 1.7;
+  }
+  .student-block p + p { margin-top: 10px; }
+  .student-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .student-block ul li {
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+  }
+  .student-block ul li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  /* TRIAGE in exemplar */
+  .triage-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.55;
+    margin-top: 10px;
+  }
+  .triage-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* DEVICE CARD */
+  .device-card {
+    background: var(--teal-light);
+    border: 2px solid var(--teal-mid);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 4px;
+  }
+  .device-card .device-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .device-card p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+  .device-card .example-line {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.6;
+    font-style: italic;
+    border-left: 3px solid var(--teal-mid);
+  }
+
+  /* TEACHER TOGGLE */
+  .teacher-toggle {
+    margin-bottom: 20px;
+  }
+  .teacher-toggle summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    list-style: none;
+    padding: 10px 16px;
+    background: var(--purple-light);
+    border-radius: 0 0 8px 8px;
+    border-left: 5px solid var(--purple);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--purple);
+    letter-spacing: 0.04em;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .teacher-toggle summary:hover { background: #e8e0f5; }
+  .teacher-toggle summary::-webkit-details-marker { display: none; }
+  .teacher-toggle summary::before {
+    content: "▶";
+    font-size: 0.6rem;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .teacher-toggle[open] summary::before { transform: rotate(90deg); }
+  .teacher-toggle .toggle-body {
+    background: var(--purple-light);
+    border-left: 5px solid var(--purple);
+    border-radius: 0 0 8px 8px;
+    padding: 16px 18px;
+    font-size: 0.88rem;
+    color: #3d2a6b;
+    line-height: 1.7;
+  }
+  .teacher-toggle .toggle-body p + p { margin-top: 10px; }
+  .teacher-toggle .toggle-body strong { color: var(--purple); }
+
+  /* LENS BADGE */
+  .lens-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  /* CTA */
+  .cta-card {
+    background: var(--teal);
+    border-radius: 10px;
+    padding: 22px 26px;
+    color: var(--white);
+    margin-top: 8px;
+  }
+  .cta-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .cta-card p {
+    font-size: 0.9rem;
+    opacity: 0.88;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .doc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 11px 20px;
+    border-radius: 7px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+  }
+  .doc-btn:hover { opacity: 0.88; }
+  .doc-btn::after { content: "→"; font-size: 1rem; }
+
+  /* GOLD LENS BADGE */
+  .lens-badge-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  /* ANTITHESIS device card variant */
+  .device-card-gold {
+    background: var(--gold-light);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 4px;
+  }
+  .device-card-gold .device-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .device-card-gold p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+  .device-card-gold .example-line {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.6;
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+  }
+
+  /* STUDENT BLOCK GOLD variant */
+  .student-block-gold {
+    background: var(--white);
+    border-radius: 10px;
+    border-left: 5px solid var(--gold);
+    padding: 22px 24px;
+    margin-bottom: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .student-block-gold .student-label-gold {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .student-block-gold .student-label-gold::before { content: "✎"; font-size: 0.85rem; }
+  .student-block-gold p {
+    font-size: 0.92rem;
+    color: var(--dark);
+    line-height: 1.7;
+  }
+  .student-block-gold p + p { margin-top: 10px; }
+  .student-block-gold ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .student-block-gold ul li {
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+  }
+  .student-block-gold ul li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">7.11 &nbsp;|&nbsp; Graduation Speech</div>
+    <h1>Find What You Want to Say</h1>
+    <p>Before you write a speech, you need raw material. This page walks you through the process — then shows you what it looks like when someone actually does it.</p>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('theory', this)">The Process</button>
+      <button class="tab-btn" onclick="switchTab('exemplar', this)">Exemplar: Nostalgia</button>
+      <button class="tab-btn" onclick="switchTab('exemplar2', this)">Exemplar: Humor</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PANEL 1: THEORY
+════════════════════════════════════════════ -->
+<div id="panel-theory" class="panel active">
+<div class="container">
+
+  <div class="section-label">The Five Steps</div>
+
+  <div class="card">
+    <p>A graduation speech isn't written from scratch. It's dug up. You already have the material — you just haven't sorted it yet. These five steps take you from blank page to a set of strong, specific ideas you can actually build a speech around.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-block">
+    <div class="step-title">Step 1 — Pick a Lens</div>
+    <div class="step-subtitle">Choose your angle before you write a word</div>
+    <p>A lens is a way of framing your whole speech. It's not a topic — it's a tone and a direction. Pick one that fits your voice and the kind of speech you want to give.</p>
+    <div class="lens-grid">
+      <div class="lens-tile gold">
+        <div class="lens-name">Humor → Wholesome</div>
+        <p>Start with a laugh. End with something real. The humor earns the sincerity.</p>
+      </div>
+      <div class="lens-tile purple">
+        <div class="lens-name">Nostalgia → Motivational</div>
+        <p>Mine a specific memory. Turn it outward so it belongs to everyone in the room.</p>
+      </div>
+      <div class="lens-tile blue">
+        <div class="lens-name">Identity-Centered</div>
+        <p>Who were you when you got here? Who are you leaving as? What changed, and why?</p>
+      </div>
+      <div class="lens-tile red">
+        <div class="lens-name">Risqué → Critical</div>
+        <p>Be honest about what was hard, broken, or worth pushing back on. Land it constructively.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-block">
+    <div class="step-title">Step 2 — Make a List</div>
+    <div class="step-subtitle">Ten specific moments, as fast as you can</div>
+    <p>Set a timer for five minutes. List ten memories that fit your lens. Each one should be anchored in a specific time and place — not a feeling, but a moment. Don't explain them. Don't rank them. Just get them down.</p>
+    <p>The rule: if you can't picture where you were when it happened, it's too vague. Make it concrete.</p>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-block">
+    <div class="step-title">Step 3 — Freewrite</div>
+    <div class="step-subtitle">Five minutes, no stopping, no editing</div>
+    <p>Pick one item from your list — the one that has the most pull on you. Set a timer for five minutes. Write without stopping. Don't fix sentences. Don't delete anything. Just follow the memory wherever it goes.</p>
+    <p>You're not writing your speech yet. You're finding out what you actually think about this moment. The good stuff usually shows up in the last two minutes.</p>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-block">
+    <div class="step-title">Step 4 — Triage</div>
+    <div class="step-subtitle">Three tests. Keep what passes all of them.</div>
+    <p>Look at what you wrote. Run it through these questions:</p>
+    <ul class="test-list">
+      <li>
+        <span class="test-num">1</span>
+        <span><strong>Is it specific?</strong> A real moment — not a vague feeling. Can you picture the room, the people, the day?</span>
+      </li>
+      <li>
+        <span class="test-num">2</span>
+        <span><strong>Is it true?</strong> Would you say this out loud, with your name on it, to a room full of people?</span>
+      </li>
+      <li>
+        <span class="test-num">3</span>
+        <span><strong>Does it connect outward?</strong> Can someone who wasn't there feel it? Does it say something true about the whole class, not just you?</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-block">
+    <div class="step-title">Step 5 — Find the Device</div>
+    <div class="step-subtitle">Don't force one — find the shape that's already there</div>
+    <p>Look at your strongest material. Does it already have a rhythm? A contrast? A repeated word? One of these nine devices probably fits. You're not inventing the device — you're recognizing what your writing is already doing.</p>
+    <div class="device-list">
+      <div class="device-chip">Anaphora</div>
+      <div class="device-chip">Antistrophe</div>
+      <div class="device-chip">Tricolon</div>
+      <div class="device-chip">Antithesis</div>
+      <div class="device-chip">Metaphor</div>
+      <div class="device-chip">Analogy</div>
+      <div class="device-chip">Chiasmus</div>
+      <div class="device-chip">Hypophora</div>
+      <div class="device-chip">Parallelism</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--gold);">
+    <h2 style="color: var(--gold);">Before You Move On</h2>
+    <p>Read through the Student Exemplar tab to see these five steps in action. Then open your Google Doc and run the same process on your own material.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PANEL 2: EXEMPLAR
+════════════════════════════════════════════ -->
+<div id="panel-exemplar" class="panel">
+<div class="container">
+
+  <div class="section-label">Step 1 — Pick a Lens</div>
+
+  <div class="student-block">
+    <div class="student-label">Maya's Work</div>
+    <span class="lens-badge">Nostalgia → Motivational</span>
+    <p>I went with Nostalgia → Motivational. I thought about doing Humor first because I have a lot of material there, but every time I tried to write something funny it felt like it was only for like five people. The nostalgia stuff felt bigger — like more people would get it.</p>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — Why this choice matters</summary>
+    <div class="toggle-body">
+      <p><strong>Notice what Maya did here:</strong> she didn't just pick a lens at random — she tested one, hit a wall, and reasoned her way to a better fit. That's the move you want students making.</p>
+      <p>The "inside joke" problem she identified is real and worth naming in class: humor that only lands for five people is the number one way graduation speeches lose the room. She diagnosed it herself before writing a word.</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 2 — The List</div>
+
+  <div class="student-block">
+    <div class="student-label">Maya's Work</div>
+    <p>Ten specific memories, as fast as I could write them:</p>
+    <ul>
+      <li>The day the fire alarm went off during finals week junior year and everyone just sat on the grass for an hour</li>
+      <li>Ms. Okafor making us rewrite our college essays from scratch three weeks before the deadline</li>
+      <li>The power outage during the talent show sophomore year</li>
+      <li>Getting lost on the way to the debate tournament and arriving twenty minutes late</li>
+      <li>The group chat the night before AP Bio where nobody actually knew the answers</li>
+      <li>Mr. Dalton drawing the same terrible diagram of the water cycle on the board every single year</li>
+      <li>The day they repaved the parking lot and we had to park two blocks away for a month</li>
+      <li>Walking into senior year and realizing I recognized every face in the building</li>
+      <li>The morning of college decisions — sitting in the library, everyone on their laptops, nobody talking</li>
+      <li>The last home game junior year when it rained and we all stayed anyway</li>
+    </ul>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — What makes a good list</summary>
+    <div class="toggle-body">
+      <p><strong>Every item is anchored in time and place.</strong> Not "junior year was stressful" — "the group chat the night before AP Bio." That specificity is what separates material that can become a speech from material that stays vague.</p>
+      <p>Notice the range: some items are funny (#6, #7), some are tense (#2, #9), some are quietly emotional (#8, #10). A strong list doesn't lock into one tone — it gives the writer options.</p>
+      <p><strong>Common mistake to watch for:</strong> lists that describe feelings instead of events. "When I felt really overwhelmed" is not a list item. "The night before the AP Bio exam" is.</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 3 — The Freewrite</div>
+
+  <div class="student-block">
+    <div class="student-label">Maya's Work — 5 min freewrite on item #9</div>
+    <p>I remember I got there early because I couldn't sleep. I think I was one of the first ten people in the library. And it was so quiet — like, weirdly quiet for a school building. People kept coming in and just finding a seat and opening their laptops and not saying anything. Usually the library is loud. People are always talking over each other. But that morning everyone just kind of understood that we weren't doing that today.</p>
+    <p>I kept looking around at people's faces. Some people had headphones in. Some people were just staring at their screens. I think I saw two people crying before it even started. And I remember thinking — we've been through four years together and we all ended up in this room on the same morning, all scared of the same thing, and none of us had to say that out loud for everyone to know it.</p>
+    <p>That's what I want to say something about. Not the results. The room before the results.</p>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — What the freewrite is doing</summary>
+    <div class="toggle-body">
+      <p><strong>The freewrite doesn't try to be a speech.</strong> It's sloppy, it repeats itself, it wanders. That's correct. The job of the freewrite is to surface the real material — not produce polished prose.</p>
+      <p><strong>Watch the last line:</strong> "Not the results. The room before the results." That's the turn. It arrived at the end of five minutes of writing, not at the beginning. This is why you freewrite — you don't know what you actually think until you've written past the obvious stuff.</p>
+      <p>If a student's freewrite reads like a finished paragraph, they're editing as they go. Push them to write faster and messier.</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 4 — Triage</div>
+
+  <div class="student-block">
+    <div class="student-label">Maya's Work</div>
+    <p>I ran my freewrite through the three tests:</p>
+    <div class="triage-row">
+      <span class="triage-check">✓</span>
+      <span><strong>Specific?</strong> Yes — it's one morning, one room, one feeling. Not "senior year was stressful."</span>
+    </div>
+    <div class="triage-row">
+      <span class="triage-check">✓</span>
+      <span><strong>True?</strong> Yes — I'd say this out loud. I'm not performing anything. I actually remember that morning exactly like I wrote it.</span>
+    </div>
+    <div class="triage-row">
+      <span class="triage-check">✓</span>
+      <span><strong>Connects outward?</strong> Yes — everyone in our class was somewhere that morning doing the same thing. Even people who weren't in the library know that feeling.</span>
+    </div>
+    <p style="margin-top: 14px; font-size: 0.88rem; color: var(--slate);">All three. This one's worth keeping.</p>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — The triage test as a filter, not a grade</summary>
+    <div class="toggle-body">
+      <p><strong>The three tests work together.</strong> A memory can be specific and true but fail the third test — it only means something to the person who lived it. A memory can connect outward but fail the first — it's too vague to land. All three need to pass.</p>
+      <p>Students who struggle here are usually failing test #3. They have something real and specific, but it hasn't opened up to the audience yet. Ask them: <em>"What would someone need to know to feel this too?"</em></p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 5 — Find the Device</div>
+
+  <div class="device-card">
+    <div class="device-name">Anaphora</div>
+    <p>Maya noticed her freewrite kept returning to what people <em>weren't</em> doing — not talking, not performing, not explaining. That pattern is already anaphora waiting to happen.</p>
+    <div class="example-line">"Nobody announced it. Nobody organized it. Nobody had to."</div>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — Devices should fit, not be forced</summary>
+    <div class="toggle-body">
+      <p><strong>The device didn't come first.</strong> Maya wrote the freewrite, found the material, and then recognized the shape it was already taking. Students who start with a device and build material around it usually produce something that sounds mechanical.</p>
+      <p><strong>The tell for a natural fit:</strong> read the example line out loud. "Nobody announced it. Nobody organized it. Nobody had to." lands because the repetition serves the meaning — it earns its keep. That's the test.</p>
+    </div>
+  </details>
+
+  <div class="cta-card">
+    <h2>Now open your Google Doc.</h2>
+    <p>You've seen the moves. Pick your lens, run your list, write for five minutes without stopping. You're not trying to match Maya's work — you're finding your own version of "the room before the results."</p>
+    <a class="doc-btn" href="REPLACE_WITH_GOOGLE_DOC_LINK" target="_blank">Open Your Brainstorm Doc</a>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PANEL 3: EXEMPLAR 2 — HUMOR / ANTITHESIS
+════════════════════════════════════════════ -->
+<div id="panel-exemplar2" class="panel">
+<div class="container">
+
+  <div class="section-label">Step 1 — Pick a Lens</div>
+
+  <div class="student-block-gold">
+    <div class="student-label-gold">Jordan's Work</div>
+    <span class="lens-badge-gold">Humor → Wholesome</span>
+    <p>I knew I was going with Humor → Wholesome from the jump. I'm the funny one in my friend group — everyone kind of expects it from me. But I also didn't want it to just be a roast. I wanted there to be something real underneath. The lens felt like the right container for that. Start with a laugh, earn the turn.</p>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — When the lens fits the person</summary>
+    <div class="toggle-body">
+      <p><strong>Jordan already knows his voice.</strong> He's not discovering his lens — he's confirming it. That's fine. Not every student will wrestle with the choice the way Maya did. Some will know immediately. The goal isn't the deliberation, it's the clarity.</p>
+      <p>Watch for the second part of his reasoning: "I didn't want it to just be a roast." That's a sophisticated instinct — he's already thinking about the difference between humor that holds an audience and humor that performs for one. Worth naming out loud when you model this.</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 2 — The List</div>
+
+  <div class="student-block-gold">
+    <div class="student-label-gold">Jordan's Work</div>
+    <p>Ten moments, humor lens:</p>
+    <ul>
+      <li>The time our entire AP class turned in the same wrong answer on a multiple choice test because we all texted each other the night before</li>
+      <li>Every single fire drill that happened at the exact worst moment — mid-test, mid-presentation, mid-bite of lunch</li>
+      <li>The substitute who didn't know he was on the projector camera and picked his nose for twenty minutes</li>
+      <li>Spirit week junior year when the theme was "decades" and half the class showed up as the 1980s and the other half showed up as the 2000s and nobody talked to each other all day</li>
+      <li>The day the cafeteria ran out of everything except plain rice and we all acted like it was a national emergency</li>
+      <li>The group project where we unanimously agreed to carry one person and never spoke of it again</li>
+      <li>The senior prank that took three months to plan and lasted eleven minutes before a janitor found it</li>
+      <li>Every graduation rehearsal where someone kept calling roll names wrong and no one corrected them</li>
+      <li>The morning my teacher told us the essay was due "end of day" and nobody asked what time that was until 9pm</li>
+      <li>Walking across this stage in rehearsal and realizing it's actually pretty short</li>
+    </ul>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — Humor lists look different</summary>
+    <div class="toggle-body">
+      <p><strong>Notice the shared ownership.</strong> Almost every item is "we" not "I" — the fire drills, the group project, the cafeteria. This is what separates humor that works in a graduation speech from stand-up comedy. The audience has to be in on the joke, not the target of it.</p>
+      <p>Also notice item #10: "Walking across this stage in rehearsal and realizing it's actually pretty short." That's the seed of a Humor → Wholesome turn — the joke is about the smallness of the moment, but the meaning underneath is about how big four years felt. That contrast is antithesis waiting to happen.</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 3 — The Freewrite</div>
+
+  <div class="student-block-gold">
+    <div class="student-label-gold">Jordan's Work — 5 min freewrite on item #10</div>
+    <p>In rehearsal they told us to walk at a normal pace and it took maybe eight seconds to cross. Eight seconds. I counted. I've been counting down to graduation since the first week of freshman year and the actual walk takes eight seconds. That's kind of absurd to me.</p>
+    <p>But then I thought about everything that happened in between. The four years that were supposed to just be a bridge to something else. And I don't think of them that way anymore. Freshman year I thought high school was the waiting room. Now I think it was the room. Like we were actually living in here, not just passing through.</p>
+    <p>Eight seconds to cross the stage. Four years to earn the eight seconds. I don't know. That feels like it means something.</p>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — When humor leads somewhere real</summary>
+    <div class="toggle-body">
+      <p><strong>The joke is the entry point, not the destination.</strong> Jordan starts with something absurd — eight seconds — and follows it all the way to a genuine insight about what high school actually was. That's the Humor → Wholesome arc working exactly as intended.</p>
+      <p><strong>Watch the last line:</strong> "Eight seconds to cross the stage. Four years to earn the eight seconds." He's arrived at antithesis without knowing it yet — the contrast between the smallness of the moment and the weight of what it represents. That's his device, right there in the freewrite.</p>
+      <p>If a student's freewrite stays in the joke and never lands anywhere, that's your cue to ask: "What does the funny thing actually mean? Why does it stick with you?"</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 4 — Triage</div>
+
+  <div class="student-block-gold">
+    <div class="student-label-gold">Jordan's Work</div>
+    <p>Three tests on the freewrite:</p>
+    <div class="triage-row">
+      <span class="triage-check">✓</span>
+      <span><strong>Specific?</strong> Yes — eight seconds, one rehearsal, one stage. I can picture exactly where I was standing.</span>
+    </div>
+    <div class="triage-row">
+      <span class="triage-check">✓</span>
+      <span><strong>True?</strong> Yes — I actually counted. And the thing about high school being "the room not the waiting room" — I really do think that now. That surprised me when I wrote it.</span>
+    </div>
+    <div class="triage-row">
+      <span class="triage-check">✓</span>
+      <span><strong>Connects outward?</strong> Yes — every single person in this class has to walk that stage. Eight seconds is universal here.</span>
+    </div>
+    <p style="margin-top: 14px; font-size: 0.88rem; color: var(--slate);">All three. Keeping it.</p>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — "That surprised me when I wrote it"</summary>
+    <div class="toggle-body">
+      <p>That line — "that surprised me when I wrote it" — is one of the best things a student can say about a freewrite. It means they found something they didn't know they thought. That's the whole point of the exercise.</p>
+      <p>When students report back after freewriting, ask them: "Did anything surprise you?" It's a better question than "What did you write?" and it trains them to recognize when the good stuff has surfaced.</p>
+    </div>
+  </details>
+
+  <div class="section-label">Step 5 — Find the Device</div>
+
+  <div class="device-card-gold">
+    <div class="device-name">Antithesis</div>
+    <p>Jordan's freewrite put two opposites next to each other without trying to: the smallness of eight seconds and the weight of four years. Antithesis frames that contrast as a deliberate rhetorical move — the short version and the long version of the same truth, side by side.</p>
+    <div class="example-line">"Eight seconds to cross the stage. Four years to earn it."</div>
+  </div>
+
+  <details class="teacher-toggle">
+    <summary>Teacher Note — Antithesis vs. simple contrast</summary>
+    <div class="toggle-body">
+      <p><strong>Antithesis isn't just "this but that."</strong> The two halves have to be in genuine tension — they should feel like they're pulling against each other, not just sitting next to each other. "Eight seconds to cross / four years to earn it" works because the time units are both real and wildly disproportionate. The gap is the meaning.</p>
+      <p>A weak version would be: "It was short, but it meant a lot." That's contrast without tension. The antithesis sharpens it into a single compressed line that the audience can hold onto.</p>
+      <p>Good test for students: if you flip the two halves, does it still make sense? "Four years to earn it / eight seconds to cross the stage." Yes — it still works, and it changes the emphasis. That reversibility is a sign of real antithesis.</p>
+    </div>
+  </details>
+
+  <div class="cta-card">
+    <h2>Now open your Google Doc.</h2>
+    <p>Two exemplars, two lenses, two devices. The process is the same — the voice is yours. Pick your lens and start digging.</p>
+    <a class="doc-btn" href="REPLACE_WITH_GOOGLE_DOC_LINK" target="_blank">Open Your Brainstorm Doc</a>
+  </div>
+
+</div>
+</div>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
