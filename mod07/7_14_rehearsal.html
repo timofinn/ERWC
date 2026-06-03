@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>7.14 | Rehearsal + Record</title>
+<title>7.14 | Say It Out Loud</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -18,6 +18,15 @@
     --white: #ffffff;
     --blue: #2d5fa3;
     --blue-light: #eef4fb;
+    --red: #b83232;
+    --red-light: #fdf0f0;
+
+    /* Device colors */
+    --c-anaphora: #e8a0bf;
+    --c-antithesis: #a0c4e8;
+    --c-metaphor: #a0e8b8;
+    --c-hypophora: #e8d3a0;
+    --c-tricolon: #c4a0e8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,9 +35,10 @@
     font-family: 'DM Sans', sans-serif;
     background: var(--fog);
     color: var(--dark);
-    padding: 0 0 60px 0;
+    padding: 0 0 80px 0;
   }
 
+  /* HERO */
   .hero {
     background: var(--teal);
     color: var(--white);
@@ -70,6 +80,44 @@
     margin: 36px 0 12px;
   }
 
+  /* SCHEDULE BANNER */
+  .schedule-banner {
+    background: var(--dark);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .schedule-banner h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .sched-item {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .sched-item .sched-day {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .sched-item p {
+    font-size: 0.88rem;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+
+  /* CARD */
   .card {
     background: var(--white);
     border-radius: 10px;
@@ -89,55 +137,43 @@
     line-height: 1.6;
   }
 
-  /* ROUND STEPS */
-  .round {
-    border-left: 4px solid var(--teal-mid);
-    padding-left: 18px;
-    margin-bottom: 24px;
+  /* PROTOCOL STEPS */
+  .step-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 20px;
   }
-  .round-title {
+  .step-num {
+    background: var(--teal);
+    color: var(--white);
     font-family: 'DM Serif Display', serif;
-    font-size: 1.05rem;
+    font-size: 1rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body strong {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
     color: var(--teal);
     margin-bottom: 4px;
   }
-  .round-time {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
-  }
-  .round p {
-    font-size: 0.9rem;
+  .step-body p {
+    font-size: 0.92rem;
     color: var(--slate);
     line-height: 1.6;
-    margin-bottom: 8px;
-  }
-  .round ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    margin-top: 6px;
-  }
-  .round li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.88rem;
-    color: var(--slate);
-    line-height: 1.5;
-  }
-  .round li::before {
-    content: "→";
-    color: var(--teal-mid);
-    flex-shrink: 0;
   }
 
-  /* TIMING BOX */
-  .timing-note {
+  /* INFO BOX */
+  .info-box {
     background: var(--gold-light);
     border: 1.5px solid var(--gold);
     border-radius: 8px;
@@ -146,10 +182,32 @@
     color: var(--slate);
     line-height: 1.6;
     margin-top: 10px;
+    margin-bottom: 12px;
   }
-  .timing-note strong {
-    color: var(--gold);
+  .info-box strong { color: var(--gold); }
+
+  .info-box code {
+    background: rgba(201,150,42,0.15);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.82rem;
+    color: var(--dark);
   }
+
+  /* ALERT BOX */
+  .alert-box {
+    background: var(--red-light);
+    border-left: 4px solid var(--red);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-top: 10px;
+    margin-bottom: 12px;
+  }
+  .alert-box strong { color: var(--red); }
 
   /* PEER FEEDBACK */
   .feedback-card {
@@ -194,13 +252,193 @@
     font-size: 0.85rem;
     line-height: 1.5;
   }
-  .feedback-table tr:last-child td {
-    border-bottom: none;
-  }
+  .feedback-table tr:last-child td { border-bottom: none; }
   .feedback-table td:first-child {
     color: var(--dark);
     font-weight: 600;
     width: 180px;
+  }
+
+  /* DELIVERY / GRADING CARD */
+  .delivery-card {
+    background: var(--white);
+    border: 2px solid var(--teal-mid);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .delivery-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .delivery-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .d-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .d-badge.full { background: var(--teal-light); color: var(--teal); }
+  .d-badge.cap  { background: #fff3cd; color: #856404; }
+  .delivery-row p { font-size: 0.9rem; color: var(--slate); line-height: 1.6; }
+
+  /* MODEL SPEECH */
+  .speech-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.09);
+  }
+  .speech-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .speech-card .speech-byline {
+    font-size: 0.78rem;
+    color: var(--slate);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  /* Color legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    background: var(--fog);
+    border-radius: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--dark);
+    font-weight: 500;
+  }
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Speech structure labels */
+  .speech-section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate);
+    opacity: 0.6;
+    margin: 20px 0 6px;
+    padding-left: 2px;
+  }
+
+  /* Speech text */
+  .speech-body {
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--dark);
+  }
+  .speech-body p {
+    margin-bottom: 1em;
+  }
+
+  /* Highlights */
+  .h-anaphora   { background: var(--c-anaphora);  padding: 1px 3px; border-radius: 3px; font-weight: 600; }
+  .h-antithesis { background: var(--c-antithesis); padding: 1px 3px; border-radius: 3px; font-weight: 600; }
+  .h-metaphor   { background: var(--c-metaphor);   padding: 1px 3px; border-radius: 3px; font-weight: 600; }
+  .h-hypophora  { background: var(--c-hypophora);  padding: 1px 3px; border-radius: 3px; font-weight: 600; }
+  .h-tricolon   { background: var(--c-tricolon);   padding: 1px 3px; border-radius: 3px; font-weight: 600; }
+
+  /* Device annotation boxes */
+  .device-note {
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin: 6px 0 14px;
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+  .device-note .dn-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .dn-anaphora   { background: #fce8f2; border-left: 3px solid var(--c-anaphora); }
+  .dn-antithesis { background: #e8f2fc; border-left: 3px solid var(--c-antithesis); }
+  .dn-metaphor   { background: #e8fced; border-left: 3px solid var(--c-metaphor); }
+  .dn-hypophora  { background: #fdf6e8; border-left: 3px solid var(--c-hypophora); }
+  .dn-tricolon   { background: #f5eefe; border-left: 3px solid var(--c-tricolon); }
+
+  /* ANNOTATION TASK */
+  .annotation-card {
+    background: var(--dark);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+  }
+  .annotation-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+  .annotation-card p {
+    font-size: 0.9rem;
+    opacity: 0.88;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .annotation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 0.85rem;
+  }
+  .annotation-table th {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.71rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .annotation-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    vertical-align: top;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+  .annotation-table tr:last-child td { border-bottom: none; }
+  .annotation-table td:first-child {
+    color: var(--white);
+    font-weight: 600;
+    width: 120px;
   }
 
   /* RECORD CARD */
@@ -245,7 +483,7 @@
     margin-top: -1px;
   }
 
-  /* ABSENT CALLOUT */
+  /* ABSENT CARD */
   .absent-card {
     background: #fff9ec;
     border: 2px dashed var(--gold);
@@ -290,13 +528,6 @@
     opacity: 0.88;
     line-height: 1.6;
   }
-  .submit-card code {
-    background: rgba(255,255,255,0.15);
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 0.85rem;
-  }
   .submit-card ul {
     list-style: none;
     margin-top: 10px;
@@ -322,55 +553,92 @@
 
 <div class="hero">
   <div class="container">
-    <div class="hero-tag">7.14 &nbsp;|&nbsp; Graduation Speech</div>
+    <div class="hero-tag">7.14 &nbsp;|&nbsp; Graduation Speech &nbsp;|&nbsp; Periods 4, 5, 6</div>
     <h1>Say It Out Loud</h1>
-    <p>The speech lives on a stage, not a screen. Today you get off the page — read it aloud, hear what works, get feedback, and record.</p>
+    <p>The speech lives on a stage, not a screen. Today you get off the page — print it, read it to a partner, annotate your craft, and decide if you're ready to deliver it for real.</p>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- SECTION: TODAY -->
-  <div class="section-label">Today's Plan</div>
+  <!-- SCHEDULE -->
+  <div class="section-label">Time You Have</div>
 
-  <div class="card">
-    <h2>Three Rounds</h2>
-    <p style="margin-bottom: 16px;">Fifty-five minutes. Here's the shape:</p>
-
-    <div class="round">
-      <div class="round-title">Round 1 — Solo Read-Aloud</div>
-      <div class="round-time">0–15 min</div>
-      <p>Read your draft out loud to yourself. Not in your head — actually out loud. Time it.</p>
-      <ul>
-        <li>Mark any line that feels awkward to say. Put a star in the margin.</li>
-        <li>Notice where you speed up. That's usually a sign you don't trust the line.</li>
-        <li>Note the total time. Under 4 minutes? Add a beat. Over 6? Find 30 seconds to cut.</li>
-      </ul>
-      <div class="timing-note">
-        <strong>Target:</strong> 4–6 minutes at your actual speaking pace. If you can't hit that today, that's what revision is for.
+  <div class="schedule-banner">
+    <h2>Know Your Window</h2>
+    <div class="schedule-grid">
+      <div class="sched-item">
+        <div class="sched-day">Today — Wed. June 4</div>
+        <p>All periods: <strong>48 minutes.</strong> Get through the read-aloud and partner feedback. Record if you have time.</p>
       </div>
-    </div>
-
-    <div class="round">
-      <div class="round-title">Round 2 — Partner Listen</div>
-      <div class="round-time">15–40 min</div>
-      <p>Find a partner. Read your speech to them — not at them. Put the paper down as much as you can. Your partner's job is to listen, not follow along.</p>
-      <p>After each reading, use the feedback table below. Switch roles. Be specific.</p>
-    </div>
-
-    <div class="round">
-      <div class="round-title">Round 3 — Final Pass + Record</div>
-      <div class="round-time">40–55 min</div>
-      <p>Take five minutes to fix anything that came up. Then record yourself reading the full speech. One take is fine. Two if you need it.</p>
-      <ul>
-        <li>Use your phone, a Chromebook camera, or whatever's available.</li>
-        <li>Stand up if you can. It changes the delivery.</li>
-        <li>Don't start over because you stumbled. Real speeches have stumbles. Keep going.</li>
-      </ul>
+      <div class="sched-item">
+        <div class="sched-day">Tomorrow — Thu. June 5 (P4 + P6 only)</div>
+        <p><strong>110 minutes.</strong> Finish revisions, record, and finalize your annotation if needed.</p>
+      </div>
+      <div class="sched-item">
+        <div class="sched-day">Fri. June 6 — Live Deliveries</div>
+        <p>Modified schedule. <strong>45-minute classes.</strong> Live speeches begin. Sign up if you're in.</p>
+      </div>
+      <div class="sched-item">
+        <div class="sched-day">Mon. June 9 — Live Deliveries Continue</div>
+        <p>More live speeches if needed. Last chance to deliver in person.</p>
+      </div>
     </div>
   </div>
 
-  <!-- SECTION: PEER FEEDBACK -->
+  <!-- TODAY'S PROTOCOL -->
+  <div class="section-label">Today's Protocol</div>
+
+  <div class="card">
+    <h2>Print. Read. Listen. Mark.</h2>
+    <p style="margin-bottom: 20px;">Here's the shape of today. Follow it in order.</p>
+
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Print a single copy of your speech</strong>
+        <p>One copy. Just yours. Go to your Google Doc, print it, and hold it in your hand. This is the version you're reading from today — not a screen.</p>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Solo read-aloud — 0 to 10 min</strong>
+        <p>Read your speech out loud to yourself first. Time it. Mark any line that feels wrong in your mouth — put a star in the margin. Notice where you speed up. That's usually a sign you don't trust the line. Target: 4–6 minutes at your actual pace.</p>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Find a partner — partner opens Google Docs in Suggesting Mode</strong>
+        <p>Your partner opens your Google Doc on their laptop. Before you start, they switch to <strong>Suggesting Mode</strong> using the keyboard shortcut:</p>
+        <div class="info-box" style="margin-top: 8px;">
+          <strong>Chromebook shortcut:</strong> <code>Ctrl + Alt + Shift + X</code> to toggle Suggesting Mode. In this mode, any edits they type show up as suggestions — not permanent changes — so you stay in control of your draft.
+        </div>
+        <p>The person <strong>delivering</strong> the speech holds the printed copy and reads. The <strong>partner</strong> listens with the doc open, typing suggested edits or comments in real time — lines that stumbled, words that felt off, moments that landed.</p>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>Pay attention to how the language feels in your ears</strong>
+        <p>That's the whole point of reading it aloud. The language you wrote for a screen sounds different when spoken. Where does it flow? Where does it catch? Where do you have to fight to get through it? Those are your revision targets.</p>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <strong>Switch roles. Repeat.</strong>
+        <p>Once you've delivered, listen to your partner's speech. Give feedback using the table below. Be specific — "It was good" tells them nothing useful.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PEER FEEDBACK -->
   <div class="section-label">Partner Feedback</div>
 
   <div class="feedback-card">
@@ -386,19 +654,19 @@
       <tbody>
         <tr>
           <td>The hook</td>
-          <td>Tell them what image or idea stuck with you in the first 30 seconds. Did it make you want to keep listening?</td>
+          <td>What image or idea stuck with you in the first 30 seconds? Did it make you want to keep listening?</td>
         </tr>
         <tr>
-          <td>The moment</td>
-          <td>Name the specific scene or detail you remember most. If you can't name one, the story might not be landing yet.</td>
+          <td>The story</td>
+          <td>Name the specific scene or detail you remember most. If you can't name one, the story isn't landing yet.</td>
         </tr>
         <tr>
-          <td>The turn</td>
-          <td>Point to the line where it felt like it stopped being just their story. Did that shift happen?</td>
+          <td>The significance</td>
+          <td>When did it stop being just their story? Point to the line where it felt like it opened up to something bigger.</td>
         </tr>
         <tr>
           <td>The close</td>
-          <td>What's the last thing you actually heard? Did it feel like it ended, or just stopped?</td>
+          <td>What's the last thing you actually heard? Did it feel like it ended — or just stopped?</td>
         </tr>
         <tr>
           <td>Delivery</td>
@@ -408,7 +676,166 @@
     </table>
   </div>
 
-  <!-- RECORD -->
+  <!-- MODEL SPEECH -->
+  <div class="section-label">Model Speech — Color-Coded</div>
+
+  <div class="speech-card">
+    <h2>Model: "The Appointment"</h2>
+    <p class="speech-byline">A sample graduation speech — annotated to show five rhetorical devices in action.</p>
+
+    <!-- LEGEND -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: var(--c-anaphora);"></div>
+        <span>Anaphora</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: var(--c-antithesis);"></div>
+        <span>Antithesis</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: var(--c-metaphor);"></div>
+        <span>Metaphor</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: var(--c-hypophora);"></div>
+        <span>Hypophora</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background: var(--c-tricolon);"></div>
+        <span>Tricolon</span>
+      </div>
+    </div>
+
+    <div class="speech-body">
+
+      <div class="speech-section-label">Hook</div>
+      <p>
+        <span class="h-metaphor">High school is a waiting room.</span> Fluorescent lights. Plastic chairs. Everyone pretending they're not anxious. You sit there long enough, you start to think the waiting is the point.
+      </p>
+      <div class="device-note dn-metaphor">
+        <div class="dn-label" style="color: #2d7a46;">Metaphor</div>
+        The hook opens with a direct claim — no "like," no "as." The comparison does argumentative work: if high school is a waiting room, then what we've been doing here is <em>waiting</em>, not arriving. That tension sets up the whole speech.
+      </div>
+
+      <div class="speech-section-label">Story</div>
+      <p>
+        Junior year, I had a teacher who handed back an essay with one sentence on it. Not a grade. Not a comment in the margins. Just: <em>"I don't believe you yet."</em> Five words. I threw the paper in my bag and didn't look at it for a week. Then I rewrote the whole thing. Not because I had to. Because I wanted her to believe me.
+      </p>
+
+      <div class="speech-section-label">Significance / Turn</div>
+      <p>
+        <span class="h-hypophora">What did that teach me?</span> Not how to write a better essay. It taught me that the people who push back on you — who refuse to let you slide by on half an effort — those are the ones who actually see you.
+      </p>
+      <div class="device-note dn-hypophora">
+        <div class="dn-label" style="color: #9a6c10;">Hypophora</div>
+        The question "What did that teach me?" is the one the audience is already silently forming. Asking it first seizes control of the room. The answer lands somewhere unexpected — it's not about writing. It's about being seen.
+      </div>
+
+      <p>
+        <span class="h-anaphora">We came here to be tested.</span> <span class="h-anaphora">We came here to fall behind and catch up.</span> <span class="h-anaphora">We came here — most of us — to figure out who we were going to be when nobody was telling us anymore.</span>
+      </p>
+      <div class="device-note dn-anaphora">
+        <div class="dn-label" style="color: #8b3060;">Anaphora</div>
+        "We came here" is the anchor. Notice the third item is longer and heavier than the first two — that's tricolon working inside the anaphora. The anchor builds a sense of shared purpose, and the final item is the one that costs something to say.
+      </div>
+
+      <p>
+        <span class="h-antithesis">We didn't come here to be comfortable. We came here to be changed.</span>
+      </p>
+      <div class="device-note dn-antithesis">
+        <div class="dn-label" style="color: #1a4d82;">Antithesis</div>
+        Two parallel halves, opposite meanings. The argument isn't stated — it's inside the gap between "comfortable" and "changed." What does school do to you if it's doing its job? It doesn't leave you where it found you.
+      </div>
+
+      <div class="speech-section-label">Close</div>
+      <p>
+        The waiting room metaphor is wrong, actually. Or it's only half right. Because <span class="h-tricolon">the appointment wasn't waiting for us at the end of senior year, it was in the classroom at 7 a.m. when we showed up anyway, it was in the revision we didn't have to make but made.</span>
+      </p>
+      <div class="device-note dn-tricolon">
+        <div class="dn-label" style="color: #5a1f9b;">Tricolon</div>
+        Three items, building in weight. The first is abstract (the appointment). The second is concrete (7 a.m., showing up). The third is the most specific and emotionally loaded — the revision we didn't have to make. The heaviest thing lands last.
+      </div>
+
+      <p>
+        The door isn't in front of us. It was always open. <em>We just had to walk through it.</em>
+      </p>
+
+    </div>
+  </div>
+
+  <!-- ANNOTATION TASK -->
+  <div class="section-label">Your Annotation</div>
+
+  <div class="annotation-card">
+    <h2>Color-Code Your Own Speech</h2>
+    <p>In your Google Doc, highlight every rhetorical device you used — one color per device. Then add a comment next to each one explaining your choice. Keep it to one or two sentences.</p>
+    <table class="annotation-table">
+      <thead>
+        <tr>
+          <th>Device used</th>
+          <th>Where in the speech</th>
+          <th>Why you put it there — one sentence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3.</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4.</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5.</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 12px; font-size: 0.82rem; opacity: 0.75;">You need at least five devices. Use the model above and the color legend as your guide. The comment doesn't have to be perfect — it just has to show you made a deliberate choice.</p>
+  </div>
+
+  <!-- LIVE DELIVERY -->
+  <div class="section-label">Live Delivery — What You Need to Know</div>
+
+  <div class="delivery-card">
+    <h2>The Stakes — Read This</h2>
+
+    <div class="delivery-row">
+      <div class="d-badge full">Full Credit</div>
+      <p>You deliver your speech live — in front of the class — on June 6 or 9. That's the full experience this unit was built for. Sign up with your teacher if you're willing.</p>
+    </div>
+
+    <div class="delivery-row">
+      <div class="d-badge full">Full Credit</div>
+      <p>You record yourself on video <em>and</em> are willing to play it for the class. The willingness to be seen in front of your peers is what counts — live or recorded, it's the same.</p>
+    </div>
+
+    <div class="delivery-row">
+      <div class="d-badge cap">80% Cap</div>
+      <p>You submit a video recording for the teacher only and opt out of any in-person or in-class delivery. This is a public speaking unit — lowering the stakes that much lowers the grade. The cap is 80%.</p>
+    </div>
+
+    <div class="info-box" style="margin-top: 4px;">
+      <strong>Not everyone needs to present live.</strong> If you've crafted something you're proud of and want to put it in the room — sign up. Speeches begin Friday June 6 (45-min modified schedule) and continue Monday June 9.
+    </div>
+  </div>
+
+  <!-- RECORD CARD -->
   <div class="section-label">Recording Checklist</div>
 
   <div class="record-card">
@@ -417,19 +844,19 @@
     <ul class="record-list">
       <li>Find a spot with decent sound — not right next to an open window or a loud HVAC.</li>
       <li>Stand up, or sit up straight. Slouching changes your voice more than you think.</li>
-      <li>Have your Google Doc open but try not to read every word. You can glance — don't stare.</li>
-      <li>Record at least the full speech, start to finish, without stopping.</li>
-      <li>Watch it back or listen once. You don't have to be happy with it. You just have to submit it.</li>
+      <li>Have your Google Doc open but try not to read every word. Glance — don't stare.</li>
+      <li>Record the full speech, start to finish, without stopping.</li>
+      <li>Watch it back once. You don't have to be happy with it. You just have to submit it.</li>
     </ul>
   </div>
 
-  <!-- ABSENT STUDENTS -->
+  <!-- ABSENT -->
   <div class="section-label">If You're Not Here Today</div>
 
   <div class="absent-card">
     <h2>Record at Home</h2>
-    <p>If you miss class, you can complete the recording on your own. Use your phone — voice memo or video, either works. Read your speech aloud at least twice before you record. Then do one full take and submit it.</p>
-    <p style="margin-top: 8px;">Upload your recording to Google Drive and paste the link in the Canvas submission for this assignment. Title it: <code>7.14 | [Your Name] | Speech Recording</code></p>
+    <p>If you miss class, complete the recording on your own. Use your phone — voice memo or video, either works. Read your speech aloud at least twice before you record. Then do one full take.</p>
+    <p style="margin-top: 8px;">Upload your recording to Google Drive and paste the link in Canvas for 7.14. Title it: <code>7.14 | [Your Name] | Speech Recording</code></p>
     <p style="margin-top: 8px;">Deadline is the same as everyone else's.</p>
   </div>
 
@@ -438,10 +865,10 @@
     <h2>Submission</h2>
     <p>Submit two things in Canvas for 7.14:</p>
     <ul>
-      <li>Your final Google Doc (same one from 7.13, with any revisions made today)</li>
-      <li>A link to your recording — Google Drive video or audio memo</li>
+      <li>Your final Google Doc — with rhetorical devices highlighted and annotated</li>
+      <li>A link to your recording (Google Drive video or audio)</li>
     </ul>
-    <p style="margin-top: 10px;">That's the speech. Written and said. You're done.</p>
+    <p style="margin-top: 10px;">That's the speech. Written, marked up, and said. You're done.</p>
   </div>
 
 </div>
