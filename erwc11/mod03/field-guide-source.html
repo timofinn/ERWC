@@ -1,0 +1,217 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Salem Court Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column of stacked "field cards", each a diagram with a short caption; diagrams scale with the column. */
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --ink:#1f2a33; --muted:#5b6670; --line:#d5dbe0;
+  --bench:#2d3b45; --pros:#a23b2c; --def:#2f6690; --wit:#b07d14; --jury:#8a959e; --you:#3f7d4e;
+  --chip:#eef1f3;
+  --display:"IM Fell English SC", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141a1f; --surface:#1c242b; --ink:#e6ebef; --muted:#9aa6b0; --line:#33404b;
+  --bench:#8fa7ba; --pros:#e07a68; --def:#6fa8dc; --wit:#e0b04a; --jury:#7d8a95; --you:#7cc28d; --chip:#25303a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a1f; --surface:#1c242b; --ink:#e6ebef; --muted:#9aa6b0; --line:#33404b;
+  --bench:#8fa7ba; --pros:#e07a68; --def:#6fa8dc; --wit:#e0b04a; --jury:#7d8a95; --you:#7cc28d; --chip:#25303a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:860px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:grid;gap:28px}
+header{display:grid;gap:6px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font:400 clamp(30px,6vw,46px)/1.05 var(--display);margin:0;text-wrap:balance}
+h2{font:400 26px/1.1 var(--display);margin:0;text-wrap:balance}
+p{margin:0;max-width:65ch}
+.lede{color:var(--muted)}
+section.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:16px;min-width:0}
+.diagram{overflow-x:auto}
+.diagram svg{display:block;width:100%;height:auto;min-width:520px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.step{background:var(--chip);border-radius:8px;padding:12px;display:grid;gap:4px;align-content:start}
+.step b{font:500 13px/1 var(--mono);color:var(--muted)}
+.step strong{font-weight:700}
+.step p{font-size:14px;color:var(--muted)}
+.bar{display:flex;width:100%;border-radius:6px;overflow:hidden;font:500 12px/1.2 var(--mono);color:#fff}
+.bar div{padding:10px 6px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;border-right:2px solid var(--surface)}
+.bar div:last-child{border-right:0}
+.bar small{display:block;opacity:.85;font-size:11px}
+.rowlabel{font:600 14px/1 var(--body);margin-bottom:6px}
+.note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:12px}
+ul.jobs{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+ul.jobs li{display:grid;grid-template-columns:110px 1fr;gap:12px;font-size:15px}
+ul.jobs li b{font-weight:700}
+@media (max-width:480px){ul.jobs li{grid-template-columns:1fr;gap:2px}}
+/* svg tokens */
+.s-bg{fill:var(--chip)} .s-line{stroke:var(--line)} .s-ink{fill:var(--ink)} .s-muted{fill:var(--muted)}
+.s-bench{fill:var(--bench)} .s-pros{fill:var(--pros)} .s-def{fill:var(--def)} .s-wit{fill:var(--wit)} .s-jury{fill:var(--jury)} .s-you{fill:var(--you)}
+.s-table{fill:var(--surface);stroke:var(--line);stroke-width:2}
+svg text{font-family:var(--body);font-size:13px}
+svg .lab{font-weight:700;font-size:12px;letter-spacing:.06em}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">3.00 | A Power Play · Teacher Field Guide</div>
+  <h1>Salem Court Field Guide</h1>
+  <p class="lede">What the room looks like, who's talking, and where the minutes go. Four pictures: a normal day, a table read, a trial, and trial day.</p>
+</header>
+
+<section class="card">
+  <h2>1. Every Day: Court Is in Session</h2>
+  <p>55 minutes, drawn to scale. Your talking lives in the gray slivers.</p>
+  <div>
+    <div class="bar" role="img" aria-label="Docket 5 minutes, Scene 20, Ruling 25, Verdict 5">
+      <div style="flex:5;background:var(--bench)">Docket<small>5</small></div>
+      <div style="flex:20;background:var(--def)">Scene<small>20 · read, act, watch</small></div>
+      <div style="flex:25;background:var(--pros)">Ruling<small>25 · they argue</small></div>
+      <div style="flex:5;background:var(--wit)">Verdict<small>5</small></div>
+    </div>
+  </div>
+  <p class="note">Rule of thumb: if you've talked more than 10 minutes total, the Ruling block is shrinking.</p>
+</section>
+
+<section class="card">
+  <h2>2. The Table Read</h2>
+  <p>All 7 tables read the <strong>same scene at the same time</strong>. You float. Nobody performs for the whole room.</p>
+  <div class="diagram">
+  <svg viewBox="0 0 640 330" role="img" aria-label="Room map: 7 tables of 5. Each table has 3 actors, a narrator and a power tracker. Teacher at front.">
+    <rect class="s-bg" x="0" y="0" width="640" height="330" rx="10"/>
+    <rect class="s-bench" x="250" y="14" width="140" height="30" rx="6"/>
+    <text x="320" y="34" text-anchor="middle" fill="#fff" class="lab">YOU · FREEZE CARD</text>
+    <g id="tables"></g>
+    <text x="320" y="318" text-anchor="middle" class="s-muted">Back of room</text>
+  </svg>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--def)"></i>Actor (3 per table)</span>
+    <span><i class="sw" style="background:var(--wit)"></i>Narrator: stage directions + minor lines</span>
+    <span><i class="sw" style="background:var(--pros)"></i>Power Tracker: tallies power moves</span>
+  </div>
+  <div class="rowlabel">One 20-minute Scene block</div>
+  <div class="steps">
+    <div class="step"><b>2 min</b><strong>Set</strong><p>One-line setup. Post the focus question.</p></div>
+    <div class="step"><b>8 min</b><strong>Read</strong><p>Every table reads to the FREEZE line marked in the script.</p></div>
+    <div class="step"><b>3 min</b><strong>Freeze</strong><p>Table answers the question. Tracker reports the tally.</p></div>
+    <div class="step"><b>5 min</b><strong>Read</strong><p>Finish the scene.</p></div>
+    <div class="step"><b>2 min</b><strong>Report</strong><p>Cold-call one table. Prove it with a line.</p></div>
+  </div>
+  <p class="note">Rotate roles every scene so the quiet kids get a turn as Actor and the loud ones get a turn as Tracker.</p>
+</section>
+
+<section class="card">
+  <h2>3. One Trial</h2>
+  <p>One table is on. The other 30 students are the jury. Everyone has a job.</p>
+  <div class="diagram">
+  <svg viewBox="0 0 640 400" role="img" aria-label="Courtroom map: judge bench at front center, witness stand beside it, prosecution table front left, defense table front right, timekeeper at side, teacher grading from the side wall, 30 jurors in three rows behind.">
+    <rect class="s-bg" x="0" y="0" width="640" height="400" rx="10"/>
+    <rect class="s-bench" x="255" y="16" width="130" height="36" rx="6"/>
+    <text x="320" y="39" text-anchor="middle" fill="#fff" class="lab">JUDGE</text>
+    <rect class="s-wit" x="400" y="20" width="84" height="30" rx="6"/>
+    <text x="442" y="40" text-anchor="middle" fill="#fff" class="lab">WITNESS</text>
+    <rect class="s-table" x="70" y="80" width="170" height="54" rx="8"/>
+    <circle class="s-pros" cx="125" cy="107" r="13"/><circle class="s-pros" cx="185" cy="107" r="13"/>
+    <text x="155" y="152" text-anchor="middle" class="s-ink lab">PROSECUTION (2)</text>
+    <rect class="s-table" x="400" y="80" width="170" height="54" rx="8"/>
+    <circle class="s-def" cx="455" cy="107" r="13"/><circle class="s-def" cx="515" cy="107" r="13"/>
+    <text x="485" y="152" text-anchor="middle" class="s-ink lab">DEFENSE (2)</text>
+    <rect class="s-bench" x="168" y="22" width="70" height="26" rx="6" opacity=".55"/>
+    <text x="203" y="40" text-anchor="middle" fill="#fff" class="lab">TIMER</text>
+    <rect class="s-you" x="590" y="170" width="40" height="120" rx="6"/>
+    <text x="610" y="232" text-anchor="middle" fill="#fff" class="lab" transform="rotate(90 610 232)">YOU · GRADING</text>
+    <g id="jury"></g>
+    <text x="300" y="388" text-anchor="middle" class="s-muted">Jury: 30 students with scorecards</text>
+  </svg>
+  </div>
+  <div class="rowlabel">12 minutes, drawn to scale. Each of the 5 speaks once.</div>
+  <div class="bar" role="img" aria-label="Opening prosecution 1 minute, opening defense 1, testimony 3, closing prosecution 1.5, closing defense 1.5, jury vote 1, reset 3">
+    <div style="flex:2;background:var(--pros)">Open<small>1:00</small></div>
+    <div style="flex:2;background:var(--def)">Open<small>1:00</small></div>
+    <div style="flex:6;background:var(--wit)">Testimony + questions<small>3:00</small></div>
+    <div style="flex:3;background:var(--pros)">Close<small>1:30</small></div>
+    <div style="flex:3;background:var(--def)">Close<small>1:30</small></div>
+    <div style="flex:2;background:var(--bench)">Vote<small>1:00</small></div>
+    <div style="flex:6;background:var(--jury)">Reset<small>3:00</small></div>
+  </div>
+  <ul class="jobs">
+    <li><b>Prosecutors</b><span>One opens, one closes. Name the power, quote the play.</span></li>
+    <li><b>Defense</b><span>Same split. Same rules.</span></li>
+    <li><b>Witness</b><span>Plays the accused in character. Answers both sides' questions.</span></li>
+    <li><b>Judge</b><span>Student from another table. Gavel, order, "Sustained."</span></li>
+    <li><b>Timer</b><span>TA or student. Holds up 30-second and STOP cards.</span></li>
+    <li><b>Jury</b><span>Scores each speaker on the scorecard, then votes.</span></li>
+    <li><b>You</b><span>Side wall, clipboard, grading the 5 speakers. You don't judge the case.</span></li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>4. Trial Days</h2>
+  <p>Both days fill all 55 minutes. Day 1 is tight, so setup has to be done before the bell: desks moved, cards on tables.</p>
+  <div>
+    <div class="rowlabel">Day 17 · Wed 11/18</div>
+    <div class="bar" role="img" aria-label="Open court 3 minutes, four 12-minute trials, close 4 minutes">
+      <div style="flex:3;background:var(--bench)">Open<small>3</small></div>
+      <div style="flex:12;background:var(--pros)">Trial 1<small>12</small></div>
+      <div style="flex:12;background:var(--def)">Trial 2<small>12</small></div>
+      <div style="flex:12;background:var(--pros)">Trial 3<small>12</small></div>
+      <div style="flex:12;background:var(--def)">Trial 4<small>12</small></div>
+      <div style="flex:4;background:var(--wit)">Close<small>4</small></div>
+    </div>
+  </div>
+  <div>
+    <div class="rowlabel">Day 18 · Thu 11/19</div>
+    <div class="bar" role="img" aria-label="Open court 3 minutes, three 12-minute trials, verdict debrief 16 minutes">
+      <div style="flex:3;background:var(--bench)">Open<small>3</small></div>
+      <div style="flex:12;background:var(--pros)">Trial 5<small>12</small></div>
+      <div style="flex:12;background:var(--def)">Trial 6<small>12</small></div>
+      <div style="flex:12;background:var(--pros)">Trial 7<small>12</small></div>
+      <div style="flex:16;background:var(--wit)">Verdict debrief<small>16</small></div>
+    </div>
+  </div>
+  <p class="note">If Day 17 runs long, Trial 4 slides to Day 18 and the debrief shrinks to 4 minutes. That's the release valve.</p>
+</section>
+
+<section class="card">
+  <h2>5. How the Talking Grows</h2>
+  <p>Longest time each student talks solo, by week. Nobody gives their first speech on trial day.</p>
+  <div style="display:grid;gap:10px">
+    <div><div class="rowlabel">Week 1 · Grand Jury defense</div><div class="bar" style="width:33%"><div style="flex:1;background:var(--def)">0:30</div></div></div>
+    <div><div class="rowlabel">Week 2 · Hot seat</div><div class="bar" style="width:66%"><div style="flex:1;background:var(--def)">1:00</div></div></div>
+    <div><div class="rowlabel">Week 3 · Closing speed rounds</div><div class="bar" style="width:100%"><div style="flex:1;background:var(--def)">1:30</div></div></div>
+    <div><div class="rowlabel">Week 4 · The Retrial (graded)</div><div class="bar" style="width:100%"><div style="flex:1;background:var(--pros)">1:00 to 1:30</div></div></div>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+  var ns="http://www.w3.org/2000/svg";
+  function el(t,a,p){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e;}
+  // Table read: 7 tables, 4 + 3
+  var g=document.getElementById("tables");
+  var pos=[[95,110],[245,110],[395,110],[545,110],[170,230],[320,230],[470,230]];
+  var roles=["s-def","s-def","s-def","s-wit","s-pros"];
+  pos.forEach(function(p,i){
+    el("circle",{cx:p[0],cy:p[1],r:34,"class":"s-table"},g);
+    var t=el("text",{x:p[0],y:p[1]+5,"text-anchor":"middle","class":"s-muted"},g);t.textContent="T"+(i+1);
+    roles.forEach(function(r,j){
+      var a=-Math.PI/2+j*2*Math.PI/5;
+      el("circle",{cx:p[0]+52*Math.cos(a),cy:p[1]+52*Math.sin(a),r:10,"class":r},g);
+    });
+  });
+  // Jury: 3 rows of 10
+  var j=document.getElementById("jury");
+  for(var r=0;r<3;r++)for(var c=0;c<10;c++){
+    el("rect",{x:70+c*48,y:205+r*52,width:30,height:30,rx:6,"class":"s-jury"},j);
+  }
+})();
+</script>
+
+</body></html>
