@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.04 | Tell Me About a Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF7EE;
+    --card: #FFFDF8;
+    --ink: #2A2724;
+    --muted: #6B6358;
+    --oxblood: #7A2E2A;
+    --gold: #B8975A;
+    --rule: #DCD2BF;
+    --wash: #F3ECDD;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 18px/1.6 "Source Serif 4", Georgia, serif;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  /* Masthead */
+  header { text-align: center; border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 8px; }
+  .kicker { font: 600 13px/1 "Source Serif 4", serif; letter-spacing: .18em; text-transform: uppercase; color: var(--oxblood); }
+  h1 { font: 600 44px/1.1 "EB Garamond", Georgia, serif; margin: 10px 0 6px; }
+  .ornament { color: var(--gold); letter-spacing: .5em; font-size: 14px; }
+
+  /* Sections */
+  section { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 {
+    font: 600 30px/1.2 "EB Garamond", Georgia, serif;
+    margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .num { color: var(--oxblood); font-style: italic; font-weight: 500; }
+  .meta { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+  .meta b { color: var(--oxblood); font-weight: 600; }
+  h3 { font: 600 22px/1.3 "EB Garamond", Georgia, serif; margin: 24px 0 8px; }
+  p { margin: 0 0 12px; }
+  em { color: var(--muted); }
+
+  /* Purpose */
+  .purpose p { margin: 0 0 4px; }
+  .pages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .pages div { background: var(--card); border: 1px solid var(--rule); padding: 12px 14px; font-size: 16px; }
+  .pages b { display: block; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); }
+
+  /* Fill-in lines */
+  .frame { background: var(--card); border-left: 3px solid var(--oxblood); padding: 14px 18px; margin: 12px 0; }
+  .blank { display: inline-block; min-width: 110px; border-bottom: 1px solid var(--ink); }
+
+  /* Quote / model */
+  blockquote {
+    margin: 16px 0; padding: 4px 0 4px 20px;
+    border-left: 1px solid var(--gold);
+    font-style: italic; color: var(--ink);
+  }
+  blockquote cite { display: block; font-style: normal; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 6px; }
+  .ideas { font-size: 15px; color: var(--muted); }
+
+  /* STAR table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 16px; }
+  th { text-align: left; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .star td:first-child { width: 34%; }
+  .letter { font: 600 32px/1 "EB Garamond", serif; color: var(--oxblood); margin-right: 2px; }
+
+  /* Model answer */
+  .compare { display: grid; gap: 12px; }
+  .bad, .good { background: var(--card); border: 1px solid var(--rule); padding: 14px 18px; }
+  .bad { opacity: .85; }
+  .tag { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .good .tag { color: var(--oxblood); }
+  .good p { margin: 0 0 6px; }
+  .good b { color: var(--oxblood); font-family: "EB Garamond", serif; font-size: 20px; }
+
+  /* Steps */
+  ol.steps { padding-left: 22px; margin: 0 0 12px; }
+  ol.steps li { margin-bottom: 6px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--oxblood); font-weight: 600; }
+  .note { background: var(--wash); padding: 12px 16px; font-size: 16px; margin: 12px 0; }
+
+  /* Question list */
+  .q { padding: 12px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 34px 1fr; gap: 6px; }
+  .q:last-child { border-bottom: 0; }
+  .q .n { font: 500 22px/1.2 "EB Garamond", serif; font-style: italic; color: var(--oxblood); }
+  .q strong { display: block; font-weight: 600; }
+  .q span { color: var(--muted); font-size: 16px; }
+  .group { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 18px 0 0; }
+  .closer { text-align: center; font-family: "EB Garamond", serif; font-style: italic; font-size: 20px; color: var(--oxblood); margin-top: 18px; }
+
+  .draft td { height: 52px; }
+  .example { font-size: 15px; color: var(--muted); }
+
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: "\2610"; position: absolute; left: 0; color: var(--oxblood); }
+
+  footer { text-align: center; color: var(--gold); letter-spacing: .5em; padding-top: 12px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .page { padding: 28px 16px 48px; }
+    h1 { font-size: 34px; }
+    h2 { font-size: 25px; }
+    .pages { grid-template-columns: 1fr; }
+    .draft { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <div class="kicker">3.00 &middot; Landing the Interview</div>
+  <h1>3.04 | Tell Me About a Time</h1>
+  <div class="ornament">&#10070; &#10070; &#10070;</div>
+</header>
+
+<section class="purpose">
+  <h2>Purpose</h2>
+  <p>Thursday you ranked what matters to you in a job.</p>
+  <p>Today your #1 becomes a filter that crosses careers off the list.</p>
+  <p>Then you'll learn STAR, the move behind every good "tell me about a time" answer.</p>
+  <p>Then you'll draft 3 answers to say out loud next class.</p>
+  <div class="pages">
+    <div><b>Left page</b>Rule It Out + STAR notes</div>
+    <div><b>Right page</b>3 STAR drafts + Story Bank</div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">I.</span> Rule It Out</h2>
+  <p class="meta"><b>7 min</b> &middot; Left page, top</p>
+  <p>Flip back to 3.03. Find your #1.</p>
+  <p>Your top priority quietly eliminates whole fields. If work-life balance is your #1, teaching might be a rough fit. The grading pile follows you home every weekend like a stray cat.</p>
+  <div class="frame">
+    My #1 is <span class="blank"></span> , so I'd probably avoid <span class="blank"></span> , because <span class="blank"></span> .<br>
+    A field that still fits: <span class="blank"></span> .
+  </div>
+  <p><strong>Turn and talk:</strong> Share yours. Your partner names one more job you should cross off.</p>
+  <p class="ideas"><em>Need ideas?</em> nurse &middot; electrician &middot; lawyer &middot; chef &middot; police officer &middot; software engineer &middot; teacher &middot; real estate agent &middot; truck driver &middot; small business owner</p>
+  <blockquote>
+    <cite>Mr. Finn's</cite>
+    My #1 is creative control, so I'd steer clear of jobs that run off a script, like call centers or managing a fast food franchise, because someone else already decided every move. Teaching still fits, as long as nobody hands me a scripted curriculum.
+  </blockquote>
+</section>
+
+<section>
+  <h2><span class="num">II.</span> STAR</h2>
+  <p class="meta"><b>12 min</b> &middot; Left page</p>
+  <p>Interviewers love "Tell me about a time..." questions. Their logic: how you handled it before is how you'll handle it on their payroll.</p>
+  <h3>Copy this</h3>
+  <table class="star">
+    <thead><tr><th>Letter</th><th>Ask yourself</th><th>How long</th></tr></thead>
+    <tbody>
+      <tr><td><span class="letter">S</span>ituation</td><td>Where and when?</td><td>1 sentence</td></tr>
+      <tr><td><span class="letter">T</span>ask</td><td>What was the problem or my job?</td><td>1 sentence</td></tr>
+      <tr><td><span class="letter">A</span>ction</td><td>What did <i>I</i> do? Say "I," not "we."</td><td>Most of it</td></tr>
+      <tr><td><span class="letter">R</span>esult</td><td>How did it end? What did I learn?</td><td>1-2 sentences</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Q: Tell me about a time you handled pressure.</h3>
+  <div class="compare">
+    <div class="bad">
+      <div class="tag">Without STAR</div>
+      "Um, I'm pretty good under pressure. Stuff happens and I just deal with it, you know?"<br>
+      <em>(The interviewer heard nothing.)</em>
+    </div>
+    <div class="good">
+      <div class="tag">With STAR</div>
+      <p><b>S</b> &nbsp;Last summer I worked the register at my uncle's taco truck.</p>
+      <p><b>T</b> &nbsp;The card reader died in the middle of the lunch rush, with 15 people in line.</p>
+      <p><b>A</b> &nbsp;I taped up a cash-only sign, pointed people to the ATM across the street, and wrote orders on paper so nobody got skipped.</p>
+      <p><b>R</b> &nbsp;We kept almost the whole line. Now I always ask, "What's the backup plan?" before a busy shift.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">III.</span> Draft Your Answers</h2>
+  <p class="meta"><b>30 min</b> &middot; Right page</p>
+  <ol class="steps">
+    <li>Read the questions and the advice. Star 3 you have a real story for.</li>
+    <li>Tell a partner which stories you picked (2 min). Out loud first, pen second.</li>
+    <li>Draft each one in the table. <strong>Keywords only, no full sentences.</strong> You're building a memory, not a script.</li>
+  </ol>
+  <div class="note">
+    <strong>Steal from yourself:</strong> In 3.03 your partner wrote down "Something went wrong and I..." That's half a STAR story already.<br>
+    Stories can come from anywhere: school, sports, family, friends, a job, a group project.
+  </div>
+
+  <h3>The 15 Questions (and how to answer them)</h3>
+  <p>Interviewers aren't grading a perfect answer. They want to know how you think and whether you'd fit.</p>
+
+  <div class="q"><div class="n">1</div><div><strong>What motivates you?</strong><span>Your #1 from 3.03 is a head start. Then prove it with a time it kicked in.</span></div></div>
+
+  <p class="group">2-12 start with "Tell me about a time..."</p>
+  <div class="q"><div class="n">2</div><div><strong>...you solved a problem.</strong><span>Small and real beats big and fake. Spend most of your answer on the steps you took.</span></div></div>
+  <div class="q"><div class="n">3</div><div><strong>...you worked on a team.</strong><span>Say "I," not "we." They're hiring you, not your group.</span></div></div>
+  <div class="q"><div class="n">4</div><div><strong>...you disagreed with someone.</strong><span>Show you listened first. No villains.</span></div></div>
+  <div class="q"><div class="n">5</div><div><strong>...you made a mistake.</strong><span>Own it fast, then spend the answer on how you fixed it.</span></div></div>
+  <div class="q"><div class="n">6</div><div><strong>...you had a tight deadline.</strong><span>Name the deadline and show how you planned.</span></div></div>
+  <div class="q"><div class="n">7</div><div><strong>...you were under pressure.</strong><span>Stay calm in the retelling too. Show the one smart choice you made.</span></div></div>
+  <div class="q"><div class="n">8</div><div><strong>...you took the lead.</strong><span>No title needed. Organizing the carpool counts.</span></div></div>
+  <div class="q"><div class="n">9</div><div><strong>...you went above and beyond.</strong><span>Say what was expected, then what you added on top.</span></div></div>
+  <div class="q"><div class="n">10</div><div><strong>...you had to learn something fast.</strong><span>Say <i>how</i> you learned it: videos, asking someone, practice.</span></div></div>
+  <div class="q"><div class="n">11</div><div><strong>...you dealt with a difficult person.</strong><span>Describe what they did, not who they are. Stay kind.</span></div></div>
+  <div class="q"><div class="n">12</div><div><strong>...someone criticized your work.</strong><span>Say what you changed afterward. Getting defensive is a red flag.</span></div></div>
+
+  <p class="group">The classics</p>
+  <div class="q"><div class="n">13</div><div><strong>What's your greatest strength?</strong><span>Pick one, not five, and back it up with a story.</span></div></div>
+  <div class="q"><div class="n">14</div><div><strong>What's your greatest weakness?</strong><span>A real one (not "I work too hard"), plus what you're doing about it.</span></div></div>
+  <div class="q"><div class="n">15</div><div><strong>Why should we hire you?</strong><span>Connect one of your strengths to what the job needs. Then tell the story that proves it.</span></div></div>
+
+  <p class="closer">The best answers don't sound rehearsed. They sound like a clear story with real details.</p>
+
+  <h3>Draft table</h3>
+  <table class="draft">
+    <thead><tr><th>Q #</th><th>S</th><th>T</th><th>A</th><th>R</th></tr></thead>
+    <tbody>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="example"><em>Example row: Q7 &middot; taco truck, lunch rush &middot; card reader died, 15 in line &middot; cash sign, ATM, paper orders &middot; kept the line, always have a backup</em></p>
+</section>
+
+<section>
+  <h2><span class="num">IV.</span> Story Bank</h2>
+  <p class="meta"><b>3 min</b> &middot; Right page, bottom</p>
+  <p>One good story can answer a bunch of questions.</p>
+  <div class="frame">My go-to story is about <span class="blank"></span> . It could also answer questions # ___ , ___ .</div>
+</section>
+
+<section>
+  <h2>Success Looks Like</h2>
+  <ul class="check">
+    <li>Rule It Out sentences done</li>
+    <li>STAR chart copied</li>
+    <li>3 drafts, every box filled</li>
+    <li>Story Bank sentence filled in</li>
+  </ul>
+</section>
+
+<footer>&#10070; &#10070; &#10070;</footer>
+</main>
+</body>
+</html>
