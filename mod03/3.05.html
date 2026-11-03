@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.05 | No Peeking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF7EE;
+    --card: #FFFDF8;
+    --ink: #2A2724;
+    --muted: #6B6358;
+    --oxblood: #7A2E2A;
+    --gold: #B8975A;
+    --rule: #DCD2BF;
+    --wash: #F3ECDD;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 18px/1.6 "Source Serif 4", Georgia, serif;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  /* Masthead */
+  header { text-align: center; border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 8px; }
+  .kicker { font: 600 13px/1 "Source Serif 4", serif; letter-spacing: .18em; text-transform: uppercase; color: var(--oxblood); }
+  h1 { font: 600 44px/1.1 "EB Garamond", Georgia, serif; margin: 10px 0 6px; }
+  .ornament { color: var(--gold); letter-spacing: .5em; font-size: 14px; }
+
+  /* Sections */
+  section { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 {
+    font: 600 30px/1.2 "EB Garamond", Georgia, serif;
+    margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .num { color: var(--oxblood); font-style: italic; font-weight: 500; }
+  .meta { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+  .meta b { color: var(--oxblood); font-weight: 600; }
+  h3 { font: 600 22px/1.3 "EB Garamond", Georgia, serif; margin: 24px 0 8px; }
+  p { margin: 0 0 12px; }
+  em { color: var(--muted); }
+
+  /* Purpose */
+  .purpose p { margin: 0 0 4px; }
+  .pages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .pages div { background: var(--card); border: 1px solid var(--rule); padding: 12px 14px; font-size: 16px; }
+  .pages b { display: block; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); }
+
+  /* Fill-in lines */
+  .frame { background: var(--card); border-left: 3px solid var(--oxblood); padding: 14px 18px; margin: 12px 0; }
+  .blank { display: inline-block; min-width: 110px; border-bottom: 1px solid var(--ink); }
+
+  /* Quote / model */
+  blockquote {
+    margin: 16px 0; padding: 4px 0 4px 20px;
+    border-left: 1px solid var(--gold);
+    font-style: italic; color: var(--ink);
+  }
+  blockquote cite { display: block; font-style: normal; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 6px; }
+  .ideas { font-size: 15px; color: var(--muted); }
+
+  /* STAR table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 16px; }
+  th { text-align: left; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .star td:first-child { width: 34%; }
+  .letter { font: 600 32px/1 "EB Garamond", serif; color: var(--oxblood); margin-right: 2px; }
+
+  /* Model answer */
+  .compare { display: grid; gap: 12px; }
+  .bad, .good { background: var(--card); border: 1px solid var(--rule); padding: 14px 18px; }
+  .bad { opacity: .85; }
+  .tag { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .good .tag { color: var(--oxblood); }
+  .good p { margin: 0 0 6px; }
+  .good b { color: var(--oxblood); font-family: "EB Garamond", serif; font-size: 20px; }
+
+  /* Steps */
+  ol.steps { padding-left: 22px; margin: 0 0 12px; }
+  ol.steps li { margin-bottom: 6px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--oxblood); font-weight: 600; }
+  .note { background: var(--wash); padding: 12px 16px; font-size: 16px; margin: 12px 0; }
+
+  /* Question list */
+  .q { padding: 12px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 34px 1fr; gap: 6px; }
+  .q:last-child { border-bottom: 0; }
+  .q .n { font: 500 22px/1.2 "EB Garamond", serif; font-style: italic; color: var(--oxblood); }
+  .q strong { display: block; font-weight: 600; }
+  .q span { color: var(--muted); font-size: 16px; }
+  .group { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 18px 0 0; }
+  .closer { text-align: center; font-family: "EB Garamond", serif; font-style: italic; font-size: 20px; color: var(--oxblood); margin-top: 18px; }
+
+  .draft td { height: 52px; }
+  .example { font-size: 15px; color: var(--muted); }
+
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: "\2610"; position: absolute; left: 0; color: var(--oxblood); }
+
+  footer { text-align: center; color: var(--gold); letter-spacing: .5em; padding-top: 12px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .page { padding: 28px 16px 48px; }
+    h1 { font-size: 34px; }
+    h2 { font-size: 25px; }
+    .pages { grid-template-columns: 1fr; }
+    .draft { font-size: 14px; }
+  }
+  table.tally td { height: 44px; }
+  .ladder td:first-child { width: 30%; }
+  .script p { margin: 0 0 6px; }
+  .script b { color: var(--oxblood); font-family: "EB Garamond", serif; font-size: 18px; }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <div class="kicker">3.00 &middot; Landing the Interview</div>
+  <h1>3.05 | No Peeking</h1>
+  <div class="ornament">&#10070; &#10070; &#10070;</div>
+</header>
+
+<section class="purpose">
+  <h2>Purpose</h2>
+  <p>Yesterday you drafted 3 STAR stories.</p>
+  <p>Today you tell them with your notebook in someone else's hands.</p>
+  <p>Real interviews don't come with notes.</p>
+  <p>Your partner's cues are training wheels. The goal is fewer of them.</p>
+  <div class="pages">
+    <div><b>Left page</b>Warm-Up + Cue Ladder</div>
+    <div><b>Right page</b>Cue Tally + Reflection</div>
+  </div>
+  <h3>What a Finished Notebook Looks Like</h3>
+  <p class="ideas"><em>Click the image to see it full size.</em></p>
+  <a href="3.05-notebook-model.png" target="_blank"><img src="3.05-notebook-model.png" alt="Example notebook spread for 3.05. Left page: warm-up checklist and the Cue Ladder chart. Right page: cue tally table for two rounds and the reflection sentences." style="width:100%;height:auto;border:1px solid var(--rule);display:block"></a>
+</section>
+
+<section>
+  <h2><span class="num">I.</span> Finish &amp; Cover</h2>
+  <p class="meta"><b>5 min</b> &middot; Left page, top</p>
+  <p>Flip to your 3.04 drafts.</p>
+  <ol class="steps">
+    <li>Any empty boxes? Fill them now. You can't remember what you never wrote.</li>
+    <li>Read one draft. Cover it with your hand.</li>
+    <li>Whisper it to yourself, S to R. Peek only if you're stuck.</li>
+    <li>Repeat for the other two.</li>
+  </ol>
+  <div class="note">Blanking right now is good news. Every peek tells you exactly which part needs work.</div>
+</section>
+
+<section>
+  <h2><span class="num">II.</span> The Cue Ladder</h2>
+  <p class="meta"><b>8 min</b> &middot; Left page</p>
+  <p>When your partner blanks, don't hand them the answer. Climb the ladder, smallest cue first.</p>
+  <h3>Copy this</h3>
+  <table class="ladder">
+    <thead><tr><th>Cue</th><th>The interviewer says</th></tr></thead>
+    <tbody>
+      <tr><td><span class="letter">1</span> The letter</td><td>"You're on Action. What did you do?"</td></tr>
+      <tr><td><span class="letter">2</span> One keyword</td><td>"...ATM?"</td></tr>
+      <tr><td><span class="letter">3</span> The whole box</td><td>Read their keywords out loud. They try again.</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Wait 5 seconds before any cue.</strong> Silence feels long. Thinking needs it.</p>
+
+  <h3>Watch it work</h3>
+  <div class="good script">
+    <div class="tag">Taco truck, take two</div>
+    <p><b>Interviewer:</b> Tell me about a time you were under pressure.</p>
+    <p><b>Candidate:</b> Okay, so I worked my uncle's taco truck, and the card reader died at lunch... and, um...</p>
+    <p><em>(5 seconds.)</em></p>
+    <p><b>Interviewer:</b> You're on Action. What did you do?</p>
+    <p><b>Candidate:</b> I put up a sign... um...</p>
+    <p><b>Interviewer:</b> ...ATM?</p>
+    <p><b>Candidate:</b> Right! I sent people to the ATM across the street and wrote orders on paper.</p>
+    <p class="example"><em>Two cues. Tally: 2.</em></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">III.</span> Round 1</h2>
+  <p class="meta"><b>15 min</b> &middot; Right page</p>
+  <ol class="steps">
+    <li><strong>Candidate:</strong> open to your 3.04 drafts and hand over your notebook. Hands off.</li>
+    <li><strong>Interviewer:</strong> ask one of their drafted questions. Follow along in their table.</li>
+    <li><strong>Candidate:</strong> answer with STAR.</li>
+    <li>Stuck? Wait 5 seconds, then climb the ladder.</li>
+    <li><strong>Interviewer:</strong> flip to their 3.05 right page and tally the cues.</li>
+  </ol>
+  <p>All 3 questions, then switch roles.</p>
+  <h3>Cue Tally</h3>
+  <table class="tally">
+    <thead><tr><th>Q #</th><th>Round 1 cues</th><th>Round 2 cues</th></tr></thead>
+    <tbody>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">IV.</span> Round 2</h2>
+  <p class="meta"><b>15 min</b> &middot; Right page</p>
+  <p>New partner. Same 3 questions. Beat your Round 1 cue count.</p>
+  <div class="note"><strong>Bonus:</strong> Done early? Your interviewer picks a question you <i>didn't</i> draft from the 3.04 list. Answer it with your go-to story from the Story Bank.</div>
+</section>
+
+<section>
+  <h2><span class="num">V.</span> Reflection</h2>
+  <p class="meta"><b>4 min</b> &middot; Right page, bottom</p>
+  <div class="frame">
+    The part I kept blanking on was <span class="blank"></span> .<br>
+    Next time I'll <span class="blank"></span> .
+  </div>
+</section>
+
+<section>
+  <h2>Success Looks Like</h2>
+  <ul class="check">
+    <li>3.04 drafts finished</li>
+    <li>Cue Ladder copied</li>
+    <li>3 questions answered, twice</li>
+    <li>Cue Tally and Reflection filled in</li>
+  </ul>
+</section>
+
+<footer>&#10070; &#10070; &#10070;</footer>
+</main>
+</body>
+</html>
