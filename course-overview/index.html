@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Overview</title>
+<style>
+  :root {
+    --cream: #f6f0e4;
+    --ink: #2b2a28;
+    --pill: #3b3a36;
+    --sage: #d5dfca;
+    --blue: #cddae3;
+    --peach: #f0d5c3;
+    --mustard: #efe0ae;
+    --lav: #ddd4e8;
+    --line: #d9cfba;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+
+  .banner { display: block; width: 100%; height: auto; aspect-ratio: 3.5 / 1; object-fit: cover; border: 2px solid var(--ink); border-radius: 16px; margin-bottom: 24px; background: #e9dcc3; }
+
+  /* header */
+  header { display: flex; align-items: center; gap: 20px; margin-bottom: 36px; }
+  header img { width: 96px; height: 96px; object-fit: cover; border-radius: 50%; background: #fff; border: 2px solid var(--ink); }
+  h1 { font: 700 clamp(30px, 6vw, 46px)/1.05 Georgia, "Times New Roman", serif; margin: 0 0 6px; }
+  header p { margin: 0; font-size: 18px; }
+
+  /* rows: big label left, content right */
+  .row { display: grid; grid-template-columns: 170px 1fr; gap: 12px 24px; padding: 26px 0; border-top: 2px solid var(--line); }
+  .row > h2 { font: 700 26px/1.1 Georgia, "Times New Roman", serif; margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+
+  /* tiles */
+  .tile { display: block; overflow: hidden; border-radius: 14px; color: inherit; text-decoration: none; border: 2px solid var(--ink); transition: transform .12s ease; }
+  .tile img { display: block; width: 100%; height: auto; aspect-ratio: 2.6 / 1; object-fit: cover; border-bottom: 2px solid var(--ink); background: #e9dcc3; }
+  .tile .txt { display: block; padding: 12px 16px 16px; }
+  .tile:hover, .tile:focus-visible { transform: translateY(-3px); outline: none; box-shadow: 0 4px 0 var(--ink); }
+  .tile b { display: block; font-size: 20px; line-height: 1.2; margin: 8px 0 2px; }
+  .tile span.d { font-size: 15px; }
+  .pill { display: inline-block; background: var(--pill); color: #fff; font-size: 13px; padding: 2px 11px; border-radius: 99px; }
+  .sage { background: var(--sage); } .blue { background: var(--blue); } .peach { background: var(--peach); }
+  .mustard { background: var(--mustard); } .lav { background: var(--lav); }
+
+  /* bell schedule */
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tabs button { font: inherit; font-size: 15px; padding: 6px 16px; border-radius: 99px; border: 2px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--pill); color: #fff; }
+  .sched h3 { margin: 0 0 8px; font-size: 18px; }
+  table { width: 100%; max-width: 440px; border-collapse: collapse; background: #fffaf0; border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+  th { background: var(--mustard); }
+  tr:last-child td { border-bottom: 0; }
+  tr.lunch td { background: var(--sage); font-style: italic; }
+  .js .sched { display: none; }
+  .js .sched.on { display: block; }
+  .sched + .sched { margin-top: 22px; }
+  .js .sched + .sched { margin-top: 0; }
+
+  /* fire drill */
+  .fire { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .fire img { width: 100%; border-radius: 12px; border: 2px solid var(--ink); background: #fff; }
+  .fire ol { margin: 0; padding-left: 22px; }
+  .fire li { margin-bottom: 8px; }
+
+  footer { border-top: 2px solid var(--line); padding-top: 18px; font-size: 15px; }
+  footer details { margin-top: 10px; font-size: 13px; }
+  footer summary { cursor: pointer; }
+  footer details a { color: inherit; }
+
+  @media (max-width: 700px) {
+    .row { grid-template-columns: 1fr; }
+    .fire { grid-template-columns: 1fr; }
+    header img { width: 72px; height: 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <img class="banner" src="images/banner.jpg" alt="" width="1400" height="400">
+
+  <header>
+    <img src="images/finn.png" alt="Mr. Finnigan" onerror="this.style.display='none'">
+    <div>
+      <h1>Course Overview</h1>
+      <p>Everything you need on day one, in one place. No scavenger hunt.</p>
+    </div>
+  </header>
+
+  <section class="row">
+    <h2>Find your class</h2>
+    <div class="grid">
+      <a class="tile peach" href="https://gamma.app/docs/Syllabus-ERWC-12-Finnigan-hsycu0bzapjse40" target="_blank" rel="noopener">
+        <img src="images/tile-erwc12.jpg" alt="" width="640" height="246" loading="lazy">
+        <span class="txt">
+        <span class="pill">12th grade</span>
+        <b>ERWC 12 Syllabus</b>
+        <span class="d">Periods 1, 2, 4</span>
+        </span>
+      </a>
+      <a class="tile blue" href="https://gamma.app/docs/Syllabus-ERWC-11-Finnigan-jsuzx35wvh4f0y9" target="_blank" rel="noopener">
+        <img src="images/tile-erwc11.jpg" alt="" width="640" height="246" loading="lazy">
+        <span class="txt">
+        <span class="pill">11th grade</span>
+        <b>ERWC 11 Syllabus</b>
+        <span class="d">Periods 5, 6</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2>Start here</h2>
+    <div class="grid">
+      <a class="tile sage" href="https://gamma.app/docs/Notebook-Guide-jxi7dh6fevac35d" target="_blank" rel="noopener">
+        <img src="images/tile-notebook.jpg" alt="" width="640" height="246" loading="lazy">
+        <span class="txt">
+        <span class="pill">Everyone</span>
+        <b>Notebook Setup</b>
+        <span class="d">Build it once, use it all year.</span>
+        </span>
+      </a>
+      <a class="tile mustard" href="https://gamma.app/docs/Your-Semester-Grade--843cx91anjyeg02" target="_blank" rel="noopener">
+        <img src="images/tile-grades.jpg" alt="" width="640" height="246" loading="lazy">
+        <span class="txt">
+        <span class="pill">Everyone</span>
+        <b>How Grades Work</b>
+        <span class="d">What counts and how much.</span>
+        </span>
+      </a>
+      <a class="tile lav" href="https://docs.google.com/spreadsheets/d/1gJmJVxT7m8NmkcZLgW7tKbMu2ecRwqoEGGJos6cksH4/edit?usp=sharing" target="_blank" rel="noopener">
+        <img src="images/tile-calendar.jpg" alt="" width="640" height="246" loading="lazy">
+        <span class="txt">
+        <span class="pill">Everyone</span>
+        <b>Academic Calendar</b>
+        <span class="d">Dates worth knowing.</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2>Bell schedule</h2>
+    <div>
+      <div class="tabs" role="tablist" aria-label="Schedule type">
+        <button role="tab" data-t="reg" aria-selected="true">Regular</button>
+        <button role="tab" data-t="wed" aria-selected="false">Wednesday</button>
+        <button role="tab" data-t="min" aria-selected="false">Minimum day</button>
+      </div>
+
+      <div class="sched on" id="reg">
+        <h3>Regular day</h3>
+        <table>
+          <tr><th>Period</th><th>Start</th><th>End</th></tr>
+          <tr><td>1</td><td>8:30</td><td>9:26</td></tr>
+          <tr><td>2</td><td>9:34</td><td>10:30</td></tr>
+          <tr><td>3</td><td>10:38</td><td>11:34</td></tr>
+          <tr><td>4</td><td>11:42</td><td>12:38</td></tr>
+          <tr class="lunch"><td>Lunch</td><td>12:38</td><td>1:13</td></tr>
+          <tr><td>5</td><td>1:21</td><td>2:17</td></tr>
+          <tr><td>6</td><td>2:25</td><td>3:21</td></tr>
+        </table>
+      </div>
+
+      <div class="sched" id="wed">
+        <h3>Wednesday</h3>
+        <table>
+          <tr><th>Period</th><th>Start</th><th>End</th></tr>
+          <tr><td>Meeting</td><td>8:30</td><td>9:25</td></tr>
+          <tr><td>1</td><td>9:30</td><td>10:18</td></tr>
+          <tr><td>2</td><td>10:25</td><td>11:20</td></tr>
+          <tr><td>3</td><td>11:27</td><td>12:15</td></tr>
+          <tr><td>4</td><td>12:22</td><td>1:10</td></tr>
+          <tr class="lunch"><td>Lunch</td><td>1:10</td><td>1:45</td></tr>
+          <tr><td>5</td><td>1:52</td><td>2:40</td></tr>
+          <tr><td>6</td><td>2:47</td><td>3:35</td></tr>
+        </table>
+      </div>
+
+      <div class="sched" id="min">
+        <h3>Minimum day</h3>
+        <table>
+          <tr><th>Period</th><th>Start</th><th>End</th></tr>
+          <tr><td>1</td><td>8:30</td><td>9:13</td></tr>
+          <tr><td>2</td><td>9:20</td><td>10:03</td></tr>
+          <tr><td>3</td><td>10:10</td><td>10:53</td></tr>
+          <tr><td>4</td><td>11:00</td><td>11:43</td></tr>
+          <tr class="lunch"><td>Lunch</td><td>11:43</td><td>12:18</td></tr>
+          <tr><td>5</td><td>12:25</td><td>1:08</td></tr>
+          <tr><td>6</td><td>1:15</td><td>1:58</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <h2>Fire drill?</h2>
+    <div class="fire">
+      <img src="images/fire-drill-map.png" alt="Map showing the meeting spot on the football field" onerror="this.style.display='none'">
+      <ol>
+        <li>Alarm goes off. Stop talking and line up at the door.</li>
+        <li>Walk out with the class. No sprinting, no detours.</li>
+        <li>Meet on the 45 yard line and stay with me so I can take attendance.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    Broken link? Tell me in class and I'll fix it.
+    <details>
+      <summary>Art credits</summary>
+      Pinterest: <a href="https://www.pinterest.com/pin/510666045268589662/" target="_blank" rel="noopener">ERWC 11</a>,
+      <a href="https://www.pinterest.com/pin/510666045268139005/" target="_blank" rel="noopener">grades</a>,
+      <a href="https://www.pinterest.com/pin/510666045271285107/" target="_blank" rel="noopener">calendar</a>.
+    </details>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    document.documentElement.classList.add('js');
+    var tabs = document.querySelectorAll('.tabs button');
+    function show(id) {
+      document.querySelectorAll('.sched').forEach(function (s) { s.classList.toggle('on', s.id === id); });
+      tabs.forEach(function (b) { b.setAttribute('aria-selected', b.dataset.t === id ? 'true' : 'false'); });
+    }
+    tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.t); }); });
+    show(new Date().getDay() === 3 ? 'wed' : 'reg');
+  })();
+</script>
+</body>
+</html>
