@@ -90,7 +90,22 @@ table.drafts td.tm{text-align:center;font-size:20px;font-weight:700;letter-spaci
 table.drafts td.qn{text-align:center;font-weight:800;font-size:13px;color:#22283a}
 .bank{background:#fff;border:1px solid #c9ccd6;border-radius:6px;padding:12px 14px;font-size:13.5px;line-height:2}
 .bank u{text-decoration:none;border-bottom:1.5px solid #2a3150;padding:0 3px}
-.wrap{width:1160px}
+.wrap{width:1300px}
+.aside{width:110px;flex:none;background:#fbeea0;box-shadow:0 2px 4px rgba(0,0,0,.12);padding:10px 8px;color:#2a2a1e;margin-top:40px}
+.aside .who{font-size:8.5px;font-weight:800;letter-spacing:.12em;color:#9a7a1c;margin-bottom:6px;text-align:center}
+.aside table{background:transparent;border:0;font-size:12px;text-align:center}
+.aside td{padding:4px 2px;border-bottom:1px solid rgba(154,122,28,.25)}
+.aside td:first-child{font-weight:800;color:#1f2a5a}
+.aside td:last-child{color:#6a5a20}
+.dir{font-size:12.5px;line-height:1.45;color:#2a3150;background:#fff8dc;border-left:4px solid #9a7a1c;padding:8px 11px;border-radius:4px;margin:0 0 10px}
+.dir b{color:#1f2a5a}
+.roles{font-size:12px;line-height:1.45;color:#2a3150;margin:0 0 9px;padding:0;list-style:none}
+.roles li{margin-bottom:6px}
+.roles b{color:#1f2a5a}
+.roles i{color:#5a5e6a}
+.tips{margin:0;padding:0;list-style:none;font-size:12.5px;line-height:1.45;color:#2a3150}
+.tips li{margin-bottom:8px}
+.tips b{color:#1f2a5a}
 .notes{width:200px}.sticky{width:200px}
 .scale{width:100%;border-collapse:collapse;background:#fff;font-size:11px;text-align:center;table-layout:fixed}
 .scale td{padding:5px 0;border:1px solid #e3e5ea}
@@ -106,8 +121,9 @@ table.coach td,table.coach th{text-align:center;padding:7px 6px}
 table.coach td:first-child{text-align:left;font-weight:700;color:#1f2a5a}
 table.coach td.h{font-size:14px;color:#2a3150;font-weight:600}
 </style></head><body><div class="wrap" id="wrap">
-<p class="cap" contenteditable="true" spellcheck="false"><b>What a finished 3.07 looks like.</b> Left page: the frame + score scale. Right page: my answer + Coach Box.</p>
+<p class="cap" contenteditable="true" spellcheck="false"><b>What a finished 3.07 looks like.</b> Left page: the frame + performance tips. Right page: my answer + Coach Box.</p>
 <div class="row">
+<div class="aside" id="scale" contenteditable="true" spellcheck="false"><div class="who">SCORE SCALE</div><table><tbody><tr><td>5.0</td><td>100%</td></tr><tr><td>4.75</td><td>95%</td></tr><tr><td>4.5</td><td>90%</td></tr><tr><td>4.25</td><td>85%</td></tr><tr><td>4.0</td><td>80%</td></tr><tr><td>3.75</td><td>75%</td></tr><tr><td>3.5</td><td>70%</td></tr><tr><td>3.25</td><td>65%</td></tr><tr><td>3.0</td><td>60%</td></tr></tbody></table></div>
 <div class="book" id="book" contenteditable="true" spellcheck="false">
  <div class="page left">
   <h1 class="title"><span class="code">3.07 |</span> What's Your Greatest Strength?</h1>
@@ -134,11 +150,12 @@ table.coach td.h{font-size:14px;color:#2a3150;font-weight:600}
    <li><b>Point:</b> uses it to build curriculum</li>
   </ul>
   <div class="gap"></div>
-  <div class="box">Box 4 · Score Scale <span>(copy it)</span></div>
-  <table class="scale" id="scale"><tbody>
-   <tr><td>3.0</td><td>3.25</td><td>3.5</td><td>3.75</td><td>4.0</td><td>4.25</td><td>4.5</td><td>4.75</td><td>5.0</td></tr>
-   <tr><td>60%</td><td>65%</td><td>70%</td><td>75%</td><td>80%</td><td>85%</td><td>90%</td><td>95%</td><td>100%</td></tr>
-  </tbody></table>
+  <div class="box">Box 4 · Performance Tips <span>(copy it)</span></div>
+  <ul class="tips" id="tips">
+   <li><b>Before you start:</b> picture the three pieces in your head. The middle will likely need the most detail.</li>
+   <li><b>Record yourself:</b> open Voice Memos on your phone and hit the red button.</li>
+   <li><b>Listen back:</b> check your tone, register (how formal you sound), filler words, timing and intonation.</li>
+  </ul>
   <svg class="stamp" id="stamp" contenteditable="false" style="left:330px;top:690px" viewBox="0 0 100 100">
    <defs>
     <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"></feTurbulence><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.55"></feColorMatrix><feComposite in="SourceGraphic" operator="in"></feComposite></filter>
@@ -157,30 +174,35 @@ table.coach td.h{font-size:14px;color:#2a3150;font-weight:600}
   <div class="score" id="score" contenteditable="false">4.5<small>90%</small></div>
   <h1 class="title">What's Your Greatest Strength? <span class="code">| 3.07</span></h1>
   <div class="side">Right page · my answer</div>
+  <div class="dir" id="dir"><b>First:</b> pick a job you'll be simulating an interview for. Then consider what strength you have that would help you perform it.<br><b>My job:</b> party host at Chuckie Cheese</div>
   <div class="box">Box 5 · My Answer <span>(all three moves)</span></div>
   <table class="drafts" id="answer" style="table-layout:auto">
    <tbody>
    <tr><th class="s" style="width:80px">Name It</th><td>My greatest strength is patience, especially when I'm teaching someone something new.</td></tr>
    <tr><th class="t">Prove It</th><td>I help coach my cousin's flag football team. One kid dropped every pass, so I stayed after and we practiced with a beach ball until he could catch.</td></tr>
-   <tr><th class="r">Point It</th><td>At a summer camp, kids learn at different speeds. I don't get frustrated. I find another way.</td></tr>
+   <tr><th class="r">Point It</th><td>At Chuckie Cheese, the place is packed with kids. When a kid melts down, I don't get frustrated. I find another way.</td></tr>
   </tbody></table>
   <div class="gap"></div>
   <div class="box">Box 6 · Coach Box <span>(your coaches fill this in)</span></div>
+  <ul class="roles" id="roles">
+   <li><b>Coach 1:</b> watch the red hand on the clock and give the cue to start.</li>
+   <li><b>Coach 2:</b> play the interviewer for the first 10 seconds. <i>"Welcome to Chuckie Cheese, I'm the floor manager, Daryl. We saw your resume and had to have you in. You mention patience as one of your greatest strengths. Can you talk a bit about that?"</i></li>
+  </ul>
   <table class="coach" id="coach"><tbody>
    <tr><th></th><th>Time</th><th>Fillers</th><th>Moves</th></tr>
    <tr><td>Take 1</td><td class="h">38 sec</td><td class="h">7</td><td class="h">2 / 3</td></tr>
    <tr><td>Take 2</td><td class="h">54 sec</td><td class="h">3</td><td class="h">3 / 3</td></tr>
   </tbody></table>
-  <div class="bank" id="keepfix" style="margin-top:9px">Keep: <u>the beach ball detail</u><br>Fix: <u>you never said why it matters at camp</u></div>
+  <div class="bank" id="keepfix" style="margin-top:9px">Keep: <u>the beach ball detail</u><br>Fix: <u>you never said why it matters at Chuckie Cheese</u></div>
   <div class="gap"></div>
   <div class="box">Last Line</div>
   <div class="bank" id="last">My coach caught that I say "like" every time I pause. I didn't hear it at all.</div>
  </div>
 </div>
 <div class="notes" id="notes" contenteditable="true" spellcheck="false">
- <div class="sticky" id="n1" data-target="score" style="top: 0px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>The two of you are coaching. Give them feedback that'll help them improve on their first take. Once the second take is over, spot grade them by writing an honest score at the top.</div>
- <div class="sticky" id="n2" data-target="answer" style="top: 200px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>This is less about neatly completing your notebook than about building your ability to speak with confidence. Better a sloppy notebook and a strong spoken performance.</div>
- <div class="sticky" id="n3" data-target="keepfix" style="top: 570px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>Observing? Tell them where they rambled, where they need more, what they should emphasize, what they should reconsider.</div>
+ <div class="sticky" id="n1" data-target="coach" style="top: 640px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>The two of you are coaching. Give them feedback that'll help them improve on their first take. Once the second take is over, spot grade them by writing an honest score at the top.</div>
+ <div class="sticky" id="n2" data-target="answer" style="top: 260px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>This is less about neatly completing your notebook than about building your ability to speak with confidence. Better a sloppy notebook and a strong spoken performance.</div>
+ <div class="sticky" id="n3" data-target="keepfix" style="top: 900px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>Observing? Tell them where they rambled, where they need more, what they should emphasize, what they should reconsider.</div>
 </div>
 </div></div>
 <div id="bar"><span>Click any text to edit. Drag MR. FINN labels and the stamp.</span><button class="ghost" id="reset">Reset</button><button class="ghost" id="savefile">Save to File</button><button id="export">Export PNG</button></div>
