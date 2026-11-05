@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Why Salem? (draft)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  /* Theme: Classical, Crucible (dark). Same token names as the cream theme, so a swap is :root only. */
+  :root {
+    --paper: #15110E;
+    --card: #1F1915;
+    --ink: #EADFC8;
+    --muted: #A89B84;
+    --oxblood: #D8675B;   /* accent text */
+    --blood: #8E2F2A;     /* accent fills and borders */
+    --gold: #C9A25E;
+    --rule: #3B3028;
+    --wash: #261E19;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 18px/1.6 "Source Serif 4", Georgia, serif;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  /* Masthead */
+  header {
+    text-align: center;
+    border-bottom: 1px solid var(--gold);
+    padding: 28px 0 24px;
+    margin-bottom: 8px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,162,94,.16), transparent 65%);
+  }
+  .kicker { font: 600 13px/1 "Source Serif 4", serif; letter-spacing: .18em; text-transform: uppercase; color: var(--oxblood); }
+  h1 { font: 400 46px/1.1 "IM Fell English", Georgia, serif; margin: 12px 0 8px; }
+  .ornament { color: var(--gold); letter-spacing: .5em; font-size: 14px; }
+
+  /* Sections */
+  section { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 {
+    font: 400 32px/1.2 "IM Fell English", Georgia, serif;
+    margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .num { color: var(--oxblood); font-style: italic; }
+  .meta { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+  .meta b { color: var(--oxblood); font-weight: 600; }
+  p { margin: 0 0 12px; }
+  em { color: var(--muted); }
+
+  /* Purpose */
+  .purpose p { margin: 0 0 4px; }
+  .pages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .pages div { background: var(--card); border: 1px solid var(--rule); padding: 12px 14px; font-size: 16px; }
+  .pages b { display: block; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); }
+
+  /* Fill-in frame (display only, students write in the notebook) */
+  .frame { background: var(--card); border-left: 3px solid var(--blood); padding: 14px 18px; margin: 12px 0; line-height: 2; }
+  .blank { display: inline-block; min-width: 110px; border-bottom: 1px solid var(--muted); }
+  .blank.short { min-width: 36px; }
+  .blank.wide { min-width: 200px; }
+
+  /* Reference table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 8px; font-size: 16px; }
+  th { text-align: left; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .forms td:first-child { width: 31%; font: 400 22px/1.3 "IM Fell English", Georgia, serif; font-style: italic; color: var(--oxblood); }
+
+  /* Steps */
+  ol.steps { padding-left: 22px; margin: 0 0 12px; }
+  ol.steps li { margin-bottom: 6px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--oxblood); font-weight: 600; }
+  .note { background: var(--wash); padding: 12px 16px; font-size: 16px; margin: 12px 0; }
+  .note b { color: var(--oxblood); }
+
+  /* Checklist */
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: "\2610"; position: absolute; left: 0; color: var(--oxblood); }
+  ul.check .pts { color: var(--gold); font-weight: 600; white-space: nowrap; }
+
+  td .blank { min-width: 0; width: 100%; }
+  .compare td:nth-child(2) { width: 38%; }
+  .compare td:nth-child(3) { width: 31%; }
+
+  footer { text-align: center; color: var(--gold); letter-spacing: .5em; padding-top: 12px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .page { padding: 28px 16px 48px; }
+    h1 { font-size: 35px; }
+    h2 { font-size: 26px; }
+    .pages { grid-template-columns: 1fr; }
+    .forms td:first-child { width: 36%; font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <div class="kicker">3.00 &middot; A Power Play</div>
+  <h1>Why Salem?</h1>
+  <div class="ornament">&#10070; &#10070; &#10070;</div>
+</header>
+
+<section class="purpose">
+  <h2>Purpose</h2>
+  <p>Miller set his play in 1692. He wrote it in the early 1950s.</p>
+  <p>Back then the government was running its own hunt.</p>
+  <p>Today you line the two hunts up and track who held the power.</p>
+  <div class="pages">
+    <div><b>Left page</b>Catch Up + the 1692 vs 1953 table</div>
+    <div><b>Right page</b>Power Tracker</div>
+  </div>
+  <p style="margin-top:16px"></p>
+</section>
+
+<section>
+  <h2><span class="num">I.</span> Catch Up</h2>
+  <p class="meta"><b>5 min</b> &middot; Left page, top</p>
+  <p>Finish this sentence in your notebook:</p>
+  <div class="frame">At the end of Act One, the most powerful person in Salem is <span class="blank"></span> because <span class="blank wide"></span>.</div>
+</section>
+
+<section>
+  <h2><span class="num">II.</span> Read: The Other Witch Hunt</h2>
+  <p class="meta"><b>20 min</b> &middot; Read, then left page, middle</p>
+  <p>It&rsquo;s the early 1950s. World War II is over, and the US and the Soviet Union are locked in the Cold War. Everyone is scared of the bomb, and a lot of Americans are convinced communists are hiding next door.</p>
+  <p><strong>HUAC.</strong> The House Un-American Activities Committee was a group in Congress that called people in and asked one question: are you now, or have you ever been, a communist? In 1947 it went after Hollywood. Ten writers and directors refused to answer. They went to prison. (Senator Joseph McCarthy ran his own hunt over in the Senate. Same panic, different room. That&rsquo;s why the era is called McCarthyism.)</p>
+  <p><strong>The blacklist.</strong> You didn&rsquo;t need a trial to lose everything. Studios kept lists of &ldquo;suspicious&rdquo; people and stopped hiring them. Hundreds of careers ended over a rumor, an old meeting, or a petition someone signed years earlier.</p>
+  <p><strong>Naming names.</strong> Here&rsquo;s the trap. HUAC offered a way out: admit you used to be involved, then name everyone else who was. Do that and you could go back to work. Refuse and you were done. In 1952 Miller&rsquo;s friend, the director Elia Kazan, named names. That same year Miller drove to Salem to read the 1692 court records. <em>The Crucible</em> opened on Broadway in January 1953.</p>
+  <p><strong>Miller&rsquo;s turn.</strong> In 1956 HUAC subpoenaed Miller himself. He answered questions about his own past. When they told him to name other people, he refused. Congress found him in contempt in 1957. A court threw out the conviction in 1958.</p>
+  <p><strong>So why Salem?</strong> Miller couldn&rsquo;t stand up and say &ldquo;HUAC is a witch hunt&rdquo; without getting blacklisted. So he wrote about an actual witch hunt and let the audience do the math.</p>
+  <p>Now copy this table. Fill in the 1953 column from what you just read.</p>
+  <table class="forms compare">
+    <thead><tr><th></th><th>Salem, 1692</th><th>America, 1953</th></tr></thead>
+    <tbody>
+      <tr><td>The Accusation</td><td>&ldquo;You&rsquo;re working with the Devil.&rdquo;</td><td><span class="blank"></span></td></tr>
+      <tr><td>The Proof</td><td>Someone swears they saw your spirit. Try proving you weren&rsquo;t there.</td><td><span class="blank"></span></td></tr>
+      <tr><td>The Way Out</td><td>Confess, then name others. (Sound familiar? Act One.)</td><td><span class="blank"></span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">III.</span> Track It</h2>
+  <p class="meta"><b>15 min</b> &middot; Right page</p>
+  <ol class="steps">
+    <li>Draw a Power Tracker: three columns, three rows.</li>
+    <li>Copy the first row. It&rsquo;s done for you.</li>
+    <li>Fill two more rows. Pick from: McCarthy, the studios, Kazan, Miller.</li>
+  </ol>
+  <table class="forms">
+    <thead><tr><th>Who</th><th>Form of power</th><th>The move (your words)</th></tr></thead>
+    <tbody>
+      <tr><td>HUAC</td><td>Coercive</td><td>Answer our questions or go to jail.</td></tr>
+      <tr><td><span class="blank short"></span></td><td><span class="blank short"></span></td><td><span class="blank"></span></td></tr>
+      <tr><td><span class="blank short"></span></td><td><span class="blank short"></span></td><td><span class="blank"></span></td></tr>
+    </tbody>
+  </table>
+  <div class="note"><b>The six forms:</b> Legitimate (the title) &middot; Reward (the treat) &middot; Expert (the knowledge) &middot; Referent (the fans) &middot; Coercive (the threat) &middot; Informational (the secret)</div>
+</section>
+
+<section>
+  <h2><span class="num">IV.</span> Spot It in the Wild</h2>
+  <p class="meta"><b>10 min</b> &middot; Half sheet, hand it in</p>
+  <p>This stuff didn&rsquo;t stay in 1692 or 1953. It&rsquo;s in your group chat.</p>
+  <ol class="steps">
+    <li>Think of one time this week someone used power to get a person to do something. A coach, an ad, a friend, a parent. Or you.</li>
+    <li>Fill out the half sheet: who, what they said or did, which form, and whether it worked on you.</li>
+    <li>Hand it to the sub before you leave. Name on it.</li>
+  </ol>
+  <div class="note"><b>Last 5 minutes:</b> buffer. Finish whatever isn&rsquo;t finished.</div>
+</section>
+
+<section>
+  <h2>Success Looks Like</h2>
+  <ul class="check">
+    <li><b>Left page:</b> Catch Up sentence + 1953 column filled in <span class="pts">4 pts</span></li>
+    <li><b>Right page:</b> Power Tracker with 3 rows <span class="pts">4 pts</span></li>
+    <li><b>Half sheet:</b> one real example, turned in to the sub <span class="pts">4 pts</span></li>
+  </ul>
+  <p style="margin-top:12px"><em>Stamp check Tuesday. Mr. Finn stamps 3.06 and 3.07 together, so keep both in your notebook.</em></p>
+</section>
+
+<footer>&#10070; &#10070; &#10070;</footer>
+</main>
+</body>
+</html>
