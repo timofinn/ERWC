@@ -90,7 +90,7 @@ table.drafts td.tm{text-align:center;font-size:20px;font-weight:700;letter-spaci
 table.drafts td.qn{text-align:center;font-weight:800;font-size:13px;color:#22283a}
 .bank{background:#fff;border:1px solid #c9ccd6;border-radius:6px;padding:12px 14px;font-size:13.5px;line-height:2}
 .bank u{text-decoration:none;border-bottom:1.5px solid #2a3150;padding:0 3px}
-.wrap{width:1300px}
+.wrap{width:1360px}
 .aside{width:110px;flex:none;background:#fbeea0;box-shadow:0 2px 4px rgba(0,0,0,.12);padding:10px 8px;color:#2a2a1e;margin-top:40px}
 .aside .who{font-size:8.5px;font-weight:800;letter-spacing:.12em;color:#9a7a1c;margin-bottom:6px;text-align:center}
 .aside table{background:transparent;border:0;font-size:12px;text-align:center}
@@ -106,7 +106,7 @@ table.drafts td.qn{text-align:center;font-weight:800;font-size:13px;color:#22283
 .tips{margin:0;padding:0;list-style:none;font-size:12.5px;line-height:1.45;color:#2a3150}
 .tips li{margin-bottom:8px}
 .tips b{color:#1f2a5a}
-.notes{width:200px}.sticky{width:200px}
+.notes{width:260px}.sticky{width:260px}
 .scale{width:100%;border-collapse:collapse;background:#fff;font-size:11px;text-align:center;table-layout:fixed}
 .scale td{padding:5px 0;border:1px solid #e3e5ea}
 .scale tr:first-child td{font-weight:800;color:#1f2a5a;font-size:12px}
@@ -174,7 +174,7 @@ table.coach td.h{font-size:14px;color:#2a3150;font-weight:600}
   <div class="score" id="score" contenteditable="false">4.5<small>90%</small></div>
   <h1 class="title">What's Your Greatest Strength? <span class="code">| 3.07</span></h1>
   <div class="side">Right page · my answer</div>
-  <div class="dir" id="dir"><b>First:</b> pick a job you'll be simulating an interview for. Then consider what strength you have that would help you perform it.<br><b>My job:</b> party host at Chuckie Cheese</div>
+  <div class="hand2" id="job" style="margin:0 0 14px">Job I'm applying for: <u>party host at Chuckie Cheese</u></div>
   <div class="box">Box 5 · My Answer <span>(all three moves)</span></div>
   <table class="drafts" id="answer" style="table-layout:auto">
    <tbody>
@@ -183,11 +183,7 @@ table.coach td.h{font-size:14px;color:#2a3150;font-weight:600}
    <tr><th class="r">Point It</th><td>At Chuckie Cheese, the place is packed with kids. When a kid melts down, I don't get frustrated. I find another way.</td></tr>
   </tbody></table>
   <div class="gap"></div>
-  <div class="box">Box 6 · Coach Box <span>(your coaches fill this in)</span></div>
-  <ul class="roles" id="roles">
-   <li><b>Coach 1:</b> watch the red hand on the clock and give the cue to start.</li>
-   <li><b>Coach 2:</b> play the interviewer for the first 10 seconds. <i>"Welcome to Chuckie Cheese, I'm the floor manager, Daryl. We saw your resume and had to have you in. You mention patience as one of your greatest strengths. Can you talk a bit about that?"</i></li>
-  </ul>
+  <div class="box" id="coachhead">Box 6 · Coach Box <span>(your coaches fill this in)</span></div>
   <table class="coach" id="coach"><tbody>
    <tr><th></th><th>Time</th><th>Fillers</th><th>Moves</th></tr>
    <tr><td>Take 1</td><td class="h">38 sec</td><td class="h">7</td><td class="h">2 / 3</td></tr>
@@ -200,9 +196,11 @@ table.coach td.h{font-size:14px;color:#2a3150;font-weight:600}
  </div>
 </div>
 <div class="notes" id="notes" contenteditable="true" spellcheck="false">
- <div class="sticky" id="n1" data-target="coach" style="top: 640px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>The two of you are coaching. Give them feedback that'll help them improve on their first take. Once the second take is over, spot grade them by writing an honest score at the top.</div>
- <div class="sticky" id="n2" data-target="answer" style="top: 260px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>This is less about neatly completing your notebook than about building your ability to speak with confidence. Better a sloppy notebook and a strong spoken performance.</div>
- <div class="sticky" id="n3" data-target="keepfix" style="top: 900px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>Observing? Tell them where they rambled, where they need more, what they should emphasize, what they should reconsider.</div>
+ <div class="sticky" id="n0" data-target="job" style="top: 120px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>First, pick a job you'll be simulating an interview for. Then consider what strength you have that would help you perform it.</div>
+ <div class="sticky" id="n4" data-target="coachhead" style="top: 360px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">COACH ROLES</div><b>Coach 1:</b> watch the red hand on the clock and give the cue to start.<br><br><b>Coach 2:</b> play the interviewer for the first 10 seconds. <i>"Welcome to Chuckie Cheese, I'm the floor manager, Daryl. We saw your resume and had to have you in. You mention patience as one of your greatest strengths. Can you talk a bit about that?"</i></div>
+ <div class="sticky" id="n1" data-target="coach" style="top: 565px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>The two of you are coaching. Give them feedback that'll help them improve on their first take. Once the second take is over, spot grade them by writing an honest score at the top.</div>
+ <div class="sticky" id="n2" data-target="answer" style="top: 225px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>This is less about neatly completing your notebook than about building your ability to speak with confidence. Better a sloppy notebook and a strong spoken performance.</div>
+ <div class="sticky" id="n3" data-target="keepfix" style="top: 760px; left: 0px;"><div class="who" contenteditable="false" title="Drag to move">MR. FINN</div>Observing? Tell them where they rambled, where they need more, what they should emphasize, what they should reconsider.</div>
 </div>
 </div></div>
 <div id="bar"><span>Click any text to edit. Drag MR. FINN labels and the stamp.</span><button class="ghost" id="reset">Reset</button><button class="ghost" id="savefile">Save to File</button><button id="export">Export PNG</button></div>
