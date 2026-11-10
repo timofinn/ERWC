@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.09 | How Can We Help You Thrive Here?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF7EE;
+    --card: #FFFDF8;
+    --ink: #2A2724;
+    --muted: #6B6358;
+    --oxblood: #7A2E2A;
+    --gold: #B8975A;
+    --rule: #DCD2BF;
+    --wash: #F3ECDD;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 18px/1.6 "Source Serif 4", Georgia, serif;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  /* Masthead */
+  header { text-align: center; border-bottom: 1px solid var(--rule); padding-bottom: 24px; margin-bottom: 8px; }
+  .kicker { font: 600 13px/1 "Source Serif 4", serif; letter-spacing: .18em; text-transform: uppercase; color: var(--oxblood); }
+  h1 { font: 600 44px/1.1 "EB Garamond", Georgia, serif; margin: 10px 0 6px; }
+  .ornament { color: var(--gold); letter-spacing: .5em; font-size: 14px; }
+
+  /* Sections */
+  section { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 {
+    font: 600 30px/1.2 "EB Garamond", Georgia, serif;
+    margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .num { color: var(--oxblood); font-style: italic; font-weight: 500; }
+  .meta { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+  .meta b { color: var(--oxblood); font-weight: 600; }
+  h3 { font: 600 22px/1.3 "EB Garamond", Georgia, serif; margin: 24px 0 8px; }
+  p { margin: 0 0 12px; }
+  em { color: var(--muted); }
+
+  /* Purpose */
+  .purpose p { margin: 0 0 4px; }
+  .pages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .pages div { background: var(--card); border: 1px solid var(--rule); padding: 12px 14px; font-size: 16px; }
+  .pages b { display: block; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); }
+
+  /* Fill-in lines */
+  .frame { background: var(--card); border-left: 3px solid var(--oxblood); padding: 14px 18px; margin: 12px 0; }
+  .blank { display: inline-block; min-width: 110px; border-bottom: 1px solid var(--ink); }
+
+  /* Quote / model */
+  blockquote {
+    margin: 16px 0; padding: 4px 0 4px 20px;
+    border-left: 1px solid var(--gold);
+    font-style: italic; color: var(--ink);
+  }
+  blockquote cite { display: block; font-style: normal; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 6px; }
+  .ideas { font-size: 15px; color: var(--muted); }
+
+  /* STAR table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 16px; }
+  th { text-align: left; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .star td:first-child { width: 34%; }
+  .letter { font: 600 32px/1 "EB Garamond", serif; color: var(--oxblood); margin-right: 2px; }
+
+  /* Model answer */
+  .compare { display: grid; gap: 12px; }
+  .bad, .good { background: var(--card); border: 1px solid var(--rule); padding: 14px 18px; }
+  .bad { opacity: .85; }
+  .tag { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .good .tag { color: var(--oxblood); }
+  .good p { margin: 0 0 6px; }
+  .good b { color: var(--oxblood); font-family: "EB Garamond", serif; font-size: 20px; }
+
+  /* Steps */
+  ol.steps { padding-left: 22px; margin: 0 0 12px; }
+  ol.steps li { margin-bottom: 6px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--oxblood); font-weight: 600; }
+  .note { background: var(--wash); padding: 12px 16px; font-size: 16px; margin: 12px 0; }
+
+  /* Question list */
+  .q { padding: 12px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 34px 1fr; gap: 6px; }
+  .q:last-child { border-bottom: 0; }
+  .q .n { font: 500 22px/1.2 "EB Garamond", serif; font-style: italic; color: var(--oxblood); }
+  .q strong { display: block; font-weight: 600; }
+  .q span { color: var(--muted); font-size: 16px; }
+  .group { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 18px 0 0; }
+  .closer { text-align: center; font-family: "EB Garamond", serif; font-style: italic; font-size: 20px; color: var(--oxblood); margin-top: 18px; }
+
+  .draft td { height: 52px; }
+  .example { font-size: 15px; color: var(--muted); }
+
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: "\2610"; position: absolute; left: 0; color: var(--oxblood); }
+
+  footer { text-align: center; color: var(--gold); letter-spacing: .5em; padding-top: 12px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .page { padding: 28px 16px 48px; }
+    h1 { font-size: 34px; }
+    h2 { font-size: 25px; }
+    .pages { grid-template-columns: 1fr; }
+    .draft { font-size: 14px; }
+  }
+  table.tally td { height: 44px; }
+  .ladder td:first-child { width: 30%; }
+  .script p { margin: 0 0 6px; }
+  .script b { color: var(--oxblood); font-family: "EB Garamond", serif; font-size: 18px; }
+  .pros { display: grid; gap: 12px; margin: 12px 0; }
+  .pros .good p { margin: 0; }
+  a { color: var(--oxblood); }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <div class="kicker">3.00 &middot; Landing the Interview</div>
+  <h1>3.09 | How Can We Help You Thrive Here?</h1>
+  <div class="ornament">&#10070; &#10070; &#10070;</div>
+</header>
+
+<section class="purpose">
+  <h2>Purpose</h2>
+  <p>This one sounds like a gift. It’s also a test.</p>
+  <p>They want to know how you work best.</p>
+  <p>And whether you’d actually fit here.</p>
+  <p>Ask for something real, then show you’ll pull your weight.</p>
+  <div class="pages">
+    <div><b>Left page</b>The Formula + What To Skip + Pick a Lane</div>
+    <div><b>Right page</b>My Answer + Coach Box</div>
+  </div>
+  <h3>What a Finished Notebook Looks Like</h3>
+  <p class="ideas"><em>Click the image to see it full size.</em></p>
+  <a href="3.09-notebook-model.png" target="_blank"><img src="3.09-notebook-model.png" alt="Example notebook spread for 3.09. Left page: the Name It, Tie It, Own It formula, three things to skip, Mr. Finn's moves, and the Room to Run lane. Right page: a three-part answer for a party host job, a Coach Box with two takes, a keep and a fix, a last line, and a score of 4.75 at the top." style="width:100%;height:auto;border:1px solid var(--rule);display:block"></a>
+</section>
+
+<section>
+  <h2><span class="num">I.</span> The Formula</h2>
+  <p class="meta"><b>5 min</b> &middot; Left page</p>
+  <table class="star">
+    <thead><tr><th>Move</th><th>Ask yourself</th></tr></thead>
+    <tbody>
+      <tr><td><span class="letter">N</span>ame It</td><td>What helps me do my best work? Be specific.</td></tr>
+      <tr><td><span class="letter">T</span>ie It</td><td>How does that fit this job or this place?</td></tr>
+      <tr><td><span class="letter">O</span>wn It</td><td>What will I do on my own to get up to speed?</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <thead><tr><th>Skip</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>A list of demands</td><td>“Flexible hours, no weekends, and a parking spot.” You haven’t been hired yet.</td></tr>
+      <tr><td>“Nothing, I’m good.”</td><td>Sounds like you don’t need a team. They’re hiring for one.</td></tr>
+      <tr><td>“Just support me.”</td><td>With what? Give them something they could actually do.</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>
+    <cite>Mr. Finn</cite>
+    <p>I do my best work when I’m given room to maneuver; that is, freedom to experiment, to test things out, to play around with a variety of tools and techniques as I hone my craft.</p>
+    <p>For this job, that looks like a certain level of professional deference, or trust in me, from both my VP and my colleagues, to accomplish my aims for my students, even if in a roundabout, somewhat clumsy way at times.</p>
+    <p>How will I get there on my own? How I always have. I just keep riding my curiosity into the unknown with a mind toward growth and betterment. The tools I use are constantly being updated, so it’s a continual process of re-education.</p>
+  </blockquote>
+  <div class="note"><strong>Spot it:</strong> where does each move start in my answer? Mark it on your left page.</div>
+</section>
+
+<section>
+  <h2><span class="num">II.</span> Pick a Lane</h2>
+  <p class="meta"><b>5 min</b> &middot; Left page</p>
+  <p>Most good answers fall into one of these. Which one sounds like you?</p>
+  <div class="pros">
+    <div class="good"><div class="tag">Clear Start</div><p>“I do best when I know exactly what’s expected. If someone could walk me through what a good first month looks like, I’ll hit the ground running.”</p></div>
+    <div class="good"><div class="tag">Team Player</div><p>“I work best around people I can bounce ideas off. If I can learn from the crew that’s been here a while, I’ll pick things up fast.”</p></div>
+    <div class="good"><div class="tag">Room to Run</div><p>“I like owning my tasks, but I learn faster with a go-to person when I get stuck. Having someone to ask in my first few weeks would be huge.”</p></div>
+  </div>
+  <ol class="steps">
+    <li>Pick your lane.</li>
+    <li>Write it on your left page in your own words.</li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">III.</span> Write It</h2>
+  <p class="meta"><b>10 min</b> &middot; Right page</p>
+  <ol class="steps">
+    <li><strong>Name It:</strong> what helps you do your best work, in one sentence.</li>
+    <li><strong>Tie It:</strong> connect it to the job you picked in 3.07.</li>
+    <li><strong>Own It:</strong> one thing you’ll do on your own.</li>
+    <li>Read it under your breath with the clock. Aim for 45&ndash;60 seconds.</li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">IV.</span> Coach It</h2>
+  <p class="meta"><b>20 min</b> &middot; Groups of 3</p>
+  <table>
+    <thead><tr><th>Role</th><th>Job</th></tr></thead>
+    <tbody>
+      <tr><td>Candidate</td><td>Answer the question like you’re in the interview.</td></tr>
+      <tr><td>Clock + Body Coach</td><td>Punch in on the second hand. Tally every “um,” “like,” and “ya know.” Watch eye contact.</td></tr>
+      <tr><td>Structure Coach</td><td>Did you hear Name It, Tie It, Own It? Pick one fix for Take 2.</td></tr>
+    </tbody>
+  </table>
+  <ol class="steps">
+    <li><strong>Take 1:</strong> notebook open is fine.</li>
+    <li>Coaches give one keep, one fix. “It was good” doesn’t count.</li>
+    <li><strong>Take 2:</strong> notebook closed. No peeking.</li>
+    <li>Coaches fill in the Coach Box and write an honest score at the top.</li>
+    <li>Rotate until everyone has played all three roles.</li>
+  </ol>
+
+  <h3>Coach Box</h3>
+  <p class="ideas"><em>Copy this onto the bottom of your right page. Your coaches fill it in.</em></p>
+  <table class="tally">
+    <thead><tr><th></th><th>Time</th><th>Fillers</th><th>Moves (of 3)</th></tr></thead>
+    <tbody>
+      <tr><td>Take 1</td><td></td><td></td><td></td></tr>
+      <tr><td>Take 2</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="note"><strong>Grade (3&ndash;5, in quarter points):</strong><br>5.0 = in the window, 2 or fewer fillers, all 3 moves.<br>4.0 = one thing slipped.<br>3.0 = two takes, but missed the window and a move.<br>Coaches: back up your grade with a number from the box.</div>
+
+  <div class="frame"><strong>Last line on your right page:</strong><br>What’s one thing a boss could do that would make you want to quit? Flip it: what does that say you need?</div>
+</section>
+
+<section>
+  <h2><span class="num">V.</span> Verbal Demo</h2>
+  <p class="meta"><b>Optional</b> &middot; Skip the written part</p>
+  <p>Want to skip the written part? Call me over and give me your answer. I’ll grade it on the spot and give you feedback right away.</p>
+  <p><strong>Fair warning:</strong> you get one retake. That’s it.</p>
+</section>
+
+<section>
+  <h2>Success Looks Like</h2>
+  <ul class="check">
+    <li>Formula copied, three moves marked, lane picked</li>
+    <li>Your answer: Name It, Tie It, Own It</li>
+    <li>2 takes, Coach Box filled in, grade settled</li>
+  </ul>
+</section>
+
+<footer>&#10070; &#10070; &#10070;</footer>
+</main>
+</body>
+</html>
