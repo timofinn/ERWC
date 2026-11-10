@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>3.08 | The Trap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  /* Theme: Classical, Crucible (dark). Same token names as the cream theme, so a swap is :root only. */
+  :root {
+    --paper: #15110E;
+    --card: #1F1915;
+    --ink: #EADFC8;
+    --muted: #A89B84;
+    --oxblood: #D8675B;   /* accent text */
+    --blood: #8E2F2A;     /* accent fills and borders */
+    --gold: #C9A25E;
+    --rule: #3B3028;
+    --wash: #261E19;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 18px/1.6 "Source Serif 4", Georgia, serif;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  /* Masthead */
+  header {
+    text-align: center;
+    border-bottom: 1px solid var(--gold);
+    padding: 28px 0 24px;
+    margin-bottom: 8px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,162,94,.16), transparent 65%);
+  }
+  .kicker { font: 600 13px/1 "Source Serif 4", serif; letter-spacing: .18em; text-transform: uppercase; color: var(--oxblood); }
+  h1 { font: 400 46px/1.1 "IM Fell English", Georgia, serif; margin: 12px 0 8px; }
+  .ornament { color: var(--gold); letter-spacing: .5em; font-size: 14px; }
+
+  /* Sections */
+  section { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 {
+    font: 400 32px/1.2 "IM Fell English", Georgia, serif;
+    margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .num { color: var(--oxblood); font-style: italic; }
+  .meta { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+  .meta b { color: var(--oxblood); font-weight: 600; }
+  p { margin: 0 0 12px; }
+  em { color: var(--muted); }
+
+  /* Purpose */
+  .purpose p { margin: 0 0 4px; }
+  .pages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .pages div { background: var(--card); border: 1px solid var(--rule); padding: 12px 14px; font-size: 16px; }
+  .pages b { display: block; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); }
+
+  /* Fill-in frame (display only, students write in the notebook) */
+  .frame { background: var(--card); border-left: 3px solid var(--blood); padding: 14px 18px; margin: 12px 0; line-height: 2; }
+  .blank { display: inline-block; min-width: 110px; border-bottom: 1px solid var(--muted); }
+  .blank.short { min-width: 36px; }
+  .blank.wide { min-width: 200px; }
+
+  /* Reference table */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 8px; font-size: 16px; }
+  th { text-align: left; font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .forms td:first-child { width: 31%; font: 400 22px/1.3 "IM Fell English", Georgia, serif; font-style: italic; color: var(--oxblood); }
+
+  /* Steps */
+  ol.steps { padding-left: 22px; margin: 0 0 12px; }
+  ol.steps li { margin-bottom: 6px; padding-left: 4px; }
+  ol.steps li::marker { color: var(--oxblood); font-weight: 600; }
+  .note { background: var(--wash); padding: 12px 16px; font-size: 16px; margin: 12px 0; }
+  .note b { color: var(--oxblood); }
+
+  /* Checklist */
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: "\2610"; position: absolute; left: 0; color: var(--oxblood); }
+  ul.check .pts { color: var(--gold); font-weight: 600; white-space: nowrap; }
+
+  td .blank { min-width: 0; width: 100%; }
+  .compare td:nth-child(2) { width: 38%; }
+  .compare td:nth-child(3) { width: 31%; }
+
+  footer { text-align: center; color: var(--gold); letter-spacing: .5em; padding-top: 12px; }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .page { padding: 28px 16px 48px; }
+    h1 { font-size: 35px; }
+    h2 { font-size: 26px; }
+    .pages { grid-template-columns: 1fr; }
+    .forms td:first-child { width: 36%; font-size: 20px; }
+  }
+
+  /* Teacher model + compare (from 3.05) */
+  blockquote { margin: 16px 0; padding: 4px 0 4px 20px; border-left: 1px solid var(--gold); font-style: italic; color: var(--ink); }
+  blockquote cite { display: block; font-style: normal; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 6px; }
+  .compare { display: grid; gap: 12px; margin: 12px 0; }
+  .bad, .good { background: var(--card); border: 1px solid var(--rule); padding: 14px 18px; }
+  .bad { opacity: .85; }
+  .bad p, .good p { margin: 0; }
+  .tag { font: 600 12px/1.4 "Source Serif 4", serif; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .good .tag { color: var(--oxblood); }
+  .closer { text-align: center; font-family: "IM Fell English", Georgia, serif; font-style: italic; font-size: 21px; color: var(--oxblood); margin-top: 18px; }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <div class="kicker">3.00 &middot; A Power Play &middot; Act Three</div>
+  <h1>3.08 | The Trap</h1>
+  <div class="ornament">&#10070; &#10070; &#10070;</div>
+</header>
+
+<section class="purpose">
+  <h2>Purpose</h2>
+  <p>Act Three is a courtroom. The truth finally shows up.</p>
+  <p>It loses anyway.</p>
+  <p>Today you figure out how a court can hear the truth and still say no.</p>
+  <div class="pages">
+    <div><b>Left page</b>Two traps + your own example</div>
+    <div><b>Right page</b>Escape Attempts + steelman Danforth</div>
+  </div>
+  <p style="margin-top:16px"><a href="3.08-notebook-model.png" target="_blank"><img src="3.08-notebook-model.png" alt="Example notebook spread for 3.08. Left page: the Circle and the Either/Or, Mr. Finn's models, and a student's own example of each. Right page: an Escape Attempts table for the petition, Mary, and Proctor, plus a Danforth steelman with partner initials." style="width:100%;height:auto;border:1px solid var(--rule);display:block"></a></p>
+</section>
+
+<section>
+  <h2><span class="num">I.</span> Two Traps</h2>
+  <p class="meta"><b>7 min</b> &middot; Left page, top</p>
+  <p>A closed loop is an argument with no exit. Every door leads back inside. Copy these two:</p>
+  <table class="forms">
+    <thead><tr><th>The trap</th><th>How it works</th></tr></thead>
+    <tbody>
+      <tr><td>The Circle</td><td>The proof depends on the thing you&rsquo;re trying to prove. Any evidence counts as more proof.</td></tr>
+      <tr><td>The Either/Or</td><td>Only two choices allowed. You&rsquo;re with us or against us. Nothing in between.</td></tr>
+    </tbody>
+  </table>
+  <blockquote><cite>Mr. Finn&rsquo;s model</cite>The Circle: &ldquo;The group chat decided Jay is fake. Proof? He&rsquo;s acting weird. Why? Because he knows we know.&rdquo;<br>The Either/Or: &ldquo;Repost it or you&rsquo;re part of the problem.&rdquo;</blockquote>
+  <p>Under the table, write one example of each from real life. Keep it school-appropriate.</p>
+</section>
+
+<section>
+  <h2><span class="num">II.</span> Watch</h2>
+  <p class="meta"><b>20 min</b> &middot; Just watch</p>
+  <p>Watch the court scenes, from Mary Warren&rsquo;s confession to Hale walking out. Read Scene 1 first. It catches you up on what happens before.</p>
+  <div class="note"><b>While you watch:</b> every time someone tries to escape the trap, notice how the court shuts the door.</div>
+  <p><strong>Scene 1 &middot; Three shots at the court.</strong> Giles Corey says Thomas Putnam got his daughter to accuse neighbors so he could grab their land. Giles won&rsquo;t name his source, so he&rsquo;s arrested. Francis Nurse hands over a petition: 91 neighbors swear Rebecca, Martha, and Elizabeth are good people. Judge Danforth&rsquo;s response? Bring all 91 in for questioning. Then Proctor brings in Mary Warren, who signs a paper saying the girls are faking.</p>
+  <p><strong>Scene 2 &middot; Faint on command.</strong> The judges tell Mary to prove she faked it by fainting right there. Without the other girls screaming around her, she can&rsquo;t. So the court decides her confession is the lie. Proctor goes nuclear: he admits the affair with Abigail, to prove she wants Elizabeth dead. He says his wife never lies. So Danforth calls Elizabeth in, with John&rsquo;s back turned. Asked why she fired Abigail, Elizabeth lies for the first time in her life to protect John&rsquo;s name. That lie sinks him.</p>
+  <p><strong>Scene 3 &middot; The yellow bird.</strong> Abigail screams at the ceiling. She says Mary&rsquo;s spirit is attacking her as a yellow bird. The girls copy every word Mary says until Mary snaps. She flips and accuses Proctor of working for the Devil. Proctor loses it and says the court has killed God. Danforth sends him and Giles to jail. Hale quits the court and slams the door.</p>
+</section>
+
+<section>
+  <h2><span class="num">III.</span> Escape Attempts</h2>
+  <p class="meta"><b>12 min</b> &middot; Right page, top</p>
+  <ol class="steps">
+    <li>Draw the table. Copy row one. It&rsquo;s done for you.</li>
+    <li>Fill rows two and three in your own words.</li>
+    <li>Last column: Circle or Either/Or? Be ready to defend it.</li>
+  </ol>
+  <table class="forms">
+    <thead><tr><th>Escape attempt</th><th>How the court shut the door</th><th>Which trap?</th></tr></thead>
+    <tbody>
+      <tr><td>The petition</td><td>If you defend the accused, you&rsquo;re attacking the court. So all 91 get questioned.</td><td>Either/Or</td></tr>
+      <tr><td>Mary&rsquo;s confession</td><td><span class="blank"></span></td><td><span class="blank short"></span></td></tr>
+      <tr><td>Proctor&rsquo;s confession</td><td><span class="blank"></span></td><td><span class="blank short"></span></td></tr>
+    </tbody>
+  </table>
+  <div class="note"><b>Heads up:</b> row three is tricky. Elizabeth&rsquo;s lie isn&rsquo;t the court&rsquo;s trick. So why does it work like one?</div>
+</section>
+
+<section>
+  <h2><span class="num">IV.</span> Steelman the Judge</h2>
+  <p class="meta"><b>8 min</b> &middot; Right page, bottom &middot; Partners</p>
+  <p>Easy take: Danforth is evil. Harder take: Danforth thinks he&rsquo;s the only adult in the room.</p>
+  <ol class="steps">
+    <li>Partner A steelmans Danforth out loud. One minute. Partner B, initial it if Danforth would sign it.</li>
+    <li>Swap. Partner B steelmans Hale walking out.</li>
+    <li>Write your one sentence with the frame:</li>
+  </ol>
+  <div class="frame">If I were Danforth, I&rsquo;d say <span class="blank wide"></span>, because if I&rsquo;m wrong, <span class="blank wide"></span>.</div>
+  <div class="note"><b>Last 8 minutes:</b> buffer. Finish your table and get your initials.</div>
+  <p class="closer">A trap doesn&rsquo;t need a villain. Just a rule nobody&rsquo;s allowed to question.</p>
+</section>
+
+<section>
+  <h2>Success Looks Like</h2>
+  <ul class="check">
+    <li><b>Left page:</b> two traps + one real example of each <span class="pts">4 pts</span></li>
+    <li><b>Right page:</b> Escape Attempts, all 3 rows <span class="pts">4 pts</span></li>
+    <li><b>Right page:</b> Danforth steelman, initialed by your partner <span class="pts">4 pts</span></li>
+  </ul>
+</section>
+
+<footer>&#10070; &#10070; &#10070;</footer>
+</main>
+</body>
+</html>
